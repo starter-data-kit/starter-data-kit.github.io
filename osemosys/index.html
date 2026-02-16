@@ -24,13 +24,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .field select:focus{outline:none;border-color:var(--ac)}
-.field select:disabled{opacity:.5;cursor:wait}
-.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center}
+.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center;text-decoration:none}
 .btn:hover{opacity:.88;transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
-.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none}
+.note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -49,12 +48,85 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
   </div>
   <div class="line"></div>
 
-    <div class="panel" style="text-align:center;padding:48px 32px">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" style="margin-bottom:16px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <p style="color:var(--mt);font-size:1.05rem;font-weight:500">Data coming soon</p>
-      <p style="color:var(--mt);font-size:.85rem;margin-top:8px">This tool's datasets are being prepared and will be available shortly.</p>
+  <div class="panel">
+    <div class="field">
+      <label for="country">Country</label>
+      <select id="country">
+        <option value="">— Select a country —</option>
+        <option value="Angola_AGO">Angola</option>
+        <option value="Benin_BEN">Benin</option>
+        <option value="Botswana_BWA">Botswana</option>
+        <option value="Burkina Faso_BFA">Burkina Faso</option>
+        <option value="Burundi_BDI">Burundi</option>
+        <option value="Cabo Verde_CPV">Cabo Verde</option>
+        <option value="Cameroon_CMR">Cameroon</option>
+        <option value="Central African Republic_CAF">Central African Republic</option>
+        <option value="Chad_TCD">Chad</option>
+        <option value="Comoros_COM">Comoros</option>
+        <option value="Côte d'Ivoire_CIV">Côte d'Ivoire</option>
+        <option value="Democratic Republic of the Congo_COD">DR Congo</option>
+        <option value="Djibouti_DJI">Djibouti</option>
+        <option value="Equatorial Guinea_GNQ">Equatorial Guinea</option>
+        <option value="Eritrea_ERI">Eritrea</option>
+        <option value="Eswatini_SWZ">Eswatini</option>
+        <option value="Ethiopia_ETH">Ethiopia</option>
+        <option value="Gabon_GAB">Gabon</option>
+        <option value="Gambia_GMB">Gambia</option>
+        <option value="Ghana_GHA">Ghana</option>
+        <option value="Guinea_GIN">Guinea</option>
+        <option value="Guinea-Bissau_GNB">Guinea-Bissau</option>
+        <option value="Kenya_KEN">Kenya</option>
+        <option value="Lesotho_LSO">Lesotho</option>
+        <option value="Liberia_LBR">Liberia</option>
+        <option value="Madagascar_MDG">Madagascar</option>
+        <option value="Malawi_MWI">Malawi</option>
+        <option value="Mali_MLI">Mali</option>
+        <option value="Mauritania_MRT">Mauritania</option>
+        <option value="Mauritius_MUS">Mauritius</option>
+        <option value="Mozambique_MOZ">Mozambique</option>
+        <option value="Namibia_NAM">Namibia</option>
+        <option value="Niger_NER">Niger</option>
+        <option value="Nigeria_NGA">Nigeria</option>
+        <option value="Republic of Congo_COG">Republic of Congo</option>
+        <option value="Rwanda_RWA">Rwanda</option>
+        <option value="São Tomé and Príncipe_STP">São Tomé and Príncipe</option>
+        <option value="Senegal_SEN">Senegal</option>
+        <option value="Sierra Leone_SLE">Sierra Leone</option>
+        <option value="Somalia_SOM">Somalia</option>
+        <option value="South Africa_ZAF">South Africa</option>
+        <option value="South Sudan_SSD">South Sudan</option>
+        <option value="Sudan_SDN">Sudan</option>
+        <option value="Tanzania_TZA">Tanzania</option>
+        <option value="Togo_TGO">Togo</option>
+        <option value="Uganda_UGA">Uganda</option>
+        <option value="Zambia_ZMB">Zambia</option>
+        <option value="Zimbabwe_ZWE">Zimbabwe</option>
+      </select>
     </div>
+
+    <button class="btn" id="dlBtn" disabled onclick="openFolder()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Files
+    </button>
+
+    <p class="note">Opens the country data folder on Google Drive where you can download individual files.</p>
+  </div>
 </div>
+
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
+
+<script>
+var PARENT_FOLDER = 'https://drive.google.com/drive/folders/1pTpd9xQn7-Q-2V75Y84DSgn1GohmdLoR';
+var sel = document.getElementById('country');
+var btn = document.getElementById('dlBtn');
+
+sel.addEventListener('change', function() {
+  btn.disabled = !sel.value;
+});
+
+function openFolder() {
+  window.open(PARENT_FOLDER, '_blank');
+}
+</script>
 </body>
 </html>
