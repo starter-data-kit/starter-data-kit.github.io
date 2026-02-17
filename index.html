@@ -14,14 +14,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .w{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px}
 header{padding:60px 0 20px;text-align:center}
 header h1{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(2.4rem,5vw,3.6rem);letter-spacing:-.02em;margin-bottom:16px}
-header p{font-size:1.1rem;color:var(--mt);max-width:600px;margin:0 auto;line-height:1.6}
+header p{font-size:1.1rem;color:var(--mt);max-width:640px;margin:0 auto;line-height:1.6}
 .line{width:60px;height:3px;background:var(--ac);margin:32px auto 48px;border-radius:2px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:24px;padding-bottom:80px}
-.card{background:var(--cd);border-radius:16px;padding:32px 20px 28px;text-align:center;box-shadow:0 2px 20px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;cursor:pointer;text-decoration:none;color:inherit;position:relative;overflow:hidden;opacity:0;transform:translateY(20px);animation:fadeUp .5s ease forwards}
+.card{background:var(--cd);border-radius:16px;padding:28px 20px 24px;text-align:center;box-shadow:0 2px 20px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;cursor:pointer;text-decoration:none;color:inherit;position:relative;overflow:hidden;opacity:0;transform:translateY(20px);animation:fadeUp .5s ease forwards}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--c,var(--ac));transform:scaleX(0);transition:transform .3s;transform-origin:left}
 .card:hover{transform:translateY(-6px);box-shadow:0 8px 40px rgba(0,0,0,.12)}
 .card:hover::before{transform:scaleX(1)}
-.ic{width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.logo{width:90px;height:90px;object-fit:contain;margin:0 auto 14px;display:block}
 .card h3{font-weight:600;font-size:1.05rem;margin-bottom:6px}
 .card .sub{font-size:.75rem;color:var(--mt);line-height:1.4}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
@@ -33,57 +33,37 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 <div class="w">
   <header>
     <h1>Starter Data Kits</h1>
-    <p>A suite of open-source tools to support energy planning, investment, and policy analysis.</p>
+    <p>Model-ready datasets for building zero-order energy system models</p>
   </header>
   <div class="line"></div>
   <div class="grid">
-    <a href="maed/" class="card" style="--c:#1b3a5c;animation-delay:0.05s">
-      <div class="ic" style="background:#1b3a5c"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 4 5-8"/></svg></div>
+    <a href="maed/" class="card" style="--c:#1b3a5c;animation-delay:0.06s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/MAED_Logo.png" alt="MAED">
       <h3>MAED</h3>
       <p class="sub">Model for Analysis of Energy Demand</p>
     </a>
-    <a href="onsset/" class="card" style="--c:#e8a838;animation-delay:0.10s">
-      <div class="ic" style="background:#e8a838"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg></div>
+    <a href="onsset/" class="card" style="--c:#e8a838;animation-delay:0.12s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/OnSSET_Logo.png" alt="OnSSET">
       <h3>OnSSET</h3>
       <p class="sub">Open Source Spatial Electrification</p>
     </a>
-    <a href="onstove/" class="card" style="--c:#c0392b;animation-delay:0.15s">
-      <div class="ic" style="background:#c0392b"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg></div>
+    <a href="onstove/" class="card" style="--c:#c0392b;animation-delay:0.18s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/OnStove_logosmall.png" alt="OnStove">
       <h3>OnStove</h3>
       <p class="sub">Open-source Spatial Clean Cooking</p>
     </a>
-    <a href="osemosys/" class="card" style="--c:#5dade2;animation-delay:0.20s">
-      <div class="ic" style="background:#5dade2"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+    <a href="osemosys/" class="card" style="--c:#5dade2;animation-delay:0.24s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/osemosys_logo.png" alt="OSeMOSYS">
       <h3>OSeMOSYS</h3>
       <p class="sub">Open Source Energy Modelling System</p>
     </a>
-    <a href="ffrm/" class="card" style="--c:#8e5724;animation-delay:0.25s">
-      <div class="ic" style="background:#8e5724"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17.5h7M17.5 14v7"/></svg></div>
-      <h3>FFRM</h3>
-      <p class="sub">Fossil Fuel Retirement Model</p>
-    </a>
-    <a href="pathcalc/" class="card" style="--c:#0e6655;animation-delay:0.30s">
-      <div class="ic" style="background:#0e6655"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 12h16"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg></div>
-      <h3>PathCalc</h3>
-      <p class="sub">Pathways Calculator</p>
-    </a>
-    <a href="nismod/" class="card" style="--c:#e67e22;animation-delay:0.35s">
-      <div class="ic" style="background:#e67e22"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 12l6 4"/><path d="M12 12l-4 6"/></svg></div>
-      <h3>NISMOD</h3>
-      <p class="sub">National Infrastructure Systems Model</p>
-    </a>
-    <a href="minfin/" class="card" style="--c:#1abc9c;animation-delay:0.40s">
-      <div class="ic" style="background:#1abc9c"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+    <a href="minfin/" class="card" style="--c:#1abc9c;animation-delay:0.30s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/MINFin_Logo.png" alt="MINFin">
       <h3>MINFin</h3>
       <p class="sub">Climate Finance Planning</p>
     </a>
-    <a href="fintrack/" class="card" style="--c:#196f3d;animation-delay:0.45s">
-      <div class="ic" style="background:#196f3d"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
-      <h3>FinTrack</h3>
-      <p class="sub">Climate Finance Tracking</p>
-    </a>
-    <a href="finplan/" class="card" style="--c:#7dae3e;animation-delay:0.50s">
-      <div class="ic" style="background:#7dae3e"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M6 20V10M10 20V4M14 20v-6M18 20V8"/></svg></div>
+    <a href="finplan/" class="card" style="--c:#7dae3e;animation-delay:0.36s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/FINPLAN_Logo.png" alt="FINPLAN">
       <h3>FINPLAN</h3>
       <p class="sub">Financial Analysis of Electric Sector Expansion</p>
     </a>
