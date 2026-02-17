@@ -24,12 +24,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .field select:focus{outline:none;border-color:var(--ac)}
+.field select:disabled{opacity:.5;cursor:wait}
 .btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center}
 .btn:hover{opacity:.88;transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
-.note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
 .msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none;text-align:center}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
@@ -51,66 +51,18 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 
   <div class="panel">
     <div class="field">
-      <label for="country">Country</label>
-      <select id="country">
-        <option value="">— Select a country —</option>
-        <option value="Angola">Angola</option>
-        <option value="Benin">Benin</option>
-        <option value="Botswana">Botswana</option>
-        <option value="Burkina Faso">Burkina Faso</option>
-        <option value="Burundi">Burundi</option>
-        <option value="Cabo Verde">Cabo Verde</option>
-        <option value="Cameroon">Cameroon</option>
-        <option value="Central African Republic">Central African Republic</option>
-        <option value="Chad">Chad</option>
-        <option value="Comoros">Comoros</option>
-        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-        <option value="DR Congo">DR Congo</option>
-        <option value="Djibouti">Djibouti</option>
-        <option value="Equatorial Guinea">Equatorial Guinea</option>
-        <option value="Eritrea">Eritrea</option>
-        <option value="Eswatini">Eswatini</option>
-        <option value="Ethiopia">Ethiopia</option>
-        <option value="Gabon">Gabon</option>
-        <option value="Gambia">Gambia</option>
-        <option value="Ghana">Ghana</option>
-        <option value="Guinea">Guinea</option>
-        <option value="Guinea-Bissau">Guinea-Bissau</option>
-        <option value="Kenya">Kenya</option>
-        <option value="Lesotho">Lesotho</option>
-        <option value="Liberia">Liberia</option>
-        <option value="Madagascar">Madagascar</option>
-        <option value="Malawi">Malawi</option>
-        <option value="Mali">Mali</option>
-        <option value="Mauritania">Mauritania</option>
-        <option value="Mauritius">Mauritius</option>
-        <option value="Mozambique">Mozambique</option>
-        <option value="Namibia">Namibia</option>
-        <option value="Niger">Niger</option>
-        <option value="Nigeria">Nigeria</option>
-        <option value="Republic of Congo">Republic of Congo</option>
-        <option value="Rwanda">Rwanda</option>
-        <option value="São Tomé and Príncipe">São Tomé and Príncipe</option>
-        <option value="Senegal">Senegal</option>
-        <option value="Sierra Leone">Sierra Leone</option>
-        <option value="Somalia">Somalia</option>
-        <option value="South Africa">South Africa</option>
-        <option value="South Sudan">South Sudan</option>
-        <option value="Sudan">Sudan</option>
-        <option value="Tanzania">Tanzania</option>
-        <option value="Togo">Togo</option>
-        <option value="Uganda">Uganda</option>
-        <option value="Zambia">Zambia</option>
-        <option value="Zimbabwe">Zimbabwe</option>
-      </select>
+      <label for="dataset">Dataset</label>
+      <select id="dataset" disabled><option>Loading datasets…</option></select>
+    </div>
+    <div class="field">
+      <label for="country">Country / File</label>
+      <select id="country" disabled><option>Select a dataset first</option></select>
     </div>
 
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download
     </button>
-
-    <p class="note">Country-level model-ready datasets will be available shortly.</p>
     <div class="msg" id="msg"></div>
   </div>
 </div>
@@ -118,14 +70,67 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
-var sel = document.getElementById('country');
-var btn = document.getElementById('dlBtn');
-sel.addEventListener('change', function() { btn.disabled = !sel.value; });
+var API = 'https://minerva666-energy-modelling.hf.space';
+var TOOL = 'maed';
+
+var dsSel = document.getElementById('dataset');
+var countrySel = document.getElementById('country');
+var dlBtn = document.getElementById('dlBtn');
+var msg = document.getElementById('msg');
+var currentDs = '';
+
+fetch(API + '/api/datasets/' + TOOL)
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    dsSel.innerHTML = '';
+    data.datasets.forEach(function(d) {
+      var o = document.createElement('option');
+      o.value = d.value; o.textContent = d.label;
+      dsSel.appendChild(o);
+    });
+    dsSel.disabled = false;
+    if (data.datasets.length) {
+      currentDs = data.datasets[0].value;
+      loadCountries(currentDs);
+    }
+  })
+  .catch(function() { dsSel.innerHTML = '<option>Error loading datasets</option>'; });
+
+dsSel.addEventListener('change', function() {
+  currentDs = dsSel.value;
+  loadCountries(currentDs);
+});
+
+function loadCountries(ds) {
+  countrySel.disabled = true;
+  countrySel.innerHTML = '<option>Loading…</option>';
+  dlBtn.disabled = true;
+  fetch(API + '/api/files/' + TOOL + '?dataset=' + encodeURIComponent(ds))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      countrySel.innerHTML = '<option value="">— Select —</option>';
+      data.files.forEach(function(f) {
+        var o = document.createElement('option');
+        o.value = f;
+        o.textContent = f.replace(/\.(csv|xlsx|xls)$/i, '').replace(/_/g, ' ');
+        countrySel.appendChild(o);
+      });
+      countrySel.disabled = false;
+    })
+    .catch(function() { countrySel.innerHTML = '<option>Error loading files</option>'; });
+}
+
+countrySel.addEventListener('change', function() { dlBtn.disabled = !countrySel.value; });
+
 function doDownload() {
-  var msg = document.getElementById('msg');
+  var file = countrySel.value;
+  if (!file) return;
+  var url = API + '/api/download/' + TOOL + '?dataset=' + encodeURIComponent(currentDs) + '&file=' + encodeURIComponent(file);
+  var a = document.createElement('a'); a.href = url; a.download = file;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   msg.style.display = 'block';
-  msg.textContent = 'Download for ' + sel.value + ' coming soon. Data integration in progress.';
-  setTimeout(function() { msg.style.display = 'none'; }, 5000);
+  msg.textContent = 'Downloading ' + file + '…';
+  setTimeout(function() { msg.style.display = 'none'; }, 4000);
 }
 </script>
 </body>
