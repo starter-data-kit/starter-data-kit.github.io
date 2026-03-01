@@ -1,137 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MAED — Starter Data Kits</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f4f2ee;--tx:#1a1a1a;--mt:#5c5c5c;--ac:#1b3a5c;--cd:#fff}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
-.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
-.bg::before{content:'';position:absolute;top:-30%;right:-20%;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(45,106,79,.06)0%,transparent 70%)}
-.w{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 24px}
-.back{display:inline-flex;align-items:center;gap:6px;margin-top:40px;font-size:.9rem;color:var(--mt);text-decoration:none;transition:color .2s}
-.back:hover{color:var(--ac)}
-.back svg{width:18px;height:18px}
-.hdr{text-align:center;padding:40px 0 12px}
-.hdr .logo{width:90px;height:90px;object-fit:contain;margin:0 auto 16px;display:block}
-.hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
-.hdr p{color:var(--mt);font-size:1rem}
-.line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
-.field{margin-bottom:20px}
-.field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
-.field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-.field select:focus{outline:none;border-color:var(--ac)}
-.field select:disabled{opacity:.5;cursor:wait}
-.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center}
-.btn:hover{opacity:.88;transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
-.btn svg{width:20px;height:20px}
-.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none;text-align:center}
-footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAED - Starter Data Kits</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; color: #1a202c; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%); color: white; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1rem; }
+        .header a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.95rem; }
+        .header a:hover { color: white; }
+        .header h1 { font-size: 1.5rem; font-weight: 600; }
+        .header .sep { color: rgba(255,255,255,0.4); }
+
+        .hero { background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%); color: white; padding: 3rem 2rem; text-align: center; }
+        .hero img { height: 80px; margin-bottom: 1rem; }
+        .hero h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 600px; margin: 0 auto; }
+
+        .content { max-width: 700px; margin: 2rem auto; padding: 0 1.5rem; }
+
+        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 1.5rem; }
+        .card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: #2d3748; }
+        .card p { font-size: 0.9rem; color: #718096; margin-bottom: 1.25rem; line-height: 1.5; }
+
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.9rem; color: #4a5568; margin-bottom: 0.4rem; }
+
+        select { width: 100%; padding: 0.7rem 1rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; background: white; color: #2d3748; cursor: pointer; transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5568' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+        select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66,153,225,0.15); }
+        select:disabled { background: #f7fafc; color: #a0aec0; cursor: not-allowed; }
+
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .btn-primary { background: #3182ce; color: white; }
+        .btn-primary:hover:not(:disabled) { background: #2b6cb0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(49,130,206,0.3); }
+        .btn-primary:disabled { background: #a0aec0; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-outline { background: transparent; color: #4a5568; border: 2px solid #e2e8f0; }
+        .btn-outline:hover { border-color: #a0aec0; background: #f7fafc; }
+
+        .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+        .status { margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; display: none; }
+        .status.loading { display: block; background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+        .status.error { display: block; background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
+        .status.success { display: block; background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+
+        .stats { display: flex; gap: 1.5rem; margin-top: 1rem; }
+        .stat { text-align: center; }
+        .stat .num { font-size: 1.5rem; font-weight: 700; color: #3182ce; }
+        .stat .label { font-size: 0.8rem; color: #718096; }
+
+        .sheet-info { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+        .sheet-info h4 { font-size: 0.95rem; color: #2d3748; margin-bottom: 0.35rem; }
+        .sheet-info p { font-size: 0.85rem; color: #718096; margin: 0; line-height: 1.5; }
+
+        .var-list { font-size: 0.85rem; color: #4a5568; line-height: 1.8; padding-left: 1.25rem; margin-top: 0.5rem; }
+        .var-list li strong { color: #2d3748; }
+        .var-list .src { color: #a0aec0; font-size: 0.8rem; }
+
+        .footer { text-align: center; padding: 2rem; color: #a0aec0; font-size: 0.85rem; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; }
+    </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="w">
-  <a href="../" class="back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    All Tools
-  </a>
-  <div class="hdr">
-    <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/MAED_Logo.png" alt="MAED">
-    <h1>MAED</h1>
-    <p>Model for Analysis of Energy Demand</p>
-  </div>
-  <div class="line"></div>
-
-  <div class="panel">
-    <div class="field">
-      <label for="dataset">Dataset</label>
-      <select id="dataset" disabled><option>Loading datasets…</option></select>
-    </div>
-    <div class="field">
-      <label for="country">Country / File</label>
-      <select id="country" disabled><option>Select a dataset first</option></select>
+    <div class="header">
+        <a href="../">← Back to Tools</a>
+        <span class="sep">|</span>
+        <h1>MAED</h1>
     </div>
 
-    <button class="btn" id="dlBtn" disabled onclick="doDownload()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download
-    </button>
-    <div class="msg" id="msg"></div>
-  </div>
-</div>
+    <div class="hero">
+        <img src="https://energy-modelling-tools.github.io/assets/img/MAED_Logo.png" alt="MAED Logo" onerror="this.style.display='none'">
+        <h2>Model for Analysis of Energy Demand</h2>
+        <p>Download country-specific Starter Data Kits for building zero-order MAED energy demand models.</p>
+    </div>
 
-<footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
+    <div class="content">
+        <div class="card">
+            <h3>Download Starter Data Kit</h3>
+            <p>Select a country to download an Excel workbook containing all socio-economic input data (2010–2023).</p>
 
-<script>
-var API = 'https://minerva666-energy-modelling.hf.space';
-var TOOL = 'maed';
+            <div class="form-group">
+                <label for="countrySelect">Country</label>
+                <select id="countrySelect" disabled>
+                    <option value="">Loading countries...</option>
+                </select>
+            </div>
 
-var dsSel = document.getElementById('dataset');
-var countrySel = document.getElementById('country');
-var dlBtn = document.getElementById('dlBtn');
-var msg = document.getElementById('msg');
-var currentDs = '';
+            <div class="btn-row">
+                <button class="btn btn-primary" id="downloadBtn" disabled onclick="downloadKit()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                    Download Excel
+                </button>
+                <button class="btn btn-outline" onclick="window.open('https://www.open.edu/openlearncreate/course/view.php?id=11720','_blank')">
+                    MAED e-Learning ↗
+                </button>
+            </div>
 
-fetch(API + '/api/datasets/' + TOOL)
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    dsSel.innerHTML = '';
-    data.datasets.forEach(function(d) {
-      var o = document.createElement('option');
-      o.value = d.value; o.textContent = d.label;
-      dsSel.appendChild(o);
-    });
-    dsSel.disabled = false;
-    if (data.datasets.length) {
-      currentDs = data.datasets[0].value;
-      loadCountries(currentDs);
-    }
-  })
-  .catch(function() { dsSel.innerHTML = '<option>Error loading datasets</option>'; });
+            <div class="status" id="status"></div>
 
-dsSel.addEventListener('change', function() {
-  currentDs = dsSel.value;
-  loadCountries(currentDs);
-});
+            <div class="stats" id="statsRow" style="display:none;">
+                <div class="stat">
+                    <div class="num" id="countryCount">0</div>
+                    <div class="label">Countries</div>
+                </div>
+                <div class="stat">
+                    <div class="num">2010–2023</div>
+                    <div class="label">Year Range</div>
+                </div>
+                <div class="stat">
+                    <div class="num">10</div>
+                    <div class="label">Variables</div>
+                </div>
+            </div>
+        </div>
 
-function loadCountries(ds) {
-  countrySel.disabled = true;
-  countrySel.innerHTML = '<option>Loading…</option>';
-  dlBtn.disabled = true;
-  fetch(API + '/api/files/' + TOOL + '?dataset=' + encodeURIComponent(ds))
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      countrySel.innerHTML = '<option value="">— Select —</option>';
-      data.files.forEach(function(f) {
-        var o = document.createElement('option');
-        o.value = f;
-        o.textContent = f.replace(/\.(csv|xlsx|xls)$/i, '').replace(/_/g, ' ');
-        countrySel.appendChild(o);
-      });
-      countrySel.disabled = false;
-    })
-    .catch(function() { countrySel.innerHTML = '<option>Error loading files</option>'; });
-}
+        <div class="card">
+            <h3>What's in the download?</h3>
+            <p>Each Excel workbook contains two sheets:</p>
 
-countrySel.addEventListener('change', function() { dlBtn.disabled = !countrySel.value; });
+            <div class="sheet-info">
+                <h4>📋 Sheet 1: Socio-Economic</h4>
+                <p>Full MAED template with data rows populated and Excel formulas for all derived/calculated rows (growth rates, per capita, household counts, sectoral values in USD).</p>
+            </div>
 
-function doDownload() {
-  var file = countrySel.value;
-  if (!file) return;
-  var url = API + '/api/download/' + TOOL + '?dataset=' + encodeURIComponent(currentDs) + '&file=' + encodeURIComponent(file);
-  var a = document.createElement('a'); a.href = url; a.download = file;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  msg.style.display = 'block';
-  msg.textContent = 'Downloading ' + file + '…';
-  setTimeout(function() { msg.style.display = 'none'; }, 4000);
-}
-</script>
+            <div class="sheet-info">
+                <h4>📊 Sheet 2: Raw Data</h4>
+                <p>Clean flat layout — variable names in Column A, years 2010–2023 across columns. All 10 input variables in one place:</p>
+            </div>
+
+            <ul class="var-list">
+                <li><strong>Total GDP</strong> (constant 2015 USD billion) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Urban Population</strong> (%) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Rural Population</strong> (%) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Active Labour Force</strong> (million) <span class="src">— ILO ILOSTAT</span></li>
+                <li><strong>Household Size</strong> (persons/household) <span class="src">— UN Population Division</span></li>
+                <li><strong>Population in Large Cities >300k</strong> (million) <span class="src">— UN DESA WUP 2018</span></li>
+                <li><strong>Sectoral GDP — Agriculture</strong> (%) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Sectoral GDP — Industry</strong> (incl. construction, %) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Sectoral GDP — Manufacturing</strong> (%) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Sectoral GDP — Services</strong> (%) <span class="src">— World Bank WDI</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        Starter Data Kits · Climate Compatible Growth Programme
+    </div>
+
+    <script>
+        const HF_BASE = 'https://minerva666-energy-modelling.hf.space';
+        const TOOL = 'maed';
+        const DATASET = 'maed_kits';
+
+        let countryFiles = [];
+
+        async function loadCountries() {
+            const status = document.getElementById('status');
+            const select = document.getElementById('countrySelect');
+
+            try {
+                status.className = 'status loading';
+                status.textContent = 'Loading available countries...';
+                status.style.display = 'block';
+
+                const resp = await fetch(`${HF_BASE}/api/files/${TOOL}?dataset=${DATASET}`);
+                if (!resp.ok) throw new Error(`API error: ${resp.status}`);
+                const data = await resp.json();
+
+                countryFiles = data.files
+                    .filter(f => f.endsWith('.xlsx'))
+                    .map(f => {
+                        const base = f.replace('.xlsx', '');
+                        const iso = base.substring(0, 3);
+                        const name = base.substring(4).replace(/_/g, ' ');
+                        return { filename: f, iso, name };
+                    })
+                    .sort((a, b) => a.name.localeCompare(b.name));
+
+                select.innerHTML = '<option value="">-- Select a country --</option>';
+                countryFiles.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.filename;
+                    opt.textContent = `${c.name} (${c.iso})`;
+                    select.appendChild(opt);
+                });
+
+                select.disabled = false;
+                select.addEventListener('change', () => {
+                    document.getElementById('downloadBtn').disabled = !select.value;
+                });
+
+                document.getElementById('countryCount').textContent = countryFiles.length;
+                document.getElementById('statsRow').style.display = 'flex';
+
+                status.className = 'status success';
+                status.textContent = `${countryFiles.length} countries available.`;
+                setTimeout(() => { status.style.display = 'none'; }, 2000);
+
+            } catch (err) {
+                console.error(err);
+                status.className = 'status error';
+                status.textContent = `Failed to load countries: ${err.message}. Please refresh.`;
+                select.innerHTML = '<option value="">Failed to load — please refresh</option>';
+            }
+        }
+
+        function downloadKit() {
+            const select = document.getElementById('countrySelect');
+            const file = select.value;
+            if (!file) return;
+
+            const btn = document.getElementById('downloadBtn');
+            const status = document.getElementById('status');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Downloading...';
+            status.className = 'status loading';
+            status.textContent = 'Preparing download...';
+            status.style.display = 'block';
+
+            const url = `${HF_BASE}/api/download/${TOOL}?dataset=${DATASET}&file=${encodeURIComponent(file)}`;
+
+            fetch(url)
+                .then(resp => {
+                    if (!resp.ok) throw new Error(`Download failed: ${resp.status}`);
+                    return resp.blob();
+                })
+                .then(blob => {
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = file;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(a.href);
+
+                    const country = countryFiles.find(c => c.filename === file);
+                    status.className = 'status success';
+                    status.textContent = `✓ Downloaded SDK for ${country ? country.name : file}`;
+                })
+                .catch(err => {
+                    status.className = 'status error';
+                    status.textContent = `Download failed: ${err.message}`;
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download Excel';
+                });
+        }
+
+        loadCountries();
+    </script>
 </body>
 </html>
