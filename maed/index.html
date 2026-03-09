@@ -12,67 +12,54 @@
         .header a:hover { color: white; }
         .header h1 { font-size: 1.5rem; font-weight: 600; }
         .header .sep { color: rgba(255,255,255,0.4); }
-
         .hero { background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%); color: white; padding: 3rem 2rem; text-align: center; }
         .hero img { height: 80px; margin-bottom: 1rem; }
         .hero h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
         .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 600px; margin: 0 auto; }
-
         .content { max-width: 700px; margin: 2rem auto; padding: 0 1.5rem; }
-
         .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 1.5rem; }
         .card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: #2d3748; }
         .card p { font-size: 0.9rem; color: #718096; margin-bottom: 1.25rem; line-height: 1.5; }
-
         .form-group { margin-bottom: 1.25rem; }
         .form-group label { display: block; font-weight: 600; font-size: 0.9rem; color: #4a5568; margin-bottom: 0.4rem; }
-
         select { width: 100%; padding: 0.7rem 1rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; background: white; color: #2d3748; cursor: pointer; transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5568' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
         select:focus { outline: none; border-color: #4299e1; box-shadow: 0 0 0 3px rgba(66,153,225,0.15); }
         select:disabled { background: #f7fafc; color: #a0aec0; cursor: not-allowed; }
-
         .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
         .btn-primary { background: #3182ce; color: white; }
         .btn-primary:hover:not(:disabled) { background: #2b6cb0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(49,130,206,0.3); }
         .btn-primary:disabled { background: #a0aec0; cursor: not-allowed; transform: none; box-shadow: none; }
         .btn-outline { background: transparent; color: #4a5568; border: 2px solid #e2e8f0; }
         .btn-outline:hover { border-color: #a0aec0; background: #f7fafc; }
-
         .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
         .status { margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; display: none; }
         .status.loading { display: block; background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
         .status.error { display: block; background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
         .status.success { display: block; background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
-
         .stats { display: flex; gap: 1.5rem; margin-top: 1rem; }
         .stat { text-align: center; }
         .stat .num { font-size: 1.5rem; font-weight: 700; color: #3182ce; }
         .stat .label { font-size: 0.8rem; color: #718096; }
-
         .sheet-info { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
         .sheet-info h4 { font-size: 0.95rem; color: #2d3748; margin-bottom: 0.35rem; }
         .sheet-info p { font-size: 0.85rem; color: #718096; margin: 0; line-height: 1.5; }
-
         .var-list { font-size: 0.85rem; color: #4a5568; line-height: 1.8; padding-left: 1.25rem; margin-top: 0.5rem; }
         .var-list li strong { color: #2d3748; }
         .var-list .src { color: #a0aec0; font-size: 0.8rem; }
-
         .footer { text-align: center; padding: 2rem; color: #a0aec0; font-size: 0.85rem; }
-
         @keyframes spin { to { transform: rotate(360deg); } }
         .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; }
     </style>
 </head>
 <body>
     <div class="header">
-        <a href="../">← Back to Tools</a>
+        <a href="../">&#8592; Back to Tools</a>
         <span class="sep">|</span>
         <h1>MAED</h1>
     </div>
 
     <div class="hero">
-        <img src="https://energy-modelling-tools.github.io/assets/img/MAED_Logo.png" alt="MAED Logo" onerror="this.style.display='none'">
+        <img src="https://starter-data-kit.github.io/assets/img/MAED_Logo.png" alt="MAED Logo" onerror="this.style.display='none'">
         <h2>Model for Analysis of Energy Demand</h2>
         <p>Download country-specific Starter Data Kits for building zero-order MAED energy demand models.</p>
     </div>
@@ -80,12 +67,12 @@
     <div class="content">
         <div class="card">
             <h3>Download Starter Data Kit</h3>
-            <p>Select a country to download an Excel workbook containing all socio-economic input data (2010–2023).</p>
+            <p>Select a country to download an Excel workbook containing all socio-economic input data (2010&ndash;2023).</p>
 
             <div class="form-group">
                 <label for="countrySelect">Country</label>
-                <select id="countrySelect" disabled>
-                    <option value="">Loading countries...</option>
+                <select id="countrySelect">
+                    <option value="">-- Select a country --</option>
                 </select>
             </div>
 
@@ -95,164 +82,97 @@
                     Download Excel
                 </button>
                 <button class="btn btn-outline" onclick="window.open('https://www.open.edu/openlearncreate/course/view.php?id=11720','_blank')">
-                    MAED e-Learning ↗
+                    MAED e-Learning &#8599;
                 </button>
             </div>
 
             <div class="status" id="status"></div>
 
-            <div class="stats" id="statsRow" style="display:none;">
+            <div class="stats">
                 <div class="stat">
-                    <div class="num" id="countryCount">0</div>
+                    <div class="num">185</div>
                     <div class="label">Countries</div>
                 </div>
                 <div class="stat">
-                    <div class="num">2010–2023</div>
+                    <div class="num">2010&ndash;2023</div>
                     <div class="label">Year Range</div>
                 </div>
                 <div class="stat">
-                    <div class="num">10</div>
+                    <div class="num">11</div>
                     <div class="label">Variables</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h3>What's in the download?</h3>
+            <h3>What&#8217;s in the download?</h3>
             <p>Each Excel workbook contains two sheets:</p>
 
             <div class="sheet-info">
-                <h4>📋 Sheet 1: Socio-Economic</h4>
+                <h4>&#128203; Sheet 1: Socio-Economic</h4>
                 <p>Full MAED template with data rows populated and Excel formulas for all derived/calculated rows (growth rates, per capita, household counts, sectoral values in USD).</p>
             </div>
 
             <div class="sheet-info">
-                <h4>📊 Sheet 2: Raw Data</h4>
-                <p>Clean flat layout — variable names in Column A, years 2010–2023 across columns. All 10 input variables in one place:</p>
+                <h4>&#128202; Sheet 2: Raw Data</h4>
+                <p>Clean flat layout &mdash; variable names in Column A, years 2010&ndash;2023 across columns. All input variables in one place:</p>
             </div>
 
             <ul class="var-list">
-                <li><strong>Total GDP</strong> (constant 2015 USD billion) <span class="src">— World Bank WDI</span></li>
-                <li><strong>Urban Population</strong> (%) <span class="src">— World Bank WDI</span></li>
-                <li><strong>Rural Population</strong> (%) <span class="src">— World Bank WDI</span></li>
-                <li><strong>Active Labour Force</strong> (million) <span class="src">— ILO ILOSTAT</span></li>
-                <li><strong>Household Size</strong> (persons/household) <span class="src">— UN Population Division</span></li>
-                <li><strong>Population in Large Cities >300k</strong> (million) <span class="src">— UN DESA WUP 2018</span></li>
-                <li><strong>Sectoral GDP — Agriculture</strong> (%) <span class="src">— World Bank WDI</span></li>
-                <li><strong>Sectoral GDP — Industry</strong> (incl. construction, %) <span class="src">— World Bank WDI</span></li>
-                <li><strong>Sectoral GDP — Manufacturing</strong> (%) <span class="src">— World Bank WDI</span></li>
-                <li><strong>Sectoral GDP — Services</strong> (%) <span class="src">— World Bank WDI</span></li>
+                <li><strong>Population</strong> (million) <span class="src">&mdash; World Bank SP.POP.TOTL</span></li>
+                <li><strong>Total GDP</strong> (constant 2015 USD billion) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Urban Population</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Rural Population</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Active Labour Force</strong> (million) <span class="src">&mdash; ILO ILOSTAT</span></li>
+                <li><strong>Household Size</strong> (persons/household) <span class="src">&mdash; UN Population Division</span></li>
+                <li><strong>Population in Large Cities &gt;300k</strong> (million) <span class="src">&mdash; UN DESA WUP 2018</span></li>
+                <li><strong>Sectoral GDP &mdash; Agriculture</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Sectoral GDP &mdash; Industry</strong> (incl. construction, %) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Sectoral GDP &mdash; Manufacturing</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Sectoral GDP &mdash; Services</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
             </ul>
         </div>
     </div>
 
     <div class="footer">
-        Starter Data Kits · Climate Compatible Growth Programme
+        Starter Data Kits &middot; Climate Compatible Growth Programme
     </div>
 
     <script>
-        const HF_BASE = 'https://minerva666-energy-modelling.hf.space';
-        const TOOL = 'maed';
-        const DATASET = 'maed_kits';
+        const S3_BASE = 'https://maed.s3.us-east-1.amazonaws.com/maed_kits';
+        const COUNTRIES = [{"f": "AFG_Afghanistan.xlsx", "i": "AFG", "n": "Afghanistan"}, {"f": "AGO_Angola.xlsx", "i": "AGO", "n": "Angola"}, {"f": "ALB_Albania.xlsx", "i": "ALB", "n": "Albania"}, {"f": "ARE_United_Arab_Emirates.xlsx", "i": "ARE", "n": "United Arab Emirates"}, {"f": "ARG_Argentina.xlsx", "i": "ARG", "n": "Argentina"}, {"f": "ARM_Armenia.xlsx", "i": "ARM", "n": "Armenia"}, {"f": "AUS_Australia.xlsx", "i": "AUS", "n": "Australia"}, {"f": "AUT_Austria.xlsx", "i": "AUT", "n": "Austria"}, {"f": "AZE_Azerbaijan.xlsx", "i": "AZE", "n": "Azerbaijan"}, {"f": "BDI_Burundi.xlsx", "i": "BDI", "n": "Burundi"}, {"f": "BEL_Belgium.xlsx", "i": "BEL", "n": "Belgium"}, {"f": "BEN_Benin.xlsx", "i": "BEN", "n": "Benin"}, {"f": "BFA_Burkina_Faso.xlsx", "i": "BFA", "n": "Burkina Faso"}, {"f": "BGD_Bangladesh.xlsx", "i": "BGD", "n": "Bangladesh"}, {"f": "BGR_Bulgaria.xlsx", "i": "BGR", "n": "Bulgaria"}, {"f": "BHR_Bahrain.xlsx", "i": "BHR", "n": "Bahrain"}, {"f": "BHS_Bahamas,_The.xlsx", "i": "BHS", "n": "Bahamas, The"}, {"f": "BIH_Bosnia_and_Herzegovina.xlsx", "i": "BIH", "n": "Bosnia and Herzegovina"}, {"f": "BLR_Belarus.xlsx", "i": "BLR", "n": "Belarus"}, {"f": "BLZ_Belize.xlsx", "i": "BLZ", "n": "Belize"}, {"f": "BOL_Bolivia.xlsx", "i": "BOL", "n": "Bolivia"}, {"f": "BRA_Brazil.xlsx", "i": "BRA", "n": "Brazil"}, {"f": "BRB_Barbados.xlsx", "i": "BRB", "n": "Barbados"}, {"f": "BRN_Brunei_Darussalam.xlsx", "i": "BRN", "n": "Brunei Darussalam"}, {"f": "BTN_Bhutan.xlsx", "i": "BTN", "n": "Bhutan"}, {"f": "BWA_Botswana.xlsx", "i": "BWA", "n": "Botswana"}, {"f": "CAF_Central_African_Republic.xlsx", "i": "CAF", "n": "Central African Republic"}, {"f": "CAN_Canada.xlsx", "i": "CAN", "n": "Canada"}, {"f": "CHE_Switzerland.xlsx", "i": "CHE", "n": "Switzerland"}, {"f": "CHI_Channel_Islands.xlsx", "i": "CHI", "n": "Channel Islands"}, {"f": "CHL_Chile.xlsx", "i": "CHL", "n": "Chile"}, {"f": "CHN_China.xlsx", "i": "CHN", "n": "China"}, {"f": "CIV_Cote_d'Ivoire.xlsx", "i": "CIV", "n": "Cote d'Ivoire"}, {"f": "CMR_Cameroon.xlsx", "i": "CMR", "n": "Cameroon"}, {"f": "COD_Congo,_Dem._Rep..xlsx", "i": "COD", "n": "Congo, Dem. Rep."}, {"f": "COG_Congo,_Rep..xlsx", "i": "COG", "n": "Congo, Rep."}, {"f": "COL_Colombia.xlsx", "i": "COL", "n": "Colombia"}, {"f": "COM_Comoros.xlsx", "i": "COM", "n": "Comoros"}, {"f": "CPV_Cabo_Verde.xlsx", "i": "CPV", "n": "Cabo Verde"}, {"f": "CRI_Costa_Rica.xlsx", "i": "CRI", "n": "Costa Rica"}, {"f": "CUB_Cuba.xlsx", "i": "CUB", "n": "Cuba"}, {"f": "CYP_Cyprus.xlsx", "i": "CYP", "n": "Cyprus"}, {"f": "CZE_Czechia.xlsx", "i": "CZE", "n": "Czechia"}, {"f": "DEU_Germany.xlsx", "i": "DEU", "n": "Germany"}, {"f": "DJI_Djibouti.xlsx", "i": "DJI", "n": "Djibouti"}, {"f": "DNK_Denmark.xlsx", "i": "DNK", "n": "Denmark"}, {"f": "DOM_Dominican_Republic.xlsx", "i": "DOM", "n": "Dominican Republic"}, {"f": "DZA_Algeria.xlsx", "i": "DZA", "n": "Algeria"}, {"f": "ECU_Ecuador.xlsx", "i": "ECU", "n": "Ecuador"}, {"f": "EGY_Egypt,_Arab_Rep..xlsx", "i": "EGY", "n": "Egypt, Arab Rep."}, {"f": "ERI_Eritrea.xlsx", "i": "ERI", "n": "Eritrea"}, {"f": "ESP_Spain.xlsx", "i": "ESP", "n": "Spain"}, {"f": "EST_Estonia.xlsx", "i": "EST", "n": "Estonia"}, {"f": "ETH_Ethiopia.xlsx", "i": "ETH", "n": "Ethiopia"}, {"f": "FIN_Finland.xlsx", "i": "FIN", "n": "Finland"}, {"f": "FJI_Fiji.xlsx", "i": "FJI", "n": "Fiji"}, {"f": "FRA_France.xlsx", "i": "FRA", "n": "France"}, {"f": "GAB_Gabon.xlsx", "i": "GAB", "n": "Gabon"}, {"f": "GBR_United_Kingdom.xlsx", "i": "GBR", "n": "United Kingdom"}, {"f": "GEO_Georgia.xlsx", "i": "GEO", "n": "Georgia"}, {"f": "GHA_Ghana.xlsx", "i": "GHA", "n": "Ghana"}, {"f": "GIN_Guinea.xlsx", "i": "GIN", "n": "Guinea"}, {"f": "GMB_Gambia,_The.xlsx", "i": "GMB", "n": "Gambia, The"}, {"f": "GNB_Guinea-Bissau.xlsx", "i": "GNB", "n": "Guinea-Bissau"}, {"f": "GNQ_Equatorial_Guinea.xlsx", "i": "GNQ", "n": "Equatorial Guinea"}, {"f": "GRC_Greece.xlsx", "i": "GRC", "n": "Greece"}, {"f": "GTM_Guatemala.xlsx", "i": "GTM", "n": "Guatemala"}, {"f": "GUM_Guam.xlsx", "i": "GUM", "n": "Guam"}, {"f": "GUY_Guyana.xlsx", "i": "GUY", "n": "Guyana"}, {"f": "HKG_Hong_Kong_SAR,_China.xlsx", "i": "HKG", "n": "Hong Kong SAR, China"}, {"f": "HND_Honduras.xlsx", "i": "HND", "n": "Honduras"}, {"f": "HRV_Croatia.xlsx", "i": "HRV", "n": "Croatia"}, {"f": "HTI_Haiti.xlsx", "i": "HTI", "n": "Haiti"}, {"f": "HUN_Hungary.xlsx", "i": "HUN", "n": "Hungary"}, {"f": "IDN_Indonesia.xlsx", "i": "IDN", "n": "Indonesia"}, {"f": "IND_India.xlsx", "i": "IND", "n": "India"}, {"f": "IRL_Ireland.xlsx", "i": "IRL", "n": "Ireland"}, {"f": "IRN_Iran,_Islamic_Rep..xlsx", "i": "IRN", "n": "Iran, Islamic Rep."}, {"f": "IRQ_Iraq.xlsx", "i": "IRQ", "n": "Iraq"}, {"f": "ISL_Iceland.xlsx", "i": "ISL", "n": "Iceland"}, {"f": "ISR_Israel.xlsx", "i": "ISR", "n": "Israel"}, {"f": "ITA_Italy.xlsx", "i": "ITA", "n": "Italy"}, {"f": "JAM_Jamaica.xlsx", "i": "JAM", "n": "Jamaica"}, {"f": "JOR_Jordan.xlsx", "i": "JOR", "n": "Jordan"}, {"f": "JPN_Japan.xlsx", "i": "JPN", "n": "Japan"}, {"f": "KAZ_Kazakhstan.xlsx", "i": "KAZ", "n": "Kazakhstan"}, {"f": "KEN_Kenya.xlsx", "i": "KEN", "n": "Kenya"}, {"f": "KGZ_Kyrgyz_Republic.xlsx", "i": "KGZ", "n": "Kyrgyz Republic"}, {"f": "KHM_Cambodia.xlsx", "i": "KHM", "n": "Cambodia"}, {"f": "KOR_Korea,_Rep..xlsx", "i": "KOR", "n": "Korea, Rep."}, {"f": "KWT_Kuwait.xlsx", "i": "KWT", "n": "Kuwait"}, {"f": "LAO_Lao_PDR.xlsx", "i": "LAO", "n": "Lao PDR"}, {"f": "LBN_Lebanon.xlsx", "i": "LBN", "n": "Lebanon"}, {"f": "LBR_Liberia.xlsx", "i": "LBR", "n": "Liberia"}, {"f": "LBY_Libya.xlsx", "i": "LBY", "n": "Libya"}, {"f": "LCA_St._Lucia.xlsx", "i": "LCA", "n": "St. Lucia"}, {"f": "LKA_Sri_Lanka.xlsx", "i": "LKA", "n": "Sri Lanka"}, {"f": "LSO_Lesotho.xlsx", "i": "LSO", "n": "Lesotho"}, {"f": "LTU_Lithuania.xlsx", "i": "LTU", "n": "Lithuania"}, {"f": "LUX_Luxembourg.xlsx", "i": "LUX", "n": "Luxembourg"}, {"f": "LVA_Latvia.xlsx", "i": "LVA", "n": "Latvia"}, {"f": "MAC_Macao_SAR,_China.xlsx", "i": "MAC", "n": "Macao SAR, China"}, {"f": "MAR_Morocco.xlsx", "i": "MAR", "n": "Morocco"}, {"f": "MDA_Moldova.xlsx", "i": "MDA", "n": "Moldova"}, {"f": "MDG_Madagascar.xlsx", "i": "MDG", "n": "Madagascar"}, {"f": "MDV_Maldives.xlsx", "i": "MDV", "n": "Maldives"}, {"f": "MEX_Mexico.xlsx", "i": "MEX", "n": "Mexico"}, {"f": "MKD_North_Macedonia.xlsx", "i": "MKD", "n": "North Macedonia"}, {"f": "MLI_Mali.xlsx", "i": "MLI", "n": "Mali"}, {"f": "MLT_Malta.xlsx", "i": "MLT", "n": "Malta"}, {"f": "MMR_Myanmar.xlsx", "i": "MMR", "n": "Myanmar"}, {"f": "MNE_Montenegro.xlsx", "i": "MNE", "n": "Montenegro"}, {"f": "MNG_Mongolia.xlsx", "i": "MNG", "n": "Mongolia"}, {"f": "MOZ_Mozambique.xlsx", "i": "MOZ", "n": "Mozambique"}, {"f": "MRT_Mauritania.xlsx", "i": "MRT", "n": "Mauritania"}, {"f": "MUS_Mauritius.xlsx", "i": "MUS", "n": "Mauritius"}, {"f": "MWI_Malawi.xlsx", "i": "MWI", "n": "Malawi"}, {"f": "MYS_Malaysia.xlsx", "i": "MYS", "n": "Malaysia"}, {"f": "NAM_Namibia.xlsx", "i": "NAM", "n": "Namibia"}, {"f": "NCL_New_Caledonia.xlsx", "i": "NCL", "n": "New Caledonia"}, {"f": "NER_Niger.xlsx", "i": "NER", "n": "Niger"}, {"f": "NGA_Nigeria.xlsx", "i": "NGA", "n": "Nigeria"}, {"f": "NIC_Nicaragua.xlsx", "i": "NIC", "n": "Nicaragua"}, {"f": "NLD_Netherlands.xlsx", "i": "NLD", "n": "Netherlands"}, {"f": "NOR_Norway.xlsx", "i": "NOR", "n": "Norway"}, {"f": "NPL_Nepal.xlsx", "i": "NPL", "n": "Nepal"}, {"f": "NZL_New_Zealand.xlsx", "i": "NZL", "n": "New Zealand"}, {"f": "OMN_Oman.xlsx", "i": "OMN", "n": "Oman"}, {"f": "PAK_Pakistan.xlsx", "i": "PAK", "n": "Pakistan"}, {"f": "PAN_Panama.xlsx", "i": "PAN", "n": "Panama"}, {"f": "PER_Peru.xlsx", "i": "PER", "n": "Peru"}, {"f": "PHL_Philippines.xlsx", "i": "PHL", "n": "Philippines"}, {"f": "PNG_Papua_New_Guinea.xlsx", "i": "PNG", "n": "Papua New Guinea"}, {"f": "POL_Poland.xlsx", "i": "POL", "n": "Poland"}, {"f": "PRI_Puerto_Rico_(US).xlsx", "i": "PRI", "n": "Puerto Rico (US)"}, {"f": "PRT_Portugal.xlsx", "i": "PRT", "n": "Portugal"}, {"f": "PRY_Paraguay.xlsx", "i": "PRY", "n": "Paraguay"}, {"f": "PSE_West_Bank_and_Gaza.xlsx", "i": "PSE", "n": "West Bank and Gaza"}, {"f": "PYF_French_Polynesia.xlsx", "i": "PYF", "n": "French Polynesia"}, {"f": "QAT_Qatar.xlsx", "i": "QAT", "n": "Qatar"}, {"f": "ROU_Romania.xlsx", "i": "ROU", "n": "Romania"}, {"f": "RUS_Russian_Federation.xlsx", "i": "RUS", "n": "Russian Federation"}, {"f": "RWA_Rwanda.xlsx", "i": "RWA", "n": "Rwanda"}, {"f": "SAU_Saudi_Arabia.xlsx", "i": "SAU", "n": "Saudi Arabia"}, {"f": "SDN_Sudan.xlsx", "i": "SDN", "n": "Sudan"}, {"f": "SEN_Senegal.xlsx", "i": "SEN", "n": "Senegal"}, {"f": "SGP_Singapore.xlsx", "i": "SGP", "n": "Singapore"}, {"f": "SLB_Solomon_Islands.xlsx", "i": "SLB", "n": "Solomon Islands"}, {"f": "SLE_Sierra_Leone.xlsx", "i": "SLE", "n": "Sierra Leone"}, {"f": "SLV_El_Salvador.xlsx", "i": "SLV", "n": "El Salvador"}, {"f": "SOM_Somalia,_Fed._Rep..xlsx", "i": "SOM", "n": "Somalia, Fed. Rep."}, {"f": "SRB_Serbia.xlsx", "i": "SRB", "n": "Serbia"}, {"f": "SSD_South_Sudan.xlsx", "i": "SSD", "n": "South Sudan"}, {"f": "STP_Sao_Tome_and_Principe.xlsx", "i": "STP", "n": "Sao Tome and Principe"}, {"f": "SUR_Suriname.xlsx", "i": "SUR", "n": "Suriname"}, {"f": "SVK_Slovak_Republic.xlsx", "i": "SVK", "n": "Slovak Republic"}, {"f": "SVN_Slovenia.xlsx", "i": "SVN", "n": "Slovenia"}, {"f": "SWE_Sweden.xlsx", "i": "SWE", "n": "Sweden"}, {"f": "SWZ_Eswatini.xlsx", "i": "SWZ", "n": "Eswatini"}, {"f": "SYR_Syrian_Arab_Republic.xlsx", "i": "SYR", "n": "Syrian Arab Republic"}, {"f": "TCD_Chad.xlsx", "i": "TCD", "n": "Chad"}, {"f": "TGO_Togo.xlsx", "i": "TGO", "n": "Togo"}, {"f": "THA_Thailand.xlsx", "i": "THA", "n": "Thailand"}, {"f": "TJK_Tajikistan.xlsx", "i": "TJK", "n": "Tajikistan"}, {"f": "TKM_Turkmenistan.xlsx", "i": "TKM", "n": "Turkmenistan"}, {"f": "TLS_Timor-Leste.xlsx", "i": "TLS", "n": "Timor-Leste"}, {"f": "TON_Tonga.xlsx", "i": "TON", "n": "Tonga"}, {"f": "TTO_Trinidad_and_Tobago.xlsx", "i": "TTO", "n": "Trinidad and Tobago"}, {"f": "TUN_Tunisia.xlsx", "i": "TUN", "n": "Tunisia"}, {"f": "TUR_Turkiye.xlsx", "i": "TUR", "n": "Turkiye"}, {"f": "TZA_Tanzania.xlsx", "i": "TZA", "n": "Tanzania"}, {"f": "UGA_Uganda.xlsx", "i": "UGA", "n": "Uganda"}, {"f": "UKR_Ukraine.xlsx", "i": "UKR", "n": "Ukraine"}, {"f": "URY_Uruguay.xlsx", "i": "URY", "n": "Uruguay"}, {"f": "USA_United_States.xlsx", "i": "USA", "n": "United States"}, {"f": "UZB_Uzbekistan.xlsx", "i": "UZB", "n": "Uzbekistan"}, {"f": "VCT_St._Vincent_and_the_Grenadines.xlsx", "i": "VCT", "n": "St. Vincent and the Grenadines"}, {"f": "VIR_Virgin_Islands_(U.S.).xlsx", "i": "VIR", "n": "Virgin Islands (U.S.)"}, {"f": "VNM_Viet_Nam.xlsx", "i": "VNM", "n": "Viet Nam"}, {"f": "VUT_Vanuatu.xlsx", "i": "VUT", "n": "Vanuatu"}, {"f": "WSM_Samoa.xlsx", "i": "WSM", "n": "Samoa"}, {"f": "YEM_Yemen,_Rep..xlsx", "i": "YEM", "n": "Yemen, Rep."}, {"f": "ZAF_South_Africa.xlsx", "i": "ZAF", "n": "South Africa"}, {"f": "ZMB_Zambia.xlsx", "i": "ZMB", "n": "Zambia"}, {"f": "ZWE_Zimbabwe.xlsx", "i": "ZWE", "n": "Zimbabwe"}];
 
-        let countryFiles = [];
-
-        async function loadCountries() {
-            const status = document.getElementById('status');
-            const select = document.getElementById('countrySelect');
-
-            try {
-                status.className = 'status loading';
-                status.textContent = 'Loading available countries...';
-                status.style.display = 'block';
-
-                const resp = await fetch(`${HF_BASE}/api/files/${TOOL}?dataset=${DATASET}`);
-                if (!resp.ok) throw new Error(`API error: ${resp.status}`);
-                const data = await resp.json();
-
-                countryFiles = data.files
-                    .filter(f => f.endsWith('.xlsx'))
-                    .map(f => {
-                        const base = f.replace('.xlsx', '');
-                        const iso = base.substring(0, 3);
-                        const name = base.substring(4).replace(/_/g, ' ');
-                        return { filename: f, iso, name };
-                    })
-                    .sort((a, b) => a.name.localeCompare(b.name));
-
-                select.innerHTML = '<option value="">-- Select a country --</option>';
-                countryFiles.forEach(c => {
-                    const opt = document.createElement('option');
-                    opt.value = c.filename;
-                    opt.textContent = `${c.name} (${c.iso})`;
-                    select.appendChild(opt);
-                });
-
-                select.disabled = false;
-                select.addEventListener('change', () => {
-                    document.getElementById('downloadBtn').disabled = !select.value;
-                });
-
-                document.getElementById('countryCount').textContent = countryFiles.length;
-                document.getElementById('statsRow').style.display = 'flex';
-
-                status.className = 'status success';
-                status.textContent = `${countryFiles.length} countries available.`;
-                setTimeout(() => { status.style.display = 'none'; }, 2000);
-
-            } catch (err) {
-                console.error(err);
-                status.className = 'status error';
-                status.textContent = `Failed to load countries: ${err.message}. Please refresh.`;
-                select.innerHTML = '<option value="">Failed to load — please refresh</option>';
-            }
-        }
+        // Populate dropdown immediately (no API call needed)
+        const select = document.getElementById('countrySelect');
+        COUNTRIES.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.f;
+            opt.textContent = c.n + ' (' + c.i + ')';
+            select.appendChild(opt);
+        });
+        select.addEventListener('change', () => {
+            document.getElementById('downloadBtn').disabled = !select.value;
+        });
 
         function downloadKit() {
-            const select = document.getElementById('countrySelect');
             const file = select.value;
             if (!file) return;
+            // Direct S3 download — no backend needed
+            const url = S3_BASE + '/' + encodeURIComponent(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
 
-            const btn = document.getElementById('downloadBtn');
+            const c = COUNTRIES.find(x => x.f === file);
             const status = document.getElementById('status');
-
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Downloading...';
-            status.className = 'status loading';
-            status.textContent = 'Preparing download...';
+            status.className = 'status success';
+            status.textContent = '\u2713 Downloading ' + (c ? c.n : file) + '...';
             status.style.display = 'block';
-
-            const url = `${HF_BASE}/api/download/${TOOL}?dataset=${DATASET}&file=${encodeURIComponent(file)}`;
-
-            fetch(url)
-                .then(resp => {
-                    if (!resp.ok) throw new Error(`Download failed: ${resp.status}`);
-                    return resp.blob();
-                })
-                .then(blob => {
-                    const a = document.createElement('a');
-                    a.href = URL.createObjectURL(blob);
-                    a.download = file;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(a.href);
-
-                    const country = countryFiles.find(c => c.filename === file);
-                    status.className = 'status success';
-                    status.textContent = `✓ Downloaded SDK for ${country ? country.name : file}`;
-                })
-                .catch(err => {
-                    status.className = 'status error';
-                    status.textContent = `Download failed: ${err.message}`;
-                })
-                .finally(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download Excel';
-                });
+            setTimeout(() => { status.style.display = 'none'; }, 3000);
         }
-
-        loadCountries();
     </script>
 </body>
 </html>
