@@ -36,6 +36,7 @@
         .status.loading { display: block; background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
         .status.error { display: block; background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
         .status.success { display: block; background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+        .status.warn { display: block; background: #fffff0; color: #975a16; border: 1px solid #fefcbf; }
         .stats { display: flex; gap: 1.5rem; margin-top: 1rem; }
         .stat { text-align: center; }
         .stat .num { font-size: 1.5rem; font-weight: 700; color: #3182ce; }
@@ -57,25 +58,21 @@
         <span class="sep">|</span>
         <h1>MAED</h1>
     </div>
-
     <div class="hero">
         <img src="https://starter-data-kit.github.io/assets/img/MAED_Logo.png" alt="MAED Logo" onerror="this.style.display='none'">
         <h2>Model for Analysis of Energy Demand</h2>
         <p>Download country-specific Starter Data Kits for building zero-order MAED energy demand models.</p>
     </div>
-
     <div class="content">
         <div class="card">
             <h3>Download Starter Data Kit</h3>
-            <p>Select a country to download an Excel workbook containing all socio-economic input data (2010&ndash;2023).</p>
-
+            <p>Select a country to download an Excel workbook containing socio-economic input data (2010&ndash;2024).</p>
             <div class="form-group">
                 <label for="countrySelect">Country</label>
                 <select id="countrySelect">
                     <option value="">-- Select a country --</option>
                 </select>
             </div>
-
             <div class="btn-row">
                 <button class="btn btn-primary" id="downloadBtn" disabled onclick="downloadKit()">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
@@ -85,68 +82,48 @@
                     MAED e-Learning &#8599;
                 </button>
             </div>
-
             <div class="status" id="status"></div>
-
             <div class="stats">
-                <div class="stat">
-                    <div class="num">185</div>
-                    <div class="label">Countries</div>
-                </div>
-                <div class="stat">
-                    <div class="num">2010&ndash;2023</div>
-                    <div class="label">Year Range</div>
-                </div>
-                <div class="stat">
-                    <div class="num">11</div>
-                    <div class="label">Variables</div>
-                </div>
+                <div class="stat"><div class="num">185</div><div class="label">Countries</div></div>
+                <div class="stat"><div class="num">2010&ndash;2024</div><div class="label">Year Range</div></div>
+                <div class="stat"><div class="num">11</div><div class="label">Variables</div></div>
             </div>
         </div>
-
         <div class="card">
             <h3>What&#8217;s in the download?</h3>
             <p>Each Excel workbook contains two sheets:</p>
-
             <div class="sheet-info">
                 <h4>&#128203; Sheet 1: Socio-Economic</h4>
-                <p>Full MAED template with data rows populated and Excel formulas for all derived/calculated rows (growth rates, per capita, household counts, sectoral values in USD).</p>
+                <p>Full MAED template with data rows populated and Excel formulas for derived rows.</p>
             </div>
-
             <div class="sheet-info">
                 <h4>&#128202; Sheet 2: Raw Data</h4>
-                <p>Clean flat layout &mdash; variable names in Column A, years 2010&ndash;2023 across columns. All input variables in one place:</p>
+                <p>Flat layout &mdash; variable names in Column A, years across columns:</p>
             </div>
-
             <ul class="var-list">
                 <li><strong>Population</strong> (million) <span class="src">&mdash; World Bank SP.POP.TOTL</span></li>
                 <li><strong>Total GDP</strong> (constant 2015 USD billion) <span class="src">&mdash; World Bank WDI</span></li>
                 <li><strong>Urban Population</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
                 <li><strong>Rural Population</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
                 <li><strong>Active Labour Force</strong> (million) <span class="src">&mdash; ILO ILOSTAT</span></li>
-                <li><strong>Household Size</strong> (persons/household) <span class="src">&mdash; UN Population Division</span></li>
-                <li><strong>Population in Large Cities &gt;300k</strong> (million) <span class="src">&mdash; UN DESA WUP 2018</span></li>
+                <li><strong>Household Size</strong> (persons/hh) <span class="src">&mdash; UN Population Division</span></li>
+                <li><strong>Pop in Large Cities &gt;300k</strong> (million) <span class="src">&mdash; UN DESA WUP 2018</span></li>
                 <li><strong>Sectoral GDP &mdash; Agriculture</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
-                <li><strong>Sectoral GDP &mdash; Industry</strong> (incl. construction, %) <span class="src">&mdash; World Bank WDI</span></li>
+                <li><strong>Sectoral GDP &mdash; Industry</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
                 <li><strong>Sectoral GDP &mdash; Manufacturing</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
                 <li><strong>Sectoral GDP &mdash; Services</strong> (%) <span class="src">&mdash; World Bank WDI</span></li>
             </ul>
         </div>
     </div>
-
-    <div class="footer">
-        Starter Data Kits &middot; Climate Compatible Growth Programme
-    </div>
-
+    <div class="footer">Starter Data Kits &middot; Climate Compatible Growth Programme</div>
     <script>
         const S3_BASE = 'https://maed.s3.us-east-1.amazonaws.com/maed_kits';
-        const COUNTRIES = [{"f": "AFG_Afghanistan.xlsx", "i": "AFG", "n": "Afghanistan"}, {"f": "AGO_Angola.xlsx", "i": "AGO", "n": "Angola"}, {"f": "ALB_Albania.xlsx", "i": "ALB", "n": "Albania"}, {"f": "ARE_United_Arab_Emirates.xlsx", "i": "ARE", "n": "United Arab Emirates"}, {"f": "ARG_Argentina.xlsx", "i": "ARG", "n": "Argentina"}, {"f": "ARM_Armenia.xlsx", "i": "ARM", "n": "Armenia"}, {"f": "AUS_Australia.xlsx", "i": "AUS", "n": "Australia"}, {"f": "AUT_Austria.xlsx", "i": "AUT", "n": "Austria"}, {"f": "AZE_Azerbaijan.xlsx", "i": "AZE", "n": "Azerbaijan"}, {"f": "BDI_Burundi.xlsx", "i": "BDI", "n": "Burundi"}, {"f": "BEL_Belgium.xlsx", "i": "BEL", "n": "Belgium"}, {"f": "BEN_Benin.xlsx", "i": "BEN", "n": "Benin"}, {"f": "BFA_Burkina_Faso.xlsx", "i": "BFA", "n": "Burkina Faso"}, {"f": "BGD_Bangladesh.xlsx", "i": "BGD", "n": "Bangladesh"}, {"f": "BGR_Bulgaria.xlsx", "i": "BGR", "n": "Bulgaria"}, {"f": "BHR_Bahrain.xlsx", "i": "BHR", "n": "Bahrain"}, {"f": "BHS_Bahamas,_The.xlsx", "i": "BHS", "n": "Bahamas, The"}, {"f": "BIH_Bosnia_and_Herzegovina.xlsx", "i": "BIH", "n": "Bosnia and Herzegovina"}, {"f": "BLR_Belarus.xlsx", "i": "BLR", "n": "Belarus"}, {"f": "BLZ_Belize.xlsx", "i": "BLZ", "n": "Belize"}, {"f": "BOL_Bolivia.xlsx", "i": "BOL", "n": "Bolivia"}, {"f": "BRA_Brazil.xlsx", "i": "BRA", "n": "Brazil"}, {"f": "BRB_Barbados.xlsx", "i": "BRB", "n": "Barbados"}, {"f": "BRN_Brunei_Darussalam.xlsx", "i": "BRN", "n": "Brunei Darussalam"}, {"f": "BTN_Bhutan.xlsx", "i": "BTN", "n": "Bhutan"}, {"f": "BWA_Botswana.xlsx", "i": "BWA", "n": "Botswana"}, {"f": "CAF_Central_African_Republic.xlsx", "i": "CAF", "n": "Central African Republic"}, {"f": "CAN_Canada.xlsx", "i": "CAN", "n": "Canada"}, {"f": "CHE_Switzerland.xlsx", "i": "CHE", "n": "Switzerland"}, {"f": "CHI_Channel_Islands.xlsx", "i": "CHI", "n": "Channel Islands"}, {"f": "CHL_Chile.xlsx", "i": "CHL", "n": "Chile"}, {"f": "CHN_China.xlsx", "i": "CHN", "n": "China"}, {"f": "CIV_Cote_d'Ivoire.xlsx", "i": "CIV", "n": "Cote d'Ivoire"}, {"f": "CMR_Cameroon.xlsx", "i": "CMR", "n": "Cameroon"}, {"f": "COD_Congo,_Dem._Rep..xlsx", "i": "COD", "n": "Congo, Dem. Rep."}, {"f": "COG_Congo,_Rep..xlsx", "i": "COG", "n": "Congo, Rep."}, {"f": "COL_Colombia.xlsx", "i": "COL", "n": "Colombia"}, {"f": "COM_Comoros.xlsx", "i": "COM", "n": "Comoros"}, {"f": "CPV_Cabo_Verde.xlsx", "i": "CPV", "n": "Cabo Verde"}, {"f": "CRI_Costa_Rica.xlsx", "i": "CRI", "n": "Costa Rica"}, {"f": "CUB_Cuba.xlsx", "i": "CUB", "n": "Cuba"}, {"f": "CYP_Cyprus.xlsx", "i": "CYP", "n": "Cyprus"}, {"f": "CZE_Czechia.xlsx", "i": "CZE", "n": "Czechia"}, {"f": "DEU_Germany.xlsx", "i": "DEU", "n": "Germany"}, {"f": "DJI_Djibouti.xlsx", "i": "DJI", "n": "Djibouti"}, {"f": "DNK_Denmark.xlsx", "i": "DNK", "n": "Denmark"}, {"f": "DOM_Dominican_Republic.xlsx", "i": "DOM", "n": "Dominican Republic"}, {"f": "DZA_Algeria.xlsx", "i": "DZA", "n": "Algeria"}, {"f": "ECU_Ecuador.xlsx", "i": "ECU", "n": "Ecuador"}, {"f": "EGY_Egypt,_Arab_Rep..xlsx", "i": "EGY", "n": "Egypt, Arab Rep."}, {"f": "ERI_Eritrea.xlsx", "i": "ERI", "n": "Eritrea"}, {"f": "ESP_Spain.xlsx", "i": "ESP", "n": "Spain"}, {"f": "EST_Estonia.xlsx", "i": "EST", "n": "Estonia"}, {"f": "ETH_Ethiopia.xlsx", "i": "ETH", "n": "Ethiopia"}, {"f": "FIN_Finland.xlsx", "i": "FIN", "n": "Finland"}, {"f": "FJI_Fiji.xlsx", "i": "FJI", "n": "Fiji"}, {"f": "FRA_France.xlsx", "i": "FRA", "n": "France"}, {"f": "GAB_Gabon.xlsx", "i": "GAB", "n": "Gabon"}, {"f": "GBR_United_Kingdom.xlsx", "i": "GBR", "n": "United Kingdom"}, {"f": "GEO_Georgia.xlsx", "i": "GEO", "n": "Georgia"}, {"f": "GHA_Ghana.xlsx", "i": "GHA", "n": "Ghana"}, {"f": "GIN_Guinea.xlsx", "i": "GIN", "n": "Guinea"}, {"f": "GMB_Gambia,_The.xlsx", "i": "GMB", "n": "Gambia, The"}, {"f": "GNB_Guinea-Bissau.xlsx", "i": "GNB", "n": "Guinea-Bissau"}, {"f": "GNQ_Equatorial_Guinea.xlsx", "i": "GNQ", "n": "Equatorial Guinea"}, {"f": "GRC_Greece.xlsx", "i": "GRC", "n": "Greece"}, {"f": "GTM_Guatemala.xlsx", "i": "GTM", "n": "Guatemala"}, {"f": "GUM_Guam.xlsx", "i": "GUM", "n": "Guam"}, {"f": "GUY_Guyana.xlsx", "i": "GUY", "n": "Guyana"}, {"f": "HKG_Hong_Kong_SAR,_China.xlsx", "i": "HKG", "n": "Hong Kong SAR, China"}, {"f": "HND_Honduras.xlsx", "i": "HND", "n": "Honduras"}, {"f": "HRV_Croatia.xlsx", "i": "HRV", "n": "Croatia"}, {"f": "HTI_Haiti.xlsx", "i": "HTI", "n": "Haiti"}, {"f": "HUN_Hungary.xlsx", "i": "HUN", "n": "Hungary"}, {"f": "IDN_Indonesia.xlsx", "i": "IDN", "n": "Indonesia"}, {"f": "IND_India.xlsx", "i": "IND", "n": "India"}, {"f": "IRL_Ireland.xlsx", "i": "IRL", "n": "Ireland"}, {"f": "IRN_Iran,_Islamic_Rep..xlsx", "i": "IRN", "n": "Iran, Islamic Rep."}, {"f": "IRQ_Iraq.xlsx", "i": "IRQ", "n": "Iraq"}, {"f": "ISL_Iceland.xlsx", "i": "ISL", "n": "Iceland"}, {"f": "ISR_Israel.xlsx", "i": "ISR", "n": "Israel"}, {"f": "ITA_Italy.xlsx", "i": "ITA", "n": "Italy"}, {"f": "JAM_Jamaica.xlsx", "i": "JAM", "n": "Jamaica"}, {"f": "JOR_Jordan.xlsx", "i": "JOR", "n": "Jordan"}, {"f": "JPN_Japan.xlsx", "i": "JPN", "n": "Japan"}, {"f": "KAZ_Kazakhstan.xlsx", "i": "KAZ", "n": "Kazakhstan"}, {"f": "KEN_Kenya.xlsx", "i": "KEN", "n": "Kenya"}, {"f": "KGZ_Kyrgyz_Republic.xlsx", "i": "KGZ", "n": "Kyrgyz Republic"}, {"f": "KHM_Cambodia.xlsx", "i": "KHM", "n": "Cambodia"}, {"f": "KOR_Korea,_Rep..xlsx", "i": "KOR", "n": "Korea, Rep."}, {"f": "KWT_Kuwait.xlsx", "i": "KWT", "n": "Kuwait"}, {"f": "LAO_Lao_PDR.xlsx", "i": "LAO", "n": "Lao PDR"}, {"f": "LBN_Lebanon.xlsx", "i": "LBN", "n": "Lebanon"}, {"f": "LBR_Liberia.xlsx", "i": "LBR", "n": "Liberia"}, {"f": "LBY_Libya.xlsx", "i": "LBY", "n": "Libya"}, {"f": "LCA_St._Lucia.xlsx", "i": "LCA", "n": "St. Lucia"}, {"f": "LKA_Sri_Lanka.xlsx", "i": "LKA", "n": "Sri Lanka"}, {"f": "LSO_Lesotho.xlsx", "i": "LSO", "n": "Lesotho"}, {"f": "LTU_Lithuania.xlsx", "i": "LTU", "n": "Lithuania"}, {"f": "LUX_Luxembourg.xlsx", "i": "LUX", "n": "Luxembourg"}, {"f": "LVA_Latvia.xlsx", "i": "LVA", "n": "Latvia"}, {"f": "MAC_Macao_SAR,_China.xlsx", "i": "MAC", "n": "Macao SAR, China"}, {"f": "MAR_Morocco.xlsx", "i": "MAR", "n": "Morocco"}, {"f": "MDA_Moldova.xlsx", "i": "MDA", "n": "Moldova"}, {"f": "MDG_Madagascar.xlsx", "i": "MDG", "n": "Madagascar"}, {"f": "MDV_Maldives.xlsx", "i": "MDV", "n": "Maldives"}, {"f": "MEX_Mexico.xlsx", "i": "MEX", "n": "Mexico"}, {"f": "MKD_North_Macedonia.xlsx", "i": "MKD", "n": "North Macedonia"}, {"f": "MLI_Mali.xlsx", "i": "MLI", "n": "Mali"}, {"f": "MLT_Malta.xlsx", "i": "MLT", "n": "Malta"}, {"f": "MMR_Myanmar.xlsx", "i": "MMR", "n": "Myanmar"}, {"f": "MNE_Montenegro.xlsx", "i": "MNE", "n": "Montenegro"}, {"f": "MNG_Mongolia.xlsx", "i": "MNG", "n": "Mongolia"}, {"f": "MOZ_Mozambique.xlsx", "i": "MOZ", "n": "Mozambique"}, {"f": "MRT_Mauritania.xlsx", "i": "MRT", "n": "Mauritania"}, {"f": "MUS_Mauritius.xlsx", "i": "MUS", "n": "Mauritius"}, {"f": "MWI_Malawi.xlsx", "i": "MWI", "n": "Malawi"}, {"f": "MYS_Malaysia.xlsx", "i": "MYS", "n": "Malaysia"}, {"f": "NAM_Namibia.xlsx", "i": "NAM", "n": "Namibia"}, {"f": "NCL_New_Caledonia.xlsx", "i": "NCL", "n": "New Caledonia"}, {"f": "NER_Niger.xlsx", "i": "NER", "n": "Niger"}, {"f": "NGA_Nigeria.xlsx", "i": "NGA", "n": "Nigeria"}, {"f": "NIC_Nicaragua.xlsx", "i": "NIC", "n": "Nicaragua"}, {"f": "NLD_Netherlands.xlsx", "i": "NLD", "n": "Netherlands"}, {"f": "NOR_Norway.xlsx", "i": "NOR", "n": "Norway"}, {"f": "NPL_Nepal.xlsx", "i": "NPL", "n": "Nepal"}, {"f": "NZL_New_Zealand.xlsx", "i": "NZL", "n": "New Zealand"}, {"f": "OMN_Oman.xlsx", "i": "OMN", "n": "Oman"}, {"f": "PAK_Pakistan.xlsx", "i": "PAK", "n": "Pakistan"}, {"f": "PAN_Panama.xlsx", "i": "PAN", "n": "Panama"}, {"f": "PER_Peru.xlsx", "i": "PER", "n": "Peru"}, {"f": "PHL_Philippines.xlsx", "i": "PHL", "n": "Philippines"}, {"f": "PNG_Papua_New_Guinea.xlsx", "i": "PNG", "n": "Papua New Guinea"}, {"f": "POL_Poland.xlsx", "i": "POL", "n": "Poland"}, {"f": "PRI_Puerto_Rico_(US).xlsx", "i": "PRI", "n": "Puerto Rico (US)"}, {"f": "PRT_Portugal.xlsx", "i": "PRT", "n": "Portugal"}, {"f": "PRY_Paraguay.xlsx", "i": "PRY", "n": "Paraguay"}, {"f": "PSE_West_Bank_and_Gaza.xlsx", "i": "PSE", "n": "West Bank and Gaza"}, {"f": "PYF_French_Polynesia.xlsx", "i": "PYF", "n": "French Polynesia"}, {"f": "QAT_Qatar.xlsx", "i": "QAT", "n": "Qatar"}, {"f": "ROU_Romania.xlsx", "i": "ROU", "n": "Romania"}, {"f": "RUS_Russian_Federation.xlsx", "i": "RUS", "n": "Russian Federation"}, {"f": "RWA_Rwanda.xlsx", "i": "RWA", "n": "Rwanda"}, {"f": "SAU_Saudi_Arabia.xlsx", "i": "SAU", "n": "Saudi Arabia"}, {"f": "SDN_Sudan.xlsx", "i": "SDN", "n": "Sudan"}, {"f": "SEN_Senegal.xlsx", "i": "SEN", "n": "Senegal"}, {"f": "SGP_Singapore.xlsx", "i": "SGP", "n": "Singapore"}, {"f": "SLB_Solomon_Islands.xlsx", "i": "SLB", "n": "Solomon Islands"}, {"f": "SLE_Sierra_Leone.xlsx", "i": "SLE", "n": "Sierra Leone"}, {"f": "SLV_El_Salvador.xlsx", "i": "SLV", "n": "El Salvador"}, {"f": "SOM_Somalia,_Fed._Rep..xlsx", "i": "SOM", "n": "Somalia, Fed. Rep."}, {"f": "SRB_Serbia.xlsx", "i": "SRB", "n": "Serbia"}, {"f": "SSD_South_Sudan.xlsx", "i": "SSD", "n": "South Sudan"}, {"f": "STP_Sao_Tome_and_Principe.xlsx", "i": "STP", "n": "Sao Tome and Principe"}, {"f": "SUR_Suriname.xlsx", "i": "SUR", "n": "Suriname"}, {"f": "SVK_Slovak_Republic.xlsx", "i": "SVK", "n": "Slovak Republic"}, {"f": "SVN_Slovenia.xlsx", "i": "SVN", "n": "Slovenia"}, {"f": "SWE_Sweden.xlsx", "i": "SWE", "n": "Sweden"}, {"f": "SWZ_Eswatini.xlsx", "i": "SWZ", "n": "Eswatini"}, {"f": "SYR_Syrian_Arab_Republic.xlsx", "i": "SYR", "n": "Syrian Arab Republic"}, {"f": "TCD_Chad.xlsx", "i": "TCD", "n": "Chad"}, {"f": "TGO_Togo.xlsx", "i": "TGO", "n": "Togo"}, {"f": "THA_Thailand.xlsx", "i": "THA", "n": "Thailand"}, {"f": "TJK_Tajikistan.xlsx", "i": "TJK", "n": "Tajikistan"}, {"f": "TKM_Turkmenistan.xlsx", "i": "TKM", "n": "Turkmenistan"}, {"f": "TLS_Timor-Leste.xlsx", "i": "TLS", "n": "Timor-Leste"}, {"f": "TON_Tonga.xlsx", "i": "TON", "n": "Tonga"}, {"f": "TTO_Trinidad_and_Tobago.xlsx", "i": "TTO", "n": "Trinidad and Tobago"}, {"f": "TUN_Tunisia.xlsx", "i": "TUN", "n": "Tunisia"}, {"f": "TUR_Turkiye.xlsx", "i": "TUR", "n": "Turkiye"}, {"f": "TZA_Tanzania.xlsx", "i": "TZA", "n": "Tanzania"}, {"f": "UGA_Uganda.xlsx", "i": "UGA", "n": "Uganda"}, {"f": "UKR_Ukraine.xlsx", "i": "UKR", "n": "Ukraine"}, {"f": "URY_Uruguay.xlsx", "i": "URY", "n": "Uruguay"}, {"f": "USA_United_States.xlsx", "i": "USA", "n": "United States"}, {"f": "UZB_Uzbekistan.xlsx", "i": "UZB", "n": "Uzbekistan"}, {"f": "VCT_St._Vincent_and_the_Grenadines.xlsx", "i": "VCT", "n": "St. Vincent and the Grenadines"}, {"f": "VIR_Virgin_Islands_(U.S.).xlsx", "i": "VIR", "n": "Virgin Islands (U.S.)"}, {"f": "VNM_Viet_Nam.xlsx", "i": "VNM", "n": "Viet Nam"}, {"f": "VUT_Vanuatu.xlsx", "i": "VUT", "n": "Vanuatu"}, {"f": "WSM_Samoa.xlsx", "i": "WSM", "n": "Samoa"}, {"f": "YEM_Yemen,_Rep..xlsx", "i": "YEM", "n": "Yemen, Rep."}, {"f": "ZAF_South_Africa.xlsx", "i": "ZAF", "n": "South Africa"}, {"f": "ZMB_Zambia.xlsx", "i": "ZMB", "n": "Zambia"}, {"f": "ZWE_Zimbabwe.xlsx", "i": "ZWE", "n": "Zimbabwe"}];
+        const COUNTRIES = [{"f": "AFG_Afghanistan.xlsx", "i": "AFG", "n": "Afghanistan", "d": ""}, {"f": "AGO_Angola.xlsx", "i": "AGO", "n": "Angola", "d": ""}, {"f": "ALB_Albania.xlsx", "i": "ALB", "n": "Albania", "d": ""}, {"f": "ARE_United_Arab_Emirates.xlsx", "i": "ARE", "n": "United Arab Emirates", "d": ""}, {"f": "ARG_Argentina.xlsx", "i": "ARG", "n": "Argentina", "d": ""}, {"f": "ARM_Armenia.xlsx", "i": "ARM", "n": "Armenia", "d": ""}, {"f": "AUS_Australia.xlsx", "i": "AUS", "n": "Australia", "d": ""}, {"f": "AUT_Austria.xlsx", "i": "AUT", "n": "Austria", "d": ""}, {"f": "AZE_Azerbaijan.xlsx", "i": "AZE", "n": "Azerbaijan", "d": ""}, {"f": "BDI_Burundi.xlsx", "i": "BDI", "n": "Burundi", "d": ""}, {"f": "BEL_Belgium.xlsx", "i": "BEL", "n": "Belgium", "d": ""}, {"f": "BEN_Benin.xlsx", "i": "BEN", "n": "Benin", "d": ""}, {"f": "BFA_Burkina_Faso.xlsx", "i": "BFA", "n": "Burkina Faso", "d": ""}, {"f": "BGD_Bangladesh.xlsx", "i": "BGD", "n": "Bangladesh", "d": ""}, {"f": "BGR_Bulgaria.xlsx", "i": "BGR", "n": "Bulgaria", "d": ""}, {"f": "BHR_Bahrain.xlsx", "i": "BHR", "n": "Bahrain", "d": ""}, {"f": "BHS_Bahamas,_The.xlsx", "i": "BHS", "n": "Bahamas, The", "d": ""}, {"f": "BIH_Bosnia_and_Herzegovina.xlsx", "i": "BIH", "n": "Bosnia and Herzegovina", "d": ""}, {"f": "BLR_Belarus.xlsx", "i": "BLR", "n": "Belarus", "d": ""}, {"f": "BLZ_Belize.xlsx", "i": "BLZ", "n": "Belize", "d": ""}, {"f": "BOL_Bolivia.xlsx", "i": "BOL", "n": "Bolivia", "d": ""}, {"f": "BRA_Brazil.xlsx", "i": "BRA", "n": "Brazil", "d": ""}, {"f": "BRB_Barbados.xlsx", "i": "BRB", "n": "Barbados", "d": ""}, {"f": "BRN_Brunei_Darussalam.xlsx", "i": "BRN", "n": "Brunei Darussalam", "d": ""}, {"f": "BTN_Bhutan.xlsx", "i": "BTN", "n": "Bhutan", "d": ""}, {"f": "BWA_Botswana.xlsx", "i": "BWA", "n": "Botswana", "d": ""}, {"f": "CAF_Central_African_Republic.xlsx", "i": "CAF", "n": "Central African Republic", "d": ""}, {"f": "CAN_Canada.xlsx", "i": "CAN", "n": "Canada", "d": ""}, {"f": "CHE_Switzerland.xlsx", "i": "CHE", "n": "Switzerland", "d": ""}, {"f": "CHI_Channel_Islands.xlsx", "i": "CHI", "n": "Channel Islands", "d": ""}, {"f": "CHL_Chile.xlsx", "i": "CHL", "n": "Chile", "d": ""}, {"f": "CHN_China.xlsx", "i": "CHN", "n": "China", "d": ""}, {"f": "CIV_Cote_d'Ivoire.xlsx", "i": "CIV", "n": "Cote d'Ivoire", "d": ""}, {"f": "CMR_Cameroon.xlsx", "i": "CMR", "n": "Cameroon", "d": ""}, {"f": "COD_Congo,_Dem._Rep..xlsx", "i": "COD", "n": "Congo, Dem. Rep.", "d": ""}, {"f": "COG_Congo,_Rep..xlsx", "i": "COG", "n": "Congo, Rep.", "d": ""}, {"f": "COL_Colombia.xlsx", "i": "COL", "n": "Colombia", "d": ""}, {"f": "COM_Comoros.xlsx", "i": "COM", "n": "Comoros", "d": ""}, {"f": "CPV_Cabo_Verde.xlsx", "i": "CPV", "n": "Cabo Verde", "d": ""}, {"f": "CRI_Costa_Rica.xlsx", "i": "CRI", "n": "Costa Rica", "d": ""}, {"f": "CUB_Cuba.xlsx", "i": "CUB", "n": "Cuba", "d": ""}, {"f": "CYP_Cyprus.xlsx", "i": "CYP", "n": "Cyprus", "d": ""}, {"f": "CZE_Czechia.xlsx", "i": "CZE", "n": "Czechia", "d": ""}, {"f": "DEU_Germany.xlsx", "i": "DEU", "n": "Germany", "d": ""}, {"f": "DJI_Djibouti.xlsx", "i": "DJI", "n": "Djibouti", "d": ""}, {"f": "DNK_Denmark.xlsx", "i": "DNK", "n": "Denmark", "d": ""}, {"f": "DOM_Dominican_Republic.xlsx", "i": "DOM", "n": "Dominican Republic", "d": ""}, {"f": "DZA_Algeria.xlsx", "i": "DZA", "n": "Algeria", "d": ""}, {"f": "ECU_Ecuador.xlsx", "i": "ECU", "n": "Ecuador", "d": ""}, {"f": "EGY_Egypt,_Arab_Rep..xlsx", "i": "EGY", "n": "Egypt, Arab Rep.", "d": ""}, {"f": "ERI_Eritrea.xlsx", "i": "ERI", "n": "Eritrea", "d": ""}, {"f": "ESP_Spain.xlsx", "i": "ESP", "n": "Spain", "d": ""}, {"f": "EST_Estonia.xlsx", "i": "EST", "n": "Estonia", "d": ""}, {"f": "ETH_Ethiopia.xlsx", "i": "ETH", "n": "Ethiopia", "d": ""}, {"f": "FIN_Finland.xlsx", "i": "FIN", "n": "Finland", "d": ""}, {"f": "FJI_Fiji.xlsx", "i": "FJI", "n": "Fiji", "d": ""}, {"f": "FRA_France.xlsx", "i": "FRA", "n": "France", "d": ""}, {"f": "GAB_Gabon.xlsx", "i": "GAB", "n": "Gabon", "d": ""}, {"f": "GBR_United_Kingdom.xlsx", "i": "GBR", "n": "United Kingdom", "d": ""}, {"f": "GEO_Georgia.xlsx", "i": "GEO", "n": "Georgia", "d": ""}, {"f": "GHA_Ghana.xlsx", "i": "GHA", "n": "Ghana", "d": ""}, {"f": "GIN_Guinea.xlsx", "i": "GIN", "n": "Guinea", "d": ""}, {"f": "GMB_Gambia,_The.xlsx", "i": "GMB", "n": "Gambia, The", "d": ""}, {"f": "GNB_Guinea-Bissau.xlsx", "i": "GNB", "n": "Guinea-Bissau", "d": ""}, {"f": "GNQ_Equatorial_Guinea.xlsx", "i": "GNQ", "n": "Equatorial Guinea", "d": ""}, {"f": "GRC_Greece.xlsx", "i": "GRC", "n": "Greece", "d": ""}, {"f": "GTM_Guatemala.xlsx", "i": "GTM", "n": "Guatemala", "d": ""}, {"f": "GUM_Guam.xlsx", "i": "GUM", "n": "Guam", "d": ""}, {"f": "GUY_Guyana.xlsx", "i": "GUY", "n": "Guyana", "d": ""}, {"f": "HKG_Hong_Kong_SAR,_China.xlsx", "i": "HKG", "n": "Hong Kong SAR, China", "d": ""}, {"f": "HND_Honduras.xlsx", "i": "HND", "n": "Honduras", "d": ""}, {"f": "HRV_Croatia.xlsx", "i": "HRV", "n": "Croatia", "d": ""}, {"f": "HTI_Haiti.xlsx", "i": "HTI", "n": "Haiti", "d": ""}, {"f": "HUN_Hungary.xlsx", "i": "HUN", "n": "Hungary", "d": ""}, {"f": "IDN_Indonesia.xlsx", "i": "IDN", "n": "Indonesia", "d": ""}, {"f": "IND_India.xlsx", "i": "IND", "n": "India", "d": ""}, {"f": "IRL_Ireland.xlsx", "i": "IRL", "n": "Ireland", "d": ""}, {"f": "IRN_Iran,_Islamic_Rep..xlsx", "i": "IRN", "n": "Iran, Islamic Rep.", "d": ""}, {"f": "IRQ_Iraq.xlsx", "i": "IRQ", "n": "Iraq", "d": ""}, {"f": "ISL_Iceland.xlsx", "i": "ISL", "n": "Iceland", "d": ""}, {"f": "ISR_Israel.xlsx", "i": "ISR", "n": "Israel", "d": ""}, {"f": "ITA_Italy.xlsx", "i": "ITA", "n": "Italy", "d": ""}, {"f": "JAM_Jamaica.xlsx", "i": "JAM", "n": "Jamaica", "d": ""}, {"f": "JOR_Jordan.xlsx", "i": "JOR", "n": "Jordan", "d": ""}, {"f": "JPN_Japan.xlsx", "i": "JPN", "n": "Japan", "d": ""}, {"f": "KAZ_Kazakhstan.xlsx", "i": "KAZ", "n": "Kazakhstan", "d": ""}, {"f": "KEN_Kenya.xlsx", "i": "KEN", "n": "Kenya", "d": ""}, {"f": "KGZ_Kyrgyz_Republic.xlsx", "i": "KGZ", "n": "Kyrgyz Republic", "d": ""}, {"f": "KHM_Cambodia.xlsx", "i": "KHM", "n": "Cambodia", "d": ""}, {"f": "KOR_Korea,_Rep..xlsx", "i": "KOR", "n": "Korea, Rep.", "d": ""}, {"f": "KWT_Kuwait.xlsx", "i": "KWT", "n": "Kuwait", "d": ""}, {"f": "LAO_Lao_PDR.xlsx", "i": "LAO", "n": "Lao PDR", "d": ""}, {"f": "LBN_Lebanon.xlsx", "i": "LBN", "n": "Lebanon", "d": ""}, {"f": "LBR_Liberia.xlsx", "i": "LBR", "n": "Liberia", "d": ""}, {"f": "LBY_Libya.xlsx", "i": "LBY", "n": "Libya", "d": ""}, {"f": "LCA_St._Lucia.xlsx", "i": "LCA", "n": "St. Lucia", "d": ""}, {"f": "LKA_Sri_Lanka.xlsx", "i": "LKA", "n": "Sri Lanka", "d": ""}, {"f": "LSO_Lesotho.xlsx", "i": "LSO", "n": "Lesotho", "d": ""}, {"f": "LTU_Lithuania.xlsx", "i": "LTU", "n": "Lithuania", "d": ""}, {"f": "LUX_Luxembourg.xlsx", "i": "LUX", "n": "Luxembourg", "d": ""}, {"f": "LVA_Latvia.xlsx", "i": "LVA", "n": "Latvia", "d": ""}, {"f": "MAC_Macao_SAR,_China.xlsx", "i": "MAC", "n": "Macao SAR, China", "d": ""}, {"f": "MAR_Morocco.xlsx", "i": "MAR", "n": "Morocco", "d": ""}, {"f": "MDA_Moldova.xlsx", "i": "MDA", "n": "Moldova", "d": ""}, {"f": "MDG_Madagascar.xlsx", "i": "MDG", "n": "Madagascar", "d": ""}, {"f": "MDV_Maldives.xlsx", "i": "MDV", "n": "Maldives", "d": ""}, {"f": "MEX_Mexico.xlsx", "i": "MEX", "n": "Mexico", "d": ""}, {"f": "MKD_North_Macedonia.xlsx", "i": "MKD", "n": "North Macedonia", "d": ""}, {"f": "MLI_Mali.xlsx", "i": "MLI", "n": "Mali", "d": ""}, {"f": "MLT_Malta.xlsx", "i": "MLT", "n": "Malta", "d": ""}, {"f": "MMR_Myanmar.xlsx", "i": "MMR", "n": "Myanmar", "d": ""}, {"f": "MNE_Montenegro.xlsx", "i": "MNE", "n": "Montenegro", "d": ""}, {"f": "MNG_Mongolia.xlsx", "i": "MNG", "n": "Mongolia", "d": ""}, {"f": "MOZ_Mozambique.xlsx", "i": "MOZ", "n": "Mozambique", "d": ""}, {"f": "MRT_Mauritania.xlsx", "i": "MRT", "n": "Mauritania", "d": ""}, {"f": "MUS_Mauritius.xlsx", "i": "MUS", "n": "Mauritius", "d": ""}, {"f": "MWI_Malawi.xlsx", "i": "MWI", "n": "Malawi", "d": ""}, {"f": "MYS_Malaysia.xlsx", "i": "MYS", "n": "Malaysia", "d": ""}, {"f": "NAM_Namibia.xlsx", "i": "NAM", "n": "Namibia", "d": ""}, {"f": "NCL_New_Caledonia.xlsx", "i": "NCL", "n": "New Caledonia", "d": ""}, {"f": "NER_Niger.xlsx", "i": "NER", "n": "Niger", "d": ""}, {"f": "NGA_Nigeria.xlsx", "i": "NGA", "n": "Nigeria", "d": ""}, {"f": "NIC_Nicaragua.xlsx", "i": "NIC", "n": "Nicaragua", "d": ""}, {"f": "NLD_Netherlands.xlsx", "i": "NLD", "n": "Netherlands", "d": ""}, {"f": "NOR_Norway.xlsx", "i": "NOR", "n": "Norway", "d": ""}, {"f": "NPL_Nepal.xlsx", "i": "NPL", "n": "Nepal", "d": ""}, {"f": "NZL_New_Zealand.xlsx", "i": "NZL", "n": "New Zealand", "d": ""}, {"f": "OMN_Oman.xlsx", "i": "OMN", "n": "Oman", "d": ""}, {"f": "PAK_Pakistan.xlsx", "i": "PAK", "n": "Pakistan", "d": ""}, {"f": "PAN_Panama.xlsx", "i": "PAN", "n": "Panama", "d": ""}, {"f": "PER_Peru.xlsx", "i": "PER", "n": "Peru", "d": ""}, {"f": "PHL_Philippines.xlsx", "i": "PHL", "n": "Philippines", "d": ""}, {"f": "PNG_Papua_New_Guinea.xlsx", "i": "PNG", "n": "Papua New Guinea", "d": ""}, {"f": "POL_Poland.xlsx", "i": "POL", "n": "Poland", "d": ""}, {"f": "PRI_Puerto_Rico_(US).xlsx", "i": "PRI", "n": "Puerto Rico (US)", "d": ""}, {"f": "PRT_Portugal.xlsx", "i": "PRT", "n": "Portugal", "d": ""}, {"f": "PRY_Paraguay.xlsx", "i": "PRY", "n": "Paraguay", "d": ""}, {"f": "PSE_West_Bank_and_Gaza.xlsx", "i": "PSE", "n": "West Bank and Gaza", "d": ""}, {"f": "PYF_French_Polynesia.xlsx", "i": "PYF", "n": "French Polynesia", "d": ""}, {"f": "QAT_Qatar.xlsx", "i": "QAT", "n": "Qatar", "d": ""}, {"f": "ROU_Romania.xlsx", "i": "ROU", "n": "Romania", "d": ""}, {"f": "RUS_Russian_Federation.xlsx", "i": "RUS", "n": "Russian Federation", "d": ""}, {"f": "RWA_Rwanda.xlsx", "i": "RWA", "n": "Rwanda", "d": ""}, {"f": "SAU_Saudi_Arabia.xlsx", "i": "SAU", "n": "Saudi Arabia", "d": ""}, {"f": "SDN_Sudan.xlsx", "i": "SDN", "n": "Sudan", "d": ""}, {"f": "SEN_Senegal.xlsx", "i": "SEN", "n": "Senegal", "d": ""}, {"f": "SGP_Singapore.xlsx", "i": "SGP", "n": "Singapore", "d": ""}, {"f": "SLB_Solomon_Islands.xlsx", "i": "SLB", "n": "Solomon Islands", "d": ""}, {"f": "SLE_Sierra_Leone.xlsx", "i": "SLE", "n": "Sierra Leone", "d": ""}, {"f": "SLV_El_Salvador.xlsx", "i": "SLV", "n": "El Salvador", "d": ""}, {"f": "SOM_Somalia,_Fed._Rep..xlsx", "i": "SOM", "n": "Somalia, Fed. Rep.", "d": ""}, {"f": "SRB_Serbia.xlsx", "i": "SRB", "n": "Serbia", "d": ""}, {"f": "SSD_South_Sudan.xlsx", "i": "SSD", "n": "South Sudan", "d": ""}, {"f": "STP_Sao_Tome_and_Principe.xlsx", "i": "STP", "n": "Sao Tome and Principe", "d": ""}, {"f": "SUR_Suriname.xlsx", "i": "SUR", "n": "Suriname", "d": ""}, {"f": "SVK_Slovak_Republic.xlsx", "i": "SVK", "n": "Slovak Republic", "d": ""}, {"f": "SVN_Slovenia.xlsx", "i": "SVN", "n": "Slovenia", "d": ""}, {"f": "SWE_Sweden.xlsx", "i": "SWE", "n": "Sweden", "d": ""}, {"f": "SWZ_Eswatini.xlsx", "i": "SWZ", "n": "Eswatini", "d": ""}, {"f": "SYR_Syrian_Arab_Republic.xlsx", "i": "SYR", "n": "Syrian Arab Republic", "d": ""}, {"f": "TCD_Chad.xlsx", "i": "TCD", "n": "Chad", "d": ""}, {"f": "TGO_Togo.xlsx", "i": "TGO", "n": "Togo", "d": ""}, {"f": "THA_Thailand.xlsx", "i": "THA", "n": "Thailand", "d": ""}, {"f": "TJK_Tajikistan.xlsx", "i": "TJK", "n": "Tajikistan", "d": ""}, {"f": "TKM_Turkmenistan.xlsx", "i": "TKM", "n": "Turkmenistan", "d": ""}, {"f": "TLS_Timor-Leste.xlsx", "i": "TLS", "n": "Timor-Leste", "d": ""}, {"f": "TON_Tonga.xlsx", "i": "TON", "n": "Tonga", "d": ""}, {"f": "TTO_Trinidad_and_Tobago.xlsx", "i": "TTO", "n": "Trinidad and Tobago", "d": ""}, {"f": "TUN_Tunisia.xlsx", "i": "TUN", "n": "Tunisia", "d": ""}, {"f": "TUR_Turkiye.xlsx", "i": "TUR", "n": "Turkiye", "d": ""}, {"f": "TZA_Tanzania.xlsx", "i": "TZA", "n": "Tanzania", "d": ""}, {"f": "UGA_Uganda.xlsx", "i": "UGA", "n": "Uganda", "d": ""}, {"f": "UKR_Ukraine.xlsx", "i": "UKR", "n": "Ukraine", "d": ""}, {"f": "URY_Uruguay.xlsx", "i": "URY", "n": "Uruguay", "d": ""}, {"f": "USA_United_States.xlsx", "i": "USA", "n": "United States", "d": ""}, {"f": "UZB_Uzbekistan.xlsx", "i": "UZB", "n": "Uzbekistan", "d": ""}, {"f": "VCT_St._Vincent_and_the_Grenadines.xlsx", "i": "VCT", "n": "St. Vincent and the Grenadines", "d": ""}, {"f": "VIR_Virgin_Islands_(U.S.).xlsx", "i": "VIR", "n": "Virgin Islands (U.S.)", "d": ""}, {"f": "VNM_Viet_Nam.xlsx", "i": "VNM", "n": "Viet Nam", "d": ""}, {"f": "VUT_Vanuatu.xlsx", "i": "VUT", "n": "Vanuatu", "d": ""}, {"f": "WSM_Samoa.xlsx", "i": "WSM", "n": "Samoa", "d": ""}, {"f": "YEM_Yemen,_Rep..xlsx", "i": "YEM", "n": "Yemen, Rep.", "d": ""}, {"f": "ZAF_South_Africa.xlsx", "i": "ZAF", "n": "South Africa", "d": ""}, {"f": "ZMB_Zambia.xlsx", "i": "ZMB", "n": "Zambia", "d": ""}, {"f": "ZWE_Zimbabwe.xlsx", "i": "ZWE", "n": "Zimbabwe", "d": ""}];
 
-        // Populate dropdown immediately (no API call needed)
         const select = document.getElementById('countrySelect');
         COUNTRIES.forEach(c => {
             const opt = document.createElement('option');
-            opt.value = c.f;
+            opt.value = JSON.stringify(c);
             opt.textContent = c.n + ' (' + c.i + ')';
             select.appendChild(opt);
         });
@@ -154,24 +131,61 @@
             document.getElementById('downloadBtn').disabled = !select.value;
         });
 
-        function downloadKit() {
-            const file = select.value;
-            if (!file) return;
-            // Direct S3 download — no backend needed
-            const url = S3_BASE + '/' + encodeURIComponent(file);
+        async function downloadKit() {
+            if (!select.value) return;
+            const c = JSON.parse(select.value);
+            const btn = document.getElementById('downloadBtn');
+            const status = document.getElementById('status');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Downloading...';
+
+            // Try 1: S3 (full kit, 11 variables)
+            const s3Url = S3_BASE + '/' + encodeURIComponent(c.f);
+            status.className = 'status loading';
+            status.textContent = 'Downloading from primary source...';
+            status.style.display = 'block';
+
+            try {
+                const resp = await fetch(s3Url, { mode: 'cors', signal: AbortSignal.timeout(8000) });
+                if (resp.ok) {
+                    const blob = await resp.blob();
+                    dl(blob, c.f);
+                    show('success', '\u2713 Downloaded ' + c.n + ' (full kit, 11 variables)');
+                    reset(); return;
+                }
+                throw new Error('S3: ' + resp.status);
+            } catch(e) { console.log('S3 failed:', e.message); }
+
+            // Try 2: Google Drive fallback (Population + GDP)
+            if (c.d) {
+                status.textContent = 'Using backup source (Google Drive)...';
+                window.open(c.d, '_blank');
+                show('warn', '\u2713 Downloaded ' + c.n + ' via Google Drive (Population + GDP)');
+                reset(); return;
+            }
+
+            show('error', 'Download failed. Please try again later.');
+            reset();
+        }
+
+        function dl(blob, name) {
             const a = document.createElement('a');
-            a.href = url;
-            a.download = file;
+            a.href = URL.createObjectURL(blob);
+            a.download = name;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-
-            const c = COUNTRIES.find(x => x.f === file);
-            const status = document.getElementById('status');
-            status.className = 'status success';
-            status.textContent = '\u2713 Downloading ' + (c ? c.n : file) + '...';
-            status.style.display = 'block';
-            setTimeout(() => { status.style.display = 'none'; }, 3000);
+            URL.revokeObjectURL(a.href);
+        }
+        function show(t, m) {
+            const s = document.getElementById('status');
+            s.className = 'status ' + t; s.textContent = m; s.style.display = 'block';
+            if (t !== 'error') setTimeout(() => { s.style.display = 'none'; }, 5000);
+        }
+        function reset() {
+            const b = document.getElementById('downloadBtn');
+            b.disabled = false;
+            b.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download Excel';
         }
     </script>
 </body>
