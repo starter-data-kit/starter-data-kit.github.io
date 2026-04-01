@@ -139,7 +139,6 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner"></span> Downloading...';
 
-            // Try 1: S3 (full kit, 11 variables)
             const s3Url = S3_BASE + '/' + encodeURIComponent(c.f);
             status.className = 'status loading';
             status.textContent = 'Downloading from primary source...';
@@ -156,11 +155,10 @@
                 throw new Error('S3: ' + resp.status);
             } catch(e) { console.log('S3 failed:', e.message); }
 
-            // Try 2: Google Drive fallback (Population + GDP)
             if (c.d) {
                 status.textContent = 'Using backup source (Google Drive)...';
                 window.open(c.d, '_blank');
-                show('warn', '\u2713 Downloaded ' + c.n + ' via Google Drive (Population + GDP)');
+                show('warn', '\u2713 Downloaded ' + c.n + ' via Google Drive (11 variables)');
                 reset(); return;
             }
 
