@@ -1,88 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSeMOSYS - Starter Data Kits</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; color: #1a202c; min-height: 100vh; }
-        .header { background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%); color: white; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1rem; }
-        .header a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.95rem; }
-        .header a:hover { color: white; }
-        .header h1 { font-size: 1.5rem; font-weight: 600; }
-        .header .sep { color: rgba(255,255,255,0.4); }
-        .hero { background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%); color: white; padding: 3rem 2rem; text-align: center; }
-        .hero img { height: 80px; margin-bottom: 1rem; }
-        .hero h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 600px; margin: 0 auto; }
-        .content { max-width: 700px; margin: 2rem auto; padding: 0 1.5rem; }
-        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 1.5rem; }
-        .card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: #2d3748; }
-        .card p { font-size: 0.9rem; color: #718096; margin-bottom: 1.25rem; line-height: 1.5; }
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
-        .btn-primary { background: #38a169; color: white; }
-        .btn-primary:hover { background: #2f855a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(56,161,105,0.3); }
-        .btn-outline { background: transparent; color: #4a5568; border: 2px solid #e2e8f0; }
-        .btn-outline:hover { border-color: #a0aec0; background: #f7fafc; }
-        .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-        .stats { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
-        .stat { text-align: center; }
-        .stat .num { font-size: 1.5rem; font-weight: 700; color: #38a169; }
-        .stat .label { font-size: 0.8rem; color: #718096; }
-        .sheet-info { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
-        .sheet-info h4 { font-size: 0.95rem; color: #2d3748; margin-bottom: 0.35rem; }
-        .sheet-info p { font-size: 0.85rem; color: #718096; margin: 0; line-height: 1.5; }
-        .footer { text-align: center; padding: 2rem; color: #a0aec0; font-size: 0.85rem; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSeMOSYS — Starter Data Kits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f2ee;--tx:#1a1a1a;--mt:#5c5c5c;--ac:#5dade2;--cd:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bg::before{content:'';position:absolute;top:-30%;right:-20%;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(45,106,79,.06)0%,transparent 70%)}
+.w{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 24px}
+.back{display:inline-flex;align-items:center;gap:6px;margin-top:40px;font-size:.9rem;color:var(--mt);text-decoration:none;transition:color .2s}
+.back:hover{color:var(--ac)}
+.back svg{width:18px;height:18px}
+.hdr{text-align:center;padding:40px 0 12px}
+.hdr .ic{width:72px;height:72px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:var(--ac);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
+.hdr p{color:var(--mt);font-size:1rem}
+.line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
+.field{margin-bottom:20px}
+.field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
+.field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.field select:focus{outline:none;border-color:var(--ac)}
+.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center;text-decoration:none}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
+.btn svg{width:20px;height:20px}
+.note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
+footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+</style>
 </head>
 <body>
-    <div class="header">
-        <a href="../">&#8592; Back to Tools</a>
-        <span class="sep">|</span>
-        <h1>OSeMOSYS</h1>
+<div class="bg"></div>
+<div class="w">
+  <a href="../" class="back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    All Tools
+  </a>
+  <div class="hdr">
+    <div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+    <h1>OSeMOSYS</h1>
+    <p>Open Source Energy Modelling System</p>
+  </div>
+  <div class="line"></div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="country">Country</label>
+      <select id="country">
+        <option value="">— Select a country —</option>
+        <option value="Angola_AGO">Angola</option>
+        <option value="Benin_BEN">Benin</option>
+        <option value="Botswana_BWA">Botswana</option>
+        <option value="Burkina Faso_BFA">Burkina Faso</option>
+        <option value="Burundi_BDI">Burundi</option>
+        <option value="Cabo Verde_CPV">Cabo Verde</option>
+        <option value="Cameroon_CMR">Cameroon</option>
+        <option value="Central African Republic_CAF">Central African Republic</option>
+        <option value="Chad_TCD">Chad</option>
+        <option value="Comoros_COM">Comoros</option>
+        <option value="Côte d'Ivoire_CIV">Côte d'Ivoire</option>
+        <option value="Democratic Republic of the Congo_COD">DR Congo</option>
+        <option value="Djibouti_DJI">Djibouti</option>
+        <option value="Equatorial Guinea_GNQ">Equatorial Guinea</option>
+        <option value="Eritrea_ERI">Eritrea</option>
+        <option value="Eswatini_SWZ">Eswatini</option>
+        <option value="Ethiopia_ETH">Ethiopia</option>
+        <option value="Gabon_GAB">Gabon</option>
+        <option value="Gambia_GMB">Gambia</option>
+        <option value="Ghana_GHA">Ghana</option>
+        <option value="Guinea_GIN">Guinea</option>
+        <option value="Guinea-Bissau_GNB">Guinea-Bissau</option>
+        <option value="Kenya_KEN">Kenya</option>
+        <option value="Lesotho_LSO">Lesotho</option>
+        <option value="Liberia_LBR">Liberia</option>
+        <option value="Madagascar_MDG">Madagascar</option>
+        <option value="Malawi_MWI">Malawi</option>
+        <option value="Mali_MLI">Mali</option>
+        <option value="Mauritania_MRT">Mauritania</option>
+        <option value="Mauritius_MUS">Mauritius</option>
+        <option value="Mozambique_MOZ">Mozambique</option>
+        <option value="Namibia_NAM">Namibia</option>
+        <option value="Niger_NER">Niger</option>
+        <option value="Nigeria_NGA">Nigeria</option>
+        <option value="Republic of Congo_COG">Republic of Congo</option>
+        <option value="Rwanda_RWA">Rwanda</option>
+        <option value="São Tomé and Príncipe_STP">São Tomé and Príncipe</option>
+        <option value="Senegal_SEN">Senegal</option>
+        <option value="Sierra Leone_SLE">Sierra Leone</option>
+        <option value="Somalia_SOM">Somalia</option>
+        <option value="South Africa_ZAF">South Africa</option>
+        <option value="South Sudan_SSD">South Sudan</option>
+        <option value="Sudan_SDN">Sudan</option>
+        <option value="Tanzania_TZA">Tanzania</option>
+        <option value="Togo_TGO">Togo</option>
+        <option value="Uganda_UGA">Uganda</option>
+        <option value="Zambia_ZMB">Zambia</option>
+        <option value="Zimbabwe_ZWE">Zimbabwe</option>
+      </select>
     </div>
 
-    <div class="hero">
-        <img src="https://starter-data-kit.github.io/assets/img/OSeMOSYS_Logo.png" alt="OSeMOSYS Logo" onerror="this.style.display='none'">
-        <h2>Open Source Energy Modelling System</h2>
-        <p>Download country-specific Starter Data Kits for building OSeMOSYS energy system models.</p>
-    </div>
+    <button class="btn" id="dlBtn" disabled onclick="openFolder()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Files
+    </button>
 
-    <div class="content">
-        <div class="card">
-            <h3>Download Starter Data Kits</h3>
-            <p>Browse and download country-specific OSeMOSYS data kits from our shared folder. All files are available as Excel workbooks, ready to use as a starting point for energy system analysis.</p>
+    <p class="note">Opens the country data folder on Google Drive where you can download individual files.</p>
+  </div>
+</div>
 
-            <div class="btn-row">
-                <a class="btn btn-primary"
-                   href="https://lunet-my.sharepoint.com/:f:/g/personal/fapn01_lunet_lboro_ac_uk/IgDOVn2A5Fd-TqOuNNCGJKKPAelN43-_JYVQVc0tyB_Mkbk?e=O6B3mB"
-                   target="_blank">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                    Browse &amp; Download Files
-                </a>
-                <a class="btn btn-outline" href="https://osemosys.readthedocs.io/" target="_blank">
-                    OSeMOSYS Docs &#8599;
-                </a>
-            </div>
+<footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
-            <div class="stats">
-                <div class="stat"><div class="num">48</div><div class="label">Countries</div></div>
-                <div class="stat"><div class="num">Excel</div><div class="label">Format</div></div>
-                <div class="stat"><div class="num">Africa</div><div class="label">Region</div></div>
-            </div>
-        </div>
+<script>
+var PARENT_FOLDER = 'https://drive.google.com/drive/folders/1pTpd9xQn7-Q-2V75Y84DSgn1GohmdLoR';
+var sel = document.getElementById('country');
+var btn = document.getElementById('dlBtn');
 
-        <div class="card">
-            <h3>About</h3>
-            <p>OSeMOSYS is an open-source framework for long-run energy planning. Each Starter Data Kit contains pre-assembled input data to help you build a country-level energy system model.</p>
-            <div class="sheet-info">
-                <h4>&#128203; What&#8217;s included</h4>
-                <p>Country-specific energy supply and demand data formatted for use with the OSeMOSYS modelling framework. Ready to use as a starting point for energy system analysis.</p>
-            </div>
-        </div>
-    </div>
+sel.addEventListener('change', function() {
+  btn.disabled = !sel.value;
+});
 
-    <div class="footer">Starter Data Kits &middot; Climate Compatible Growth Programme</div>
+function openFolder() {
+  window.open(PARENT_FOLDER, '_blank');
+}
+</script>
 </body>
 </html>
