@@ -15,7 +15,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .back:hover{color:var(--ac)}
 .back svg{width:18px;height:18px}
 .hdr{text-align:center;padding:40px 0 12px}
-.hdr .ic{width:72px;height:72px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:var(--ac);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.hdr .logo{width:90px;height:90px;object-fit:contain;margin:0 auto 16px;display:block}
 .hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
 .hdr p{color:var(--mt);font-size:1rem}
 .line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
@@ -24,12 +24,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .field select:focus{outline:none;border-color:var(--ac)}
-.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center;text-decoration:none}
+.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center}
 .btn:hover{opacity:.88;transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
+.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none;text-align:center}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -42,7 +43,7 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
     All Tools
   </a>
   <div class="hdr">
-    <div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+    <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/osemosys_logo.png" alt="OSeMOSYS">
     <h1>OSeMOSYS</h1>
     <p>Open Source Energy Modelling System</p>
   </div>
@@ -104,29 +105,24 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       </select>
     </div>
 
-    <button class="btn" id="dlBtn" disabled onclick="openFolder()">
+    <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Files
     </button>
 
-    <p class="note">Opens the country data folder on Google Drive where you can download individual files.</p>
+    <p class="note">Opens the country data folder on Google Drive.</p>
+    <div class="msg" id="msg"></div>
   </div>
 </div>
 
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
-var PARENT_FOLDER = 'https://drive.google.com/drive/folders/1pTpd9xQn7-Q-2V75Y84DSgn1GohmdLoR';
+var FOLDER = 'https://drive.google.com/drive/folders/1pTpd9xQn7-Q-2V75Y84DSgn1GohmdLoR';
 var sel = document.getElementById('country');
 var btn = document.getElementById('dlBtn');
-
-sel.addEventListener('change', function() {
-  btn.disabled = !sel.value;
-});
-
-function openFolder() {
-  window.open(PARENT_FOLDER, '_blank');
-}
+sel.addEventListener('change', function() { btn.disabled = !sel.value; });
+function doDownload() { window.open(FOLDER, '_blank'); }
 </script>
 </body>
 </html>
