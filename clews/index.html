@@ -53,77 +53,94 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       <label for="country">Country</label>
       <select id="country">
         <option value="">— Select a country —</option>
-        <option value="Angola">Angola</option>
-        <option value="Benin">Benin</option>
-        <option value="Botswana">Botswana</option>
-        <option value="Burkina Faso">Burkina Faso</option>
-        <option value="Burundi">Burundi</option>
-        <option value="Cabo Verde">Cabo Verde</option>
-        <option value="Cameroon">Cameroon</option>
-        <option value="Central African Republic">Central African Republic</option>
-        <option value="Chad">Chad</option>
-        <option value="Comoros">Comoros</option>
-        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-        <option value="DR Congo">DR Congo</option>
-        <option value="Djibouti">Djibouti</option>
-        <option value="Equatorial Guinea">Equatorial Guinea</option>
-        <option value="Eritrea">Eritrea</option>
-        <option value="Eswatini">Eswatini</option>
-        <option value="Ethiopia">Ethiopia</option>
-        <option value="Gabon">Gabon</option>
-        <option value="Gambia">Gambia</option>
-        <option value="Ghana">Ghana</option>
-        <option value="Guinea">Guinea</option>
-        <option value="Guinea-Bissau">Guinea-Bissau</option>
-        <option value="Kenya">Kenya</option>
-        <option value="Lesotho">Lesotho</option>
-        <option value="Liberia">Liberia</option>
-        <option value="Madagascar">Madagascar</option>
-        <option value="Malawi">Malawi</option>
-        <option value="Mali">Mali</option>
-        <option value="Mauritania">Mauritania</option>
-        <option value="Mauritius">Mauritius</option>
-        <option value="Mozambique">Mozambique</option>
-        <option value="Namibia">Namibia</option>
-        <option value="Niger">Niger</option>
-        <option value="Nigeria">Nigeria</option>
-        <option value="Republic of Congo">Republic of Congo</option>
-        <option value="Rwanda">Rwanda</option>
-        <option value="São Tomé and Príncipe">São Tomé and Príncipe</option>
-        <option value="Senegal">Senegal</option>
-        <option value="Sierra Leone">Sierra Leone</option>
-        <option value="Somalia">Somalia</option>
-        <option value="South Africa">South Africa</option>
-        <option value="South Sudan">South Sudan</option>
-        <option value="Sudan">Sudan</option>
-        <option value="Tanzania">Tanzania</option>
-        <option value="Togo">Togo</option>
-        <option value="Uganda">Uganda</option>
-        <option value="Zambia">Zambia</option>
-        <option value="Zimbabwe">Zimbabwe</option>
+        <!-- Populated dynamically from FILES below -->
       </select>
     </div>
 
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download Files
+      Download Excel
     </button>
 
-    <p class="note">Opens the CLEWs data folder on Google Drive. Your file will be named <code>1_C_SDK_&lt;Country&gt;.xlsx</code>.</p>
+    <p class="note">Downloads <code>1_C_SDK_&lt;Country&gt;.xlsx</code> directly from Google Drive.</p>
   </div>
 </div>
 
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
-var FOLDER = 'https://drive.google.com/drive/folders/1iPmyWj2lGn8K191x0vCihuZqqsHcOH6f';
+// Country -> Google Drive file ID mapping
+var FILES = {
+  "Angola": "1zyOysn-W4NzODw9whgOvK8HKs8htKLHp",
+  "Benin": "19wIRYLOcD1DNDjPxWekc1PQn6IESIzpH",
+  "Botswana": "17FxxQv8oJmj-SETTybGyhlOGnJhG6rKz",
+  "Burkina Faso": "1fX2UcbJrD_EIr-RUo5p-gY6DFpESQUye",
+  "Burundi": "17vV5Msbq8ci55CO1cVn5zfgCEhuHqT61",
+  "Cabo Verde": "1qAAA22waSZyfo0fxVTFEqzAxrrasHsCS",
+  "Cameroon": "1b_-vT2ViEMgo5-1TxAY-uqHpnigzgD_-",
+  "Central African Republic": "12HDPRDQB6Xh-6NE1CeHB-BNBxwXXupMf",
+  "Chad": "11KAmByVYPmIGrVDTcZitbXu7qHPCUXO-",
+  "Comoros": "1dNKBP8168IsrmxBPWN8z2ksEP7S_THsM",
+  "Côte d’Ivoire": "1TFRMFi5nApclBw8KP--cRJvWhllsuSKC",
+  "Democratic Republic of the Congo": "10QDiKZN7WmoGwLx21apbOZtN-PoS4Dur",
+  "Djibouti": "1InrwWRXWTkPbfQmlYmAWvYMxPnL4wjtJ",
+  "Equatorial Guinea": "1ch8KEMO_6VdbKyPQYQtjOZQG7XKlirz7",
+  "Eritrea": "15pszlMA2q5oajbM7Br0JIrXOmJkfnngu",
+  "Eswatini": "1B-9pbsT8zNAguCYNmJvQiMmJyi61hCkD",
+  "Ethiopia": "1FAL3p5OAmnlwZp35ODXZngAGOVvynCae",
+  "Gabon": "1a_xym20JdKK2wXbb2aTOUclD9r4E9HmO",
+  "Gambia": "1KFhjlP4l2bKmRyJKJLvQVUU1MTO74SY1",
+  "Ghana": "17ikb2jsQ7UT5zAmBSw9v5d6XVkQIxtMb",
+  "Guinea": "1AWxO7VDNak9PvQCg13kCGUDcx_qKP4Tu",
+  "Guinea-Bissau": "1FUuyvAQGM_1cotBuz81C8aJkTY-vJnbG",
+  "Kenya": "1IqShhzTsZ6eAZHV_Dl41HVdrjShAU5zr",
+  "Lesotho": "1QnyNvATYqT0zAQkeLVu3X_o6UAAeZu7x",
+  "Liberia": "1novDpl3g6L8D6CDMOYwaCRBtfCfddlSb",
+  "Madagascar": "10cVF6gz2WEq4SWfi0yR8Rh-NEJWUP-O-",
+  "Malawi": "1C3AFlz-bNAaEugNbR2fXcnYW0FFWI3O2",
+  "Mali": "10-GTMZ_7PGL6iv-KRwHH7KZmkQ8zc1ud",
+  "Mauritania": "1BKQ-9KGgbt_jUBzxFr9WMOqeDi4T6MyT",
+  "Mauritius": "1Qq98sH7588GSkAoswQP8Izbh3oBGIwmz",
+  "Mozambique": "1w5kfx4w4TzU7gED3jhLU1yvKXqI4qKUt",
+  "Namibia": "1pfPq2R5H4fSTmU2BJgYboIzBMs_aGU0e",
+  "Niger": "1p_hevxfGu9H-KPZxVYx3FMYNcKHPXtFQ",
+  "Nigeria": "1n9hzuWrsXZwyZq2raeHJ6KQoUOn-vUvl",
+  "Republic of the Congo": "1CONOwjAT3dca2Kfxwq67sizoobdAOxMk",
+  "Rwanda": "1TFvLc1WfiJ3ISpXGoroK35l-mg5sUcdo",
+  "São Tomé and Príncipe": "1-49Z-d_fpzky-ZZzzmL6XU24d9367jKe",
+  "Senegal": "1vgX5HMovwl6fLx_Zeb1jdBM9U5SBNaSV",
+  "Seychelles": "14ZThUUR5MhKO9IqxXECMXE5dBldWjKOL",
+  "Sierra Leone": "1e8bQWBoWc477eiJnrGyAffHr6Nf0bTV6",
+  "Somalia": "1WdyrhWeOTo3hbdbhT_2q_F1MfDizEpzH",
+  "South Africa": "1KTN1m0MUKmnAjPlU7UTD_fgXQxN5xwqS",
+  "South Sudan": "1oziY9jMuMITmNZ0fAmEIe4VQEm1QC4sj",
+  "Sudan": "1vpXABwBYCKm-mbWcXt0QUHM9whc9rvST",
+  "Tanzania": "1mJaW7zTA8J_Nqf1ZzzxwPxMg6fXz3rs7",
+  "Togo": "1DTKd4e-jCBIAUqSJnj41lYTzsjEW1quq",
+  "Uganda": "1fnB_wQLfAvludneIB7IcTsDkdUZyXI_s",
+  "Zambia": "1mM3qcQ13B89rj5d1yWIRlX-J0nUtF-rz",
+  "Zimbabwe": "1aI7-cDvXztYkWas2Vy5O0CC-P4BCwvwx"
+};
+
+// Populate dropdown alphabetically
 var sel = document.getElementById('country');
 var btn = document.getElementById('dlBtn');
+
+Object.keys(FILES).sort(function(a, b) {
+  return a.localeCompare(b);
+}).forEach(function(name) {
+  var opt = document.createElement('option');
+  opt.value = name;
+  opt.textContent = name;
+  sel.appendChild(opt);
+});
+
 sel.addEventListener('change', function() { btn.disabled = !sel.value; });
+
 function doDownload() {
-  // Opens the folder with the selected country name pre-filled in Drive's search.
-  var q = encodeURIComponent(sel.value);
-  window.open(FOLDER + '?q=' + q, '_blank');
+  var id = FILES[sel.value];
+  if (!id) return;
+  window.location.href = 'https://drive.google.com/uc?export=download&id=' + id;
 }
 </script>
 </body>
