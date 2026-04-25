@@ -30,7 +30,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
-.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none;text-align:center}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -54,75 +53,95 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       <label for="country">Country</label>
       <select id="country">
         <option value="">— Select a country —</option>
-        <option value="Angola_AGO">Angola</option>
-        <option value="Benin_BEN">Benin</option>
-        <option value="Botswana_BWA">Botswana</option>
-        <option value="Burkina Faso_BFA">Burkina Faso</option>
-        <option value="Burundi_BDI">Burundi</option>
-        <option value="Cabo Verde_CPV">Cabo Verde</option>
-        <option value="Cameroon_CMR">Cameroon</option>
-        <option value="Central African Republic_CAF">Central African Republic</option>
-        <option value="Chad_TCD">Chad</option>
-        <option value="Comoros_COM">Comoros</option>
-        <option value="Côte d'Ivoire_CIV">Côte d'Ivoire</option>
-        <option value="Democratic Republic of the Congo_COD">DR Congo</option>
-        <option value="Djibouti_DJI">Djibouti</option>
-        <option value="Equatorial Guinea_GNQ">Equatorial Guinea</option>
-        <option value="Eritrea_ERI">Eritrea</option>
-        <option value="Eswatini_SWZ">Eswatini</option>
-        <option value="Ethiopia_ETH">Ethiopia</option>
-        <option value="Gabon_GAB">Gabon</option>
-        <option value="Gambia_GMB">Gambia</option>
-        <option value="Ghana_GHA">Ghana</option>
-        <option value="Guinea_GIN">Guinea</option>
-        <option value="Guinea-Bissau_GNB">Guinea-Bissau</option>
-        <option value="Kenya_KEN">Kenya</option>
-        <option value="Lesotho_LSO">Lesotho</option>
-        <option value="Liberia_LBR">Liberia</option>
-        <option value="Madagascar_MDG">Madagascar</option>
-        <option value="Malawi_MWI">Malawi</option>
-        <option value="Mali_MLI">Mali</option>
-        <option value="Mauritania_MRT">Mauritania</option>
-        <option value="Mauritius_MUS">Mauritius</option>
-        <option value="Mozambique_MOZ">Mozambique</option>
-        <option value="Namibia_NAM">Namibia</option>
-        <option value="Niger_NER">Niger</option>
-        <option value="Nigeria_NGA">Nigeria</option>
-        <option value="Republic of Congo_COG">Republic of Congo</option>
-        <option value="Rwanda_RWA">Rwanda</option>
-        <option value="São Tomé and Príncipe_STP">São Tomé and Príncipe</option>
-        <option value="Senegal_SEN">Senegal</option>
-        <option value="Sierra Leone_SLE">Sierra Leone</option>
-        <option value="Somalia_SOM">Somalia</option>
-        <option value="South Africa_ZAF">South Africa</option>
-        <option value="South Sudan_SSD">South Sudan</option>
-        <option value="Sudan_SDN">Sudan</option>
-        <option value="Tanzania_TZA">Tanzania</option>
-        <option value="Togo_TGO">Togo</option>
-        <option value="Uganda_UGA">Uganda</option>
-        <option value="Zambia_ZMB">Zambia</option>
-        <option value="Zimbabwe_ZWE">Zimbabwe</option>
+        <!-- Populated dynamically from FILES below -->
       </select>
     </div>
 
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download Files
+      Download Excel
     </button>
 
-    <p class="note">Opens the country data folder on Google Drive.</p>
-    <div class="msg" id="msg"></div>
+    <p class="note">Downloads <code>1_SDK_&lt;Country&gt;.xlsx</code> directly from Google Drive.</p>
   </div>
 </div>
 
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
-var FOLDER = 'https://drive.google.com/drive/folders/1pTpd9xQn7-Q-2V75Y84DSgn1GohmdLoR';
+// Country -> Google Drive file ID mapping (49 countries)
+var FILES = {
+  "Angola": "1mVKCrSa45gKukGYFEDd60dHPtXnl67Bo",
+  "Benin": "1mGCNS-UdWB-FC1xT4YSeNqsDgbAFifUn",
+  "Botswana": "1FN1qtLChi7H59Y5al6hAShorG-shOZbd",
+  "Burkina Faso": "1GCQeyBtXH1RYnPaCLpOorVqx-z97-IZL",
+  "Burundi": "1VwW33H3dtnQLqMQPBWXF98cqCOlcwgjb",
+  "Cabo Verde": "11VVBe-6p6qYItA3N0Uu7eEl2LQ2EF6wu",
+  "Cameroon": "1mifevdDVB5HVxpVxntgcE-c2c6QWHohf",
+  "Central African Republic": "1RzTCjh2uUgrwJl8l03gHPjj9qmvNKSZG",
+  "Chad": "1X_pI7pVtuMZaDvzL_ZaFp6S649t7qHFq",
+  "Comoros": "1fXB34QiZWC-FFd8N3Jg-w60_TlVipc3r",
+  "Côte d’Ivoire": "1jEjJjMJIBrnW8n7lJpK0y-BrmgL6EjQ_",
+  "Democratic Republic of the Congo": "1jdL2GhGar2NbG41OmGVBGY9FICoSeMlS",
+  "Djibouti": "1ERKhlRAxk4kXZIckPqW8J1F0z_tPMu-L",
+  "Equatorial Guinea": "1oi1mLbB4A4sRqsQOGr904MNk1tZCVnqc",
+  "Eritrea": "1-qDm4InZmK7dvLWhda5DQ8-iJ0VRtnlc",
+  "Eswatini": "1L2sK_dnDV1F-AyYx4ZTwo78_LYRNKz2M",
+  "Ethiopia": "1kEUWGaDdIM2v47K3sUgJ7_b8jlfuG46z",
+  "Gabon": "1ffkpIf5P4pzpeoEAuC0q7qnFFQsLP5b5",
+  "Gambia": "1kcaCI-cWubjV13-Dbv6hMeFc1twYJwVR",
+  "Ghana": "1dk7nz2PD3-S8LPohoQlRdIx0CghP8uca",
+  "Guinea": "14BFOiSB6X48We3Rch-Wo8TTRxopqzYT8",
+  "Guinea-Bissau": "1ZHxGMV165XB8Z6TKvvc_gJAKKn2QJz_0",
+  "Kenya": "1ZSED2CvAtm31_riPii3_IUkFCBm_iUGZ",
+  "Lesotho": "1aQJTCIeWC6oxjGdEZ3qVSRQ7Xaxov6JX",
+  "Liberia": "15Jhq2aiKOxucJvod0SwIOsiO45vuMjEG",
+  "Madagascar": "1b6VgjwFZsPSamlMEpwJzJA2I_j5bZoVC",
+  "Malawi": "1nSdps_E6vU1wAJovAASPpW2-x5YRdMaw",
+  "Mali": "1HxjY7sd2frRfvIeS1akaEyrNcchcoPZk",
+  "Mauritania": "1iYotDAknh8EjF0R09L93dfcO3Z4N8WXv",
+  "Mauritius": "1wBYRGBRfZaPMNnoJ-vimgCm48m_4R4a4",
+  "Mozambique": "1CnMTXr8lvLA-i5ui9mEJbvFriRULHpeO",
+  "Namibia": "1JpKrIBDNkNw-gZVdTQXaZQ2sU9tqyS74",
+  "Niger": "1xMJA95MJeZaVTit4ooOut2RdSSzYsvzk",
+  "Nigeria": "1IMyUwZMLFcTXwQntl4TiG-Pn0jE7XL1k",
+  "Republic of the Congo": "1JiBv44D2aQxJhqZt6-M8n3OEqkFyWcWt",
+  "Rwanda": "1jWtU06QQPLaYAdod5qKFoDqgFSh0Nqdz",
+  "São Tomé and Príncipe": "1loF3jHhgBqCEzJMgdkcQ-S2_tmIQKRCY",
+  "Senegal": "1BtZBdDzrdXSLDRcxYVx118dlKEfe_Aqo",
+  "Seychelles": "1dr3eYZCuz0oD32GRwa88ndjB-veft0tE",
+  "Sierra Leone": "1m-qxd2P4svKvSOCAzG6eityAgxW4CcyW",
+  "Somalia": "17HUOkDYPofoXJjVx4k9GPZHAj93f_32J",
+  "South Africa": "1Rt_pKn0zWQRebqOo0TXCuWbub8ipxHeG",
+  "South Sudan": "1O_wMrztXFxkgmcsJM4fJI2LeumPRGnia",
+  "Sudan": "1aqz3cD_zHzbjehlzja319jjiie6ztKIL",
+  "Tanzania": "1Eii-D5yfdhzP_y1h0QHsQkK2T_2RiMbs",
+  "Togo": "1XkqBEV0Z0g17oS63mx3mzDJpZH9cVjNS",
+  "Uganda": "1iXAD5a4ZNd7NwgeLlltKEFTZ_rdn0I_x",
+  "Zambia": "1HW_KmZXbHBXu4EoseKVUXbZGygqzwWol",
+  "Zimbabwe": "1Mlblma-DhwIxh1mZIabMRJZDy9MtCz0Q"
+};
+
+// Populate dropdown alphabetically
 var sel = document.getElementById('country');
 var btn = document.getElementById('dlBtn');
+
+Object.keys(FILES).sort(function(a, b) {
+  return a.localeCompare(b);
+}).forEach(function(name) {
+  var opt = document.createElement('option');
+  opt.value = name;
+  opt.textContent = name;
+  sel.appendChild(opt);
+});
+
 sel.addEventListener('change', function() { btn.disabled = !sel.value; });
-function doDownload() { window.open(FOLDER, '_blank'); }
+
+function doDownload() {
+  var id = FILES[sel.value];
+  if (!id) return;
+  window.location.href = 'https://drive.google.com/uc?export=download&id=' + id;
+}
 </script>
 </body>
 </html>
