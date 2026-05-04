@@ -101,6 +101,14 @@
       max-width: 720px;
     }
 
+    .card .subhead {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
     .form-group {
       margin-bottom: 1.4rem;
     }
@@ -211,6 +219,19 @@
       border: 1px solid var(--success-border);
     }
 
+    .eb-badge {
+      display: inline-block;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--success-text);
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      border-radius: 999px;
+      vertical-align: middle;
+    }
+
     .stats {
       display: flex;
       gap: 2.25rem;
@@ -277,7 +298,7 @@
   <main class="content">
     <section class="card">
       <h3>Download Starter Data Kit</h3>
-      <p>Select a country to download an Excel workbook with socio-economic input data (2010–2024).</p>
+      <p>Select a country to download an Excel workbook with socio-economic input data (2010–2024) and, for select countries, UN Energy Balance pivots.</p>
 
       <div class="form-group">
         <label for="countrySelect">Country</label>
@@ -317,14 +338,20 @@
         </div>
         <div class="stat">
           <div class="num">11</div>
-          <div class="label">Variables</div>
+          <div class="label">Socio-Econ Variables</div>
+        </div>
+        <div class="stat">
+          <div class="num" id="ebCount">20</div>
+          <div class="label">With Energy Balance</div>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <h3>What’s in the download?</h3>
-      <p>Each workbook has two sheets: Socio-Economic (template with formulas) and Raw Data (flat layout):</p>
+      <h3>What's in the download?</h3>
+      <p>Each workbook contains a Cover Page, a Socio-Economic sheet (template with formulas), and — where source data is available — UN Energy Balance pivots covering the most recent two reporting years.</p>
+
+      <div class="subhead">Socio-Economic (all countries)</div>
       <ul class="var-list">
         <li><strong>Population</strong> (million) <span class="src">— World Bank</span></li>
         <li><strong>Total GDP</strong> (constant 2015 USD billion) <span class="src">— World Bank</span></li>
@@ -335,12 +362,32 @@
         <li><strong>Pop in Large Cities &gt;300k</strong> (million) <span class="src">— UN DESA</span></li>
         <li><strong>Sectoral GDP</strong> — Agriculture, Industry, Manufacturing, Services (%) <span class="src">— World Bank</span></li>
       </ul>
+
+      <div class="subhead">Energy Balance <span class="eb-badge" id="ebBadgeInline">20 countries</span></div>
+      <ul class="var-list">
+        <li><strong>Flows</strong> — Primary production, Imports, Exports, Stock changes, Transformation, Energy industries own use, Losses, Final consumption by sector (Industry, Transport, Residential, Services, Agriculture, Non-energy use) <span class="src">— UN Energy Statistics</span></li>
+        <li><strong>Fuels</strong> — Primary Coal, Coal Products, Primary Oil, Oil Products, Natural Gas, Biofuels and Waste, Nuclear, Electricity, Heat, Total <span class="src">— UN Energy Statistics</span></li>
+        <li><strong>Units</strong> — Terajoules (TJ)</li>
+        <li><strong>Years</strong> — Most recent year on the <em>Energy Balance</em> tab; previous year on the <em>Energy Balance 2020</em> tab (where available)</li>
+      </ul>
+      <p style="font-size: 0.88rem; margin-top: 0.75rem; color: #8e99a8;">
+        Energy Balance data is currently populated for 20 countries. Other workbooks contain the Socio-Economic sheet only; Energy Balance coverage will expand as additional UN balance sources are processed.
+      </p>
     </section>
   </main>
 
   <div class="footer">Starter Data Kits · Climate Compatible Growth Programme</div>
 
   <script>
+    // Set this to the list of ISO3 codes for which the kit's workbook
+    // currently contains a populated Energy Balance sheet. Countries not
+    // in this set show no badge in the dropdown. Edit as more EB files
+    // get processed.
+    const COUNTRIES_WITH_EB = new Set([
+      "AFG", "ALB", "DZA", "ASM", "AND", "AGO", "ATG", "ARG", "ARM", "ABW",
+      "AUS", "AUT", "AZE", "BTN", "BEN", "BRN", "BFA", "BDI", "KHM", "CHN"
+    ]);
+
     const COUNTRIES = [
       { file: "AFG_Afghanistan.xlsx", iso3: "AFG", name: "Afghanistan", fileId: "1lEVG4JQetTh6I-7RxvYW8h55o2kNOBfx" },
       { file: "ALB_Albania.xlsx", iso3: "ALB", name: "Albania", fileId: "1mERl9otuz3P-Pqu4YpSa9eIpphWJpm8k" },
@@ -560,6 +607,8 @@
     const downloadBtn = document.getElementById("downloadBtn");
     const statusEl = document.getElementById("status");
     const countryCountEl = document.getElementById("countryCount");
+    const ebCountEl = document.getElementById("ebCount");
+    const ebBadgeInline = document.getElementById("ebBadgeInline");
 
     function buildDownloadUrl(fileId) {
       return `https://drive.google.com/uc?export=download&id=${encodeURIComponent(fileId)}`;
@@ -578,7 +627,8 @@
     }
 
     function getDisplayName(country) {
-      return `${country.name} (${country.iso3})`;
+      const ebMark = COUNTRIES_WITH_EB.has(country.iso3) ? " ⚡" : "";
+      return `${country.name} (${country.iso3})${ebMark}`;
     }
 
     function populateCountries() {
@@ -591,10 +641,13 @@
         option.dataset.countryName = country.name;
         option.dataset.iso3 = country.iso3;
         option.dataset.fileName = country.file;
+        option.dataset.hasEb = COUNTRIES_WITH_EB.has(country.iso3) ? "1" : "0";
         countrySelect.appendChild(option);
       }
 
       countryCountEl.textContent = String(sorted.length);
+      ebCountEl.textContent = String(COUNTRIES_WITH_EB.size);
+      ebBadgeInline.textContent = `${COUNTRIES_WITH_EB.size} countries`;
     }
 
     function updateDownloadButton() {
@@ -612,7 +665,8 @@
 
       clearStatus();
       window.open(buildDownloadUrl(fileId), "_blank", "noopener,noreferrer");
-      setStatus("success", `✓ Downloading ${option.dataset.countryName}...`);
+      const ebNote = option.dataset.hasEb === "1" ? " (with Energy Balance)" : "";
+      setStatus("success", `✓ Downloading ${option.dataset.countryName}${ebNote}...`);
 
       setTimeout(() => {
         clearStatus();
