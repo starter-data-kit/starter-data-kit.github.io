@@ -271,6 +271,35 @@
       font-size: 0.88rem;
     }
 
+    .contact-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1rem 1.2rem;
+      background: #f6f8fb;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 360px;
+    }
+
+    .contact-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .contact-email {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .contact-email:hover {
+      text-decoration: underline;
+    }
+
     .footer {
       text-align: center;
       padding: 1.5rem 1rem 2rem;
@@ -298,7 +327,7 @@
   <main class="content">
     <section class="card">
       <h3>Download Starter Data Kit</h3>
-      <p>Select a country to download an Excel workbook with socio-economic input data (2010–2024) and, for select countries, UN Energy Balance pivots. Countries with Energy Balance data are marked with ⚡ in the dropdown.</p>
+      <p>Select a country to download an Excel workbook with historic socio-economic input data (2010–2023). Countries marked with ⚡ also include UN Energy Balance pivots and future projections — population and GDP — with the model's calculation rows driven by live formulas.</p>
 
       <div class="form-group">
         <label for="countrySelect">Country</label>
@@ -333,7 +362,7 @@
           <div class="label">Countries</div>
         </div>
         <div class="stat">
-          <div class="num">2010–2024</div>
+          <div class="num">2010–2050</div>
           <div class="label">Year Range</div>
         </div>
         <div class="stat">
@@ -349,7 +378,7 @@
 
     <section class="card">
       <h3>What's in the download?</h3>
-      <p>Each workbook contains a Cover Page, a Socio-Economic sheet (template with formulas), and — where source data is available — UN Energy Balance pivots covering the most recent two reporting years.</p>
+      <p>Each workbook contains a Cover Page, a Socio-Economic sheet (with live formulas driving the calculated rows), and — for ⚡ countries — UN Energy Balance pivots plus population and GDP projections.</p>
 
       <div class="subhead">Socio-Economic (all countries)</div>
       <ul class="var-list">
@@ -363,6 +392,13 @@
         <li><strong>Sectoral GDP</strong> — Agriculture, Industry, Manufacturing, Services (%) <span class="src">— World Bank</span></li>
       </ul>
 
+      <div class="subhead">Future Projections <span class="eb-badge" id="fcBadgeInline">⚡ countries</span></div>
+      <ul class="var-list">
+        <li><strong>Population (Future)</strong> — annual 2022–2050, with year-on-year growth rate computed by formula <span class="src">— UN WPP 2022 / World Bank Population Estimates &amp; Projections</span></li>
+        <li><strong>Total GDP (Future)</strong> — annual 2024–2029, constant 2015 US$ <span class="src">— World Bank / IMF World Economic Outlook</span></li>
+        <li><span class="src">Where source years are not reported, intervening values are interpolated; coverage is partial for a few small economies.</span></li>
+      </ul>
+
       <div class="subhead">Energy Balance <span class="eb-badge" id="ebBadgeInline">20 countries</span></div>
       <ul class="var-list">
         <li><strong>Flows</strong> — Primary production, Imports, Exports, Stock changes, Transformation, Energy industries own use, Losses, Final consumption by sector (Industry, Transport, Residential, Services, Agriculture, Non-energy use) <span class="src">— UN Energy Statistics</span></li>
@@ -373,6 +409,26 @@
       <p style="font-size: 0.88rem; margin-top: 0.75rem; color: #8e99a8;">
         Energy Balance data is currently populated for 20 countries. Other workbooks contain the Socio-Economic sheet only; coverage will expand as additional UN balance sources are processed.
       </p>
+
+      <div class="subhead">Data vintage &amp; sources</div>
+      <ul class="var-list">
+        <li><strong>Historic socio-economic</strong> (2010–2023) <span class="src">— World Bank, ILO, UN DESA</span></li>
+        <li><strong>Population projections</strong> — future population and growth rate <span class="src">— UN World Population Prospects 2022 (medium variant) / World Bank Population Estimates &amp; Projections</span></li>
+        <li><strong>GDP</strong> — historic and projected, on a <strong>constant 2015 US$</strong> basis <span class="src">— World Bank / IMF World Economic Outlook</span></li>
+        <li><strong>Energy Balance</strong> — Terajoules, most recent two UN reporting years <span class="src">— UN Energy Statistics</span></li>
+      </ul>
+      <p style="font-size: 0.82rem; margin-top: 0.6rem; color: #8e99a8;">
+        Future projections are provided for select countries; where source years are not reported, intervening values are interpolated. Forecast data is intended for zero-order model reconstruction, not policy or financial decisions.
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>Contact</h3>
+      <p>Questions about the data, spot an error, or interested in contributing additional country kits? Get in touch.</p>
+      <div class="contact-block">
+        <span class="contact-name">Naomi Tan</span>
+        <a class="contact-email" href="mailto:n.tan@lboro.ac.uk">n.tan@lboro.ac.uk</a>
+      </div>
     </section>
   </main>
 
