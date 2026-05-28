@@ -47,100 +47,90 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
     <p>Open Source Energy Modelling System</p>
   </div>
   <div class="line"></div>
-
   <div class="panel">
     <div class="field">
       <label for="country">Country</label>
       <select id="country">
         <option value="">— Select a country —</option>
-        <!-- Populated dynamically from FILES below -->
       </select>
     </div>
-
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Excel
     </button>
-
     <p class="note">Downloads <code>1_SDK_&lt;Country&gt;.xlsx</code> directly from Google Drive.</p>
   </div>
 </div>
-
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
-
 <script>
-// Country -> Google Drive file ID mapping (49 countries)
 var FILES = {
-  "Angola": "1mVKCrSa45gKukGYFEDd60dHPtXnl67Bo",
-  "Benin": "1mGCNS-UdWB-FC1xT4YSeNqsDgbAFifUn",
-  "Botswana": "1FN1qtLChi7H59Y5al6hAShorG-shOZbd",
-  "Burkina Faso": "1GCQeyBtXH1RYnPaCLpOorVqx-z97-IZL",
-  "Burundi": "1VwW33H3dtnQLqMQPBWXF98cqCOlcwgjb",
-  "Cabo Verde": "11VVBe-6p6qYItA3N0Uu7eEl2LQ2EF6wu",
-  "Cameroon": "1mifevdDVB5HVxpVxntgcE-c2c6QWHohf",
-  "Central African Republic": "1RzTCjh2uUgrwJl8l03gHPjj9qmvNKSZG",
-  "Chad": "1X_pI7pVtuMZaDvzL_ZaFp6S649t7qHFq",
-  "Comoros": "1fXB34QiZWC-FFd8N3Jg-w60_TlVipc3r",
-  "Côte d’Ivoire": "1jEjJjMJIBrnW8n7lJpK0y-BrmgL6EjQ_",
-  "Democratic Republic of the Congo": "1jdL2GhGar2NbG41OmGVBGY9FICoSeMlS",
-  "Djibouti": "1ERKhlRAxk4kXZIckPqW8J1F0z_tPMu-L",
-  "Equatorial Guinea": "1oi1mLbB4A4sRqsQOGr904MNk1tZCVnqc",
-  "Eritrea": "1-qDm4InZmK7dvLWhda5DQ8-iJ0VRtnlc",
-  "Eswatini": "1L2sK_dnDV1F-AyYx4ZTwo78_LYRNKz2M",
-  "Ethiopia": "1kEUWGaDdIM2v47K3sUgJ7_b8jlfuG46z",
-  "Gabon": "1ffkpIf5P4pzpeoEAuC0q7qnFFQsLP5b5",
-  "Gambia": "1kcaCI-cWubjV13-Dbv6hMeFc1twYJwVR",
-  "Ghana": "1dk7nz2PD3-S8LPohoQlRdIx0CghP8uca",
-  "Guinea": "14BFOiSB6X48We3Rch-Wo8TTRxopqzYT8",
-  "Guinea-Bissau": "1ZHxGMV165XB8Z6TKvvc_gJAKKn2QJz_0",
-  "Kenya": "1ZSED2CvAtm31_riPii3_IUkFCBm_iUGZ",
-  "Lesotho": "1aQJTCIeWC6oxjGdEZ3qVSRQ7Xaxov6JX",
-  "Liberia": "15Jhq2aiKOxucJvod0SwIOsiO45vuMjEG",
-  "Madagascar": "1b6VgjwFZsPSamlMEpwJzJA2I_j5bZoVC",
-  "Malawi": "1nSdps_E6vU1wAJovAASPpW2-x5YRdMaw",
-  "Mali": "1HxjY7sd2frRfvIeS1akaEyrNcchcoPZk",
-  "Mauritania": "1iYotDAknh8EjF0R09L93dfcO3Z4N8WXv",
-  "Mauritius": "1wBYRGBRfZaPMNnoJ-vimgCm48m_4R4a4",
-  "Mozambique": "1CnMTXr8lvLA-i5ui9mEJbvFriRULHpeO",
-  "Namibia": "1JpKrIBDNkNw-gZVdTQXaZQ2sU9tqyS74",
-  "Niger": "1xMJA95MJeZaVTit4ooOut2RdSSzYsvzk",
-  "Nigeria": "1IMyUwZMLFcTXwQntl4TiG-Pn0jE7XL1k",
-  "Republic of the Congo": "1JiBv44D2aQxJhqZt6-M8n3OEqkFyWcWt",
-  "Rwanda": "1jWtU06QQPLaYAdod5qKFoDqgFSh0Nqdz",
-  "São Tomé and Príncipe": "1loF3jHhgBqCEzJMgdkcQ-S2_tmIQKRCY",
-  "Senegal": "1BtZBdDzrdXSLDRcxYVx118dlKEfe_Aqo",
-  "Seychelles": "1dr3eYZCuz0oD32GRwa88ndjB-veft0tE",
-  "Sierra Leone": "1m-qxd2P4svKvSOCAzG6eityAgxW4CcyW",
-  "Somalia": "17HUOkDYPofoXJjVx4k9GPZHAj93f_32J",
-  "South Africa": "1Rt_pKn0zWQRebqOo0TXCuWbub8ipxHeG",
-  "South Sudan": "1O_wMrztXFxkgmcsJM4fJI2LeumPRGnia",
-  "Sudan": "1aqz3cD_zHzbjehlzja319jjiie6ztKIL",
-  "Tanzania": "1Eii-D5yfdhzP_y1h0QHsQkK2T_2RiMbs",
-  "Togo": "1XkqBEV0Z0g17oS63mx3mzDJpZH9cVjNS",
-  "Uganda": "1iXAD5a4ZNd7NwgeLlltKEFTZ_rdn0I_x",
-  "Zambia": "1HW_KmZXbHBXu4EoseKVUXbZGygqzwWol",
-  "Zimbabwe": "1Mlblma-DhwIxh1mZIabMRJZDy9MtCz0Q"
+  "Angola": "12FxcJO0xDogpKW5BHM7ujDTU5moXkkqc",
+  "Benin": "16_QuUz8wJbt525TjRhe-eaBnjWYtRIaW",
+  "Botswana": "1h6QgU1HfMtofogI7Pl6qHOLvoJVyUPH1",
+  "Burkina Faso": "1z6sCXCuYaSvfsOGiU7eW4T4MkR9GjkDY",
+  "Burundi": "1TY7cY7zmQKDZb5SF0vmsifVo2dCp7kLJ",
+  "Cabo Verde": "14CpxAmQkv3DIkoL3UdjuOBMWfy-3IC3Y",
+  "Cameroon": "1Ly_khjaZ3A3aoz8J73gmRST9QPu-zt9H",
+  "Central African Republic": "1U9QptwaLdBM9yN0xa0KXZsBMPC_HDESj",
+  "Chad": "1F9YjvcT8XCbKWNU4zEGIV490rbnvul5b",
+  "Comoros": "1n-A-XuxYfP2aZ9QvJC8ssnkZdwhxOq8D",
+  "Cote d'Ivoire": "11HPo5FSIxgxb3tWMXgqur9uqh5RpXghc",
+  "Democratic Republic of the Congo": "1AK91wZDQFnqEb17Hxp9-Y1FpUfTo4KFI",
+  "Djibouti": "1CVl24gveKX5DCEqUuSYYCMHMjZb75yF7",
+  "Equatorial Guinea": "1C4Vfz0SUqcaQfvTL-PjH7DrzKVnZblbN",
+  "Eritrea": "1PI51igL5viujaBtIak9vlMAWDhO0jWYY",
+  "Eswatini": "1FChZCGw3UScniMQ5A-V9jrmTXQ2juWXY",
+  "Ethiopia": "17GqEn6fjjREySxTIVbz4S1maN-MMKrH2",
+  "Gabon": "1E3vBbqFY9wfoQCcX7Ok7rA5-8MePBm3i",
+  "Gambia": "1Qkp4o44E1guLqZQUGXCbDAPbFxYWvzQz",
+  "Ghana": "1C8-oqS3h1ToF2ECn9pO5IoL30EHO9sbE",
+  "Guinea": "1a-mhV4nJJ_kriNSU-FSaEouEaMCGHXKG",
+  "Guinea-Bissau": "1div6XKkE-AX3YiBzm8XThLolFGORCmX7",
+  "Kenya": "1JGjNp7Ex2rI3Sydb8CIjKDfHYf9NIBMY",
+  "Lesotho": "1rY0DDpfmaPAriUycFwy9MDKOuiSBlQnp",
+  "Liberia": "1STrG_tlJOEUajTDkLtv8RPnJc9aC0uWb",
+  "Madagascar": "1h-fFe63IbzV2LEQX6ELH41q1YqelQ7zm",
+  "Malawi": "1agV7iAWMkdl4mjy5QNlxMfh-3GsrO-TR",
+  "Mali": "1hoTTWziFTLYmZbfqpFt-tolcW44lUN_W",
+  "Mauritania": "1SWRhQCMUcQZQG84MkMb0z-9mk2LuZBdV",
+  "Mauritius": "14Wadh-ZL46dOdqCJLH_WzSt_aVFHDD8_",
+  "Mozambique": "1N3LpecDnsVUOG5EAGMFMQVaCGPQIN1hz",
+  "Namibia": "1X58hmE-aGEv2v8g-8skwpugjJdTwRcQA",
+  "Niger": "1qkqUKeE1nREw9LZixD_gps-1uSPCcOrl",
+  "Nigeria": "1G_F9OaEm0VXfA-kPZxT_hsRm01qmXRX9",
+  "Republic of the Congo": "1KGyowWsSiQsEtgcERyEvnOho9hDx7HwO",
+  "Rwanda": "1v7Xsm0F-Ip6oKaVnymBJLA7HgV1vnA2G",
+  "Sao Tome and Principe": "1JVF5Tf14CMLb-soaY7CdSqVW1RkMDrE-",
+  "Senegal": "1Z73xeUtLQZjhONkCvem_hgvErBD7dPQA",
+  "Seychelles": "1ylmVmkt3FDFpjw8uc4_gc9seRrRqwILZ",
+  "Sierra Leone": "1YjAzX0WRwL20Vdz5kucCEyuH2X5rlfn0",
+  "Somalia": "1bBuRVOJo508wBRzosCEJ5-PyEGeJ9m8Y",
+  "South Africa": "1iGYtKQbwmA4jqMy5Du8pkYkbBac_miZO",
+  "South Sudan": "1e2CP-LrK6kBhTbGv8MPbRORfwiIBjvSe",
+  "Sudan": "1HtcTdP0NPgN8wD1JB8sZFTfwIg_AlU1c",
+  "Tanzania": "1mH4bJ8sngdjsMW8wk0OXOIQkh_SYFY_l",
+  "Togo": "19F9o-fTeicnf3EnMrSoWFnttuUQ0kmFU",
+  "Uganda": "1nx-Y0kSHAbmo58JOZSUmuD0myMkheVgR",
+  "Zambia": "1RrcF9X08mIzcgZmTO5itVOKMWR6YDMGF",
+  "Zimbabwe": "1Qc-0FC_3uWq1f3Ik1YAyIzvEDU7sGobQ"
 };
 
-// Populate dropdown alphabetically
 var sel = document.getElementById('country');
 var btn = document.getElementById('dlBtn');
 
-Object.keys(FILES).sort(function(a, b) {
-  return a.localeCompare(b);
-}).forEach(function(name) {
+Object.keys(FILES).sort(function(a,b){ return a.localeCompare(b); }).forEach(function(name){
   var opt = document.createElement('option');
   opt.value = name;
   opt.textContent = name;
   sel.appendChild(opt);
 });
 
-sel.addEventListener('change', function() { btn.disabled = !sel.value; });
+sel.addEventListener('change', function(){ btn.disabled = !sel.value; });
 
-function doDownload() {
+function doDownload(){
   var id = FILES[sel.value];
-  if (!id) return;
-  window.location.href = 'https://drive.google.com/uc?export=download&id=' + id;
+  if(!id) return;
+  window.open('https://drive.google.com/file/d/' + id + '/view?usp=sharing', '_blank');
 }
 </script>
 </body>
