@@ -30,7 +30,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
-.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none;text-align:center}
+.msg{margin-top:14px;padding:12px 16px;border-radius:8px;font-size:.9rem;display:none;text-align:center}
+.msg.soon{background:#fff8e1;color:#f57f17}
+.msg.ok{background:#e8f5e9;color:#2e7d32}
+.msg.multi{background:#e3f2fd;color:#1565c0}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -107,10 +110,10 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download
+      Download ZIP
     </button>
 
-    <p class="note">Country-level model-ready datasets will be available shortly.</p>
+    <p class="note">Downloads country-level OnSSET model-ready data as a ZIP archive from Google Drive.</p>
     <div class="msg" id="msg"></div>
   </div>
 </div>
@@ -118,13 +121,58 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
+// Countries with available files → array of Drive file IDs
+// Mauritania has two datasets
+var FILES = {
+  "Malawi":     ["1bvw_EabIIPaa_xmBihZTH_RmrEQaAn1A"],
+  "Mali":       ["1n0hXfkDybSQzslxDqPOdpHabtA3i9IYK"],
+  "Mauritania": ["1F15-u-7Ccl7NQQjPHPQS4JQcLdd1FR_L", "1rZSaOAj20qylo3bzsH7PnkyCl8edEHMx"],
+  "Mozambique": ["1nw1mSCPyY_dyQM8miHexAoKKaFZ9E8me"],
+  "Namibia":    ["1WHja-_fyvYsJKquSSxGJkNBg5lAudL1t"],
+  "Niger":      ["1eZXiq6PAUEBfu0HcIArxx_x3Ky2Ldvji"],
+  "Nigeria":    ["147LG2zfS9i_dzkG8cM-eMlrWvqXqA4rc"],
+  "Rwanda":     ["1iY9U4TAInnAClxzgO_j48BaEtu_ARWVb"],
+  "Senegal":    ["1wXBldNhYdKmQsXHn6qNvtveC21UQXGKE"],
+  "Sierra Leone":["177kNNX1HNzHaFq3N3NDaRnDpeAqbC88g"],
+  "Somalia":    ["1ypSOHcJOEOYqckzFFe7RMM7smECMIOF0"]
+};
+
 var sel = document.getElementById('country');
 var btn = document.getElementById('dlBtn');
-sel.addEventListener('change', function() { btn.disabled = !sel.value; });
+var msg = document.getElementById('msg');
+
+sel.addEventListener('change', function() { btn.disabled = !sel.value; msg.style.display = 'none'; });
+
 function doDownload() {
-  var msg = document.getElementById('msg');
+  var country = sel.value;
+  if (!country) return;
+
+  var ids = FILES[country];
+
+  if (!ids) {
+    // No file yet — show coming soon
+    msg.className = 'msg soon';
+    msg.textContent = '⏳ Data for ' + country + ' is coming soon.';
+    msg.style.display = 'block';
+    setTimeout(function() { msg.style.display = 'none'; }, 5000);
+    return;
+  }
+
+  // Open each file in a new tab (staggered for multi-file countries)
+  ids.forEach(function(id, i) {
+    setTimeout(function() {
+      window.open('https://drive.google.com/file/d/' + id + '/view?usp=sharing', '_blank');
+    }, i * 800);
+  });
+
+  if (ids.length > 1) {
+    msg.className = 'msg multi';
+    msg.textContent = '✓ Opening ' + ids.length + ' ZIP files for ' + country + ' — check your new tabs.';
+  } else {
+    msg.className = 'msg ok';
+    msg.textContent = '✓ Opening ' + country + ' ZIP in Google Drive.';
+  }
   msg.style.display = 'block';
-  msg.textContent = 'Download for ' + sel.value + ' coming soon. Data integration in progress.';
   setTimeout(function() { msg.style.display = 'none'; }, 5000);
 }
 </script>
