@@ -113,7 +113,7 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       Download ZIP
     </button>
 
-    <p class="note">Downloads country-level OnSSET model-ready data as a ZIP archive from Google Drive.</p>
+    <p class="note">Downloads country-level OnSSET data as a ZIP from Google Drive. Large files (&gt;25 MB) will show a Google virus-scan warning — click <strong>Download anyway</strong> to proceed.</p>
     <div class="msg" id="msg"></div>
   </div>
 </div>
@@ -121,20 +121,40 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
-// Countries with available files → array of Drive file IDs
-// Mauritania has two datasets
 var FILES = {
-  "Malawi":     ["1bvw_EabIIPaa_xmBihZTH_RmrEQaAn1A"],
-  "Mali":       ["1n0hXfkDybSQzslxDqPOdpHabtA3i9IYK"],
-  "Mauritania": ["1F15-u-7Ccl7NQQjPHPQS4JQcLdd1FR_L", "1rZSaOAj20qylo3bzsH7PnkyCl8edEHMx"],
-  "Mozambique": ["1nw1mSCPyY_dyQM8miHexAoKKaFZ9E8me"],
-  "Namibia":    ["1WHja-_fyvYsJKquSSxGJkNBg5lAudL1t"],
-  "Niger":      ["1eZXiq6PAUEBfu0HcIArxx_x3Ky2Ldvji"],
-  "Nigeria":    ["147LG2zfS9i_dzkG8cM-eMlrWvqXqA4rc"],
-  "Rwanda":     ["1iY9U4TAInnAClxzgO_j48BaEtu_ARWVb"],
-  "Senegal":    ["1wXBldNhYdKmQsXHn6qNvtveC21UQXGKE"],
-  "Sierra Leone":["177kNNX1HNzHaFq3N3NDaRnDpeAqbC88g"],
-  "Somalia":    ["1ypSOHcJOEOYqckzFFe7RMM7smECMIOF0"]
+  "Angola":                    ["1RscoMz3v_s5Y_rFUJZolDuqhYNm13k5Y"],
+  "Benin":                     ["1jyVXQhT-RtKmI4Duz-39I7qXiVhja4Bq"],
+  "Botswana":                  ["1brV1E-RITQm7Z2-CyReEQNqUVB8QbqgA"],
+  "Burkina Faso":              ["19x5SVuYOhNXLnVyTIEF2z50kMjni1Ev3"],
+  "Burundi":                   ["1iM8wEswjRbnj_G8zXy68gi7PGVPa9Aln"],
+  "Cameroon":                  ["1DZf16saFkzCEKy0HA1W2RPy8hTZWTEHv"],
+  "Central African Republic":  ["1TOc5xMqrSwHh7fSWEXlLceh2qI_0o4Vo"],
+  "Republic of Congo":         ["17GnWYx40YB9Fqoa6l0N1VxKmnp22sVej"],
+  "Djibouti":                  ["18bPn8wSSMY16a_qYDK4c1WZ62uTTJSzf"],
+  "Equatorial Guinea":         ["14PaMQfhxO5SBf_La-HoEe6q03fqg16XM"],
+  "Eritrea":                   ["1asec65sS3dVTB-APudtoO8v5LN3GsqjE"],
+  "Ethiopia":                  ["1ANdibteyPpztbK96EV1xqbOdl9LCpgll"],
+  "Gabon":                     ["1PcHRbPoTCcS4k0iZ3sBBbR5NgBfLfn83"],
+  "Ghana":                     ["1ubDd3407XDfZzmFtXTZodP1duF5Hkc33"],
+  "Guinea":                    ["1mqtIU_NE9eTDrAhCwJE2Qc6SwkIq9VFz"],
+  "Guinea-Bissau":             ["1OzeZTQMB_7kMjURAaudtmngbb0_TLIuw"],
+  "Côte d'Ivoire":             ["1F4GqAtKCItuVSlQtS2afXN564-0T7VAc"],
+  "Kenya":                     ["1QDk3QSrYVk5L-Gp7eu_Nxs_B-3wA8_xb"],
+  "Malawi":                    ["1bvw_EabIIPaa_xmBihZTH_RmrEQaAn1A"],
+  "Mali":                      ["1n0hXfkDybSQzslxDqPOdpHabtA3i9IYK"],
+  "Mauritania":                ["1F15-u-7Ccl7NQQjPHPQS4JQcLdd1FR_L", "1rZSaOAj20qylo3bzsH7PnkyCl8edEHMx"],
+  "Mozambique":                ["1nw1mSCPyY_dyQM8miHexAoKKaFZ9E8me"],
+  "Namibia":                   ["1WHja-_fyvYsJKquSSxGJkNBg5lAudL1t"],
+  "Niger":                     ["1eZXiq6PAUEBfu0HcIArxx_x3Ky2Ldvji"],
+  "Nigeria":                   ["147LG2zfS9i_dzkG8cM-eMlrWvqXqA4rc"],
+  "Rwanda":                    ["1iY9U4TAInnAClxzgO_j48BaEtu_ARWVb"],
+  "Eswatini":                  ["12wWiF9fFzOEUBHJxm457bEbyuB3WsWym"],
+  "Senegal":                   ["1wXBldNhYdKmQsXHn6qNvtveC21UQXGKE"],
+  "Sierra Leone":              ["177kNNX1HNzHaFq3N3NDaRnDpeAqbC88g"],
+  "Somalia":                   ["1ypSOHcJOEOYqckzFFe7RMM7smECMIOF0"],
+  "South Sudan":               ["1KwQa7WathdAIGeQEmsRZueiKwd9jSUEj"],
+  "Chad":                      ["1mzw3KLIU3IP0twtCGJwp4u0UKNbKjvBJ"],
+  "Tanzania":                  ["1VQIUHCrMQUsm1vnTCsC8iHvp3dgoCc5R"]
 };
 
 var sel = document.getElementById('country');
@@ -143,14 +163,16 @@ var msg = document.getElementById('msg');
 
 sel.addEventListener('change', function() { btn.disabled = !sel.value; msg.style.display = 'none'; });
 
+function triggerDownload(id) {
+  window.open('https://drive.google.com/uc?export=download&id=' + id, '_blank');
+}
+
 function doDownload() {
   var country = sel.value;
   if (!country) return;
-
   var ids = FILES[country];
 
   if (!ids) {
-    // No file yet — show coming soon
     msg.className = 'msg soon';
     msg.textContent = '⏳ Data for ' + country + ' is coming soon.';
     msg.style.display = 'block';
@@ -158,22 +180,19 @@ function doDownload() {
     return;
   }
 
-  // Open each file in a new tab (staggered for multi-file countries)
   ids.forEach(function(id, i) {
-    setTimeout(function() {
-      window.open('https://drive.google.com/file/d/' + id + '/view?usp=sharing', '_blank');
-    }, i * 800);
+    setTimeout(function() { triggerDownload(id); }, i * 1500);
   });
 
   if (ids.length > 1) {
     msg.className = 'msg multi';
-    msg.textContent = '✓ Opening ' + ids.length + ' ZIP files for ' + country + ' — check your new tabs.';
+    msg.textContent = '⬇ Downloading ' + ids.length + ' ZIP files for ' + country + '…';
   } else {
     msg.className = 'msg ok';
-    msg.textContent = '✓ Opening ' + country + ' ZIP in Google Drive.';
+    msg.textContent = '⬇ Downloading ' + country + '.zip…';
   }
   msg.style.display = 'block';
-  setTimeout(function() { msg.style.display = 'none'; }, 5000);
+  setTimeout(function() { msg.style.display = 'none'; }, 6000);
 }
 </script>
 </body>
