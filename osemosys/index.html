@@ -19,7 +19,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
 .hdr p{color:var(--mt);font-size:1rem}
 .line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
@@ -30,6 +30,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
+/* Info section */
+.info-section{margin-bottom:60px}
+.intro{font-size:.92rem;color:var(--mt);line-height:1.7;margin-bottom:16px}
+.stats-row{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.stat-pill{background:var(--cd);border:1px solid #e8e4dc;border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:140px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.stat-pill .num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:var(--ac)}
+.stat-pill .lbl{font-size:.78rem;color:var(--mt);margin-top:2px}
+.param-table{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-top:8px}
+.param-head{display:grid;grid-template-columns:180px 1fr;gap:0;background:#1a3a5c;color:#fff;font-weight:600;font-size:.88rem}
+.param-head div{padding:10px 16px}
+.param-row{display:grid;grid-template-columns:180px 1fr;gap:0;font-size:.875rem;border-top:1px solid #f0ece4}
+.param-row:first-of-type{border-top:none}
+.param-row.alt{background:#f9f8f5}
+.param-row div{padding:10px 16px;line-height:1.5}
+.param-row div:first-child{font-weight:600;color:var(--tx)}
+.param-row div:last-child{color:var(--mt)}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -47,6 +63,7 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
     <p>Open Source Energy Modelling System</p>
   </div>
   <div class="line"></div>
+
   <div class="panel">
     <div class="field">
       <label for="country">Country</label>
@@ -60,6 +77,36 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
     </button>
     <p class="note">Downloads <code>1_SDK_&lt;Country&gt;.xlsx</code> directly from Google Drive.</p>
   </div>
+
+  <!-- Dataset info section -->
+  <div class="info-section">
+    <p class="intro">Each SDK contains a total of 12 parameters, which are described below. Likewise, each SDK includes 199 technologies and 30 useful energy demands distributed across the different sectors mentioned previously.</p>
+    <p class="intro">The design of these SDKs is intended to support the modelling of whole energy systems at the country level, enabling comprehensive sector-coupling analyses. However, users may choose to use the complete dataset or only selected components, depending on their specific needs.</p>
+
+    <div class="stats-row">
+      <div class="stat-pill"><div class="num">12</div><div class="lbl">Parameters</div></div>
+      <div class="stat-pill"><div class="num">199</div><div class="lbl">Technologies</div></div>
+      <div class="stat-pill"><div class="num">30</div><div class="lbl">Useful energy demands</div></div>
+      <div class="stat-pill"><div class="num">2023–2050</div><div class="lbl">Time horizon</div></div>
+    </div>
+
+    <div class="param-table">
+      <div class="param-head"><div>Parameter</div><div>Description</div></div>
+      <div class="param-row"><div>Annual demand</div><div>Historical and projected useful energy demand 2023–2050.</div></div>
+      <div class="param-row alt"><div>Capacity factor</div><div>Ratio of energy produced by a generating unit for the period considered to the energy that could have been produced at continuous full operation during the same period. Applicable to renewable power technologies only.</div></div>
+      <div class="param-row"><div>Availability factor</div><div>Planned and forced outage percentage.</div></div>
+      <div class="param-row alt"><div>Operational life</div><div>Technical lifespan.</div></div>
+      <div class="param-row"><div>Installed capacity</div><div>Historical installed capacity per technology.</div></div>
+      <div class="param-row alt"><div>Efficiency</div><div>Ratio between output energy and input energy.</div></div>
+      <div class="param-row"><div>Capital cost</div><div>Overnight costs from 2023 to 2050. Projected data was considered when available, otherwise constant values were assumed.</div></div>
+      <div class="param-row alt"><div>Fixed cost</div><div>Fixed operational and maintenance costs. Projected data was considered when available, otherwise constant values were assumed.</div></div>
+      <div class="param-row"><div>Variable cost</div><div>Variable costs represent the fuel costs in the case of primary energy supply and import technologies, and the variable non-fuel costs for the rest of the technologies.</div></div>
+      <div class="param-row alt"><div>Emission factor</div><div>Dioxide carbon emission factors per fuel.</div></div>
+      <div class="param-row"><div>Fossil fuel reserves</div><div>Crude oil, natural gas, coal, and uranium reserves.</div></div>
+      <div class="param-row alt"><div>Renewable energy potential</div><div>Estimated maximum potential for power generation from renewable sources.</div></div>
+    </div>
+  </div>
+
 </div>
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 <script>
