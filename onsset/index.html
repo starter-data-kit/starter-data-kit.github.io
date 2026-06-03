@@ -34,6 +34,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .msg.soon{background:#fff8e1;color:#f57f17}
 .msg.ok{background:#e8f5e9;color:#2e7d32}
 .msg.multi{background:#e3f2fd;color:#1565c0}
+.info-section{margin-bottom:60px}
+.intro{font-size:.92rem;color:var(--mt);line-height:1.6;margin-bottom:24px}
+.cat-group{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.cat-header{padding:10px 16px;font-weight:600;font-size:.88rem;color:#fff;letter-spacing:.3px}
+.cat-blue{background:#1a3a5c}
+.cat-row{display:grid;grid-template-columns:200px 1fr;gap:12px;padding:10px 16px;font-size:.875rem}
+.cat-row.alt{background:#f9f8f5}
+.cat-name{font-weight:500;color:var(--tx)}
+.cat-desc{color:var(--mt);line-height:1.5}
+.ref-title{font-family:'Playfair Display',serif;font-size:1.2rem;margin:36px 0 10px;color:var(--tx)}
+.ref-table{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-top:16px;font-size:.82rem}
+.ref-head{display:grid;grid-template-columns:140px 1fr 130px 80px 130px;gap:8px;padding:10px 14px;background:#1a3a5c;color:#fff;font-weight:600}
+.ref-row{display:grid;grid-template-columns:140px 1fr 130px 80px 130px;gap:8px;padding:10px 14px;align-items:start}
+.ref-row.alt{background:#f9f8f5}
+.ref-row div{color:var(--mt);line-height:1.45}
+.ref-row div:first-child{font-weight:500;color:var(--tx)}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge.req{background:#e8f5e9;color:#2e7d32}
+.badge.opt{background:#fff8e1;color:#e65100}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -115,6 +134,137 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 
     <p class="note">Downloads country-level OnSSET data as a ZIP from Google Drive. Large files (&gt;25 MB) will show a Google virus-scan warning — click <strong>Download anyway</strong> to proceed.</p>
     <div class="msg" id="msg"></div>
+  </div>
+</div>
+
+  <!-- Dataset info section -->
+  <div class="info-section">
+    <p class="intro">Each Starter Data Kit contains geospatial and socio-economic input files ready for use in OnSSET. Datasets are grouped into three categories:</p>
+
+    <div class="cat-group">
+      <div class="cat-header cat-blue">Socio-Demographics</div>
+      <div class="cat-row"><div class="cat-name">Socio-economic specifications</div><div class="cat-desc">Household energy tiers, willingness to pay, and projected GDP growth projections</div></div>
+      <div class="cat-row alt"><div class="cat-name">Population count</div><div class="cat-desc">Spatial population distribution at 100 m or 1 km resolution (WorldPop)</div></div>
+      <div class="cat-row"><div class="cat-name">Settlements</div><div class="cat-desc">Pre-clustered population settlements calibrated to 2016 values (Khavari et al.)</div></div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-header cat-blue">Physical &amp; Environment</div>
+      <div class="cat-row"><div class="cat-name">Elevation model (DEM)</div><div class="cat-desc">Terrain elevation and slope at ~90 m resolution (NASA EarthData / SRTMGL3). Requires free NASA account.</div></div>
+      <div class="cat-row alt"><div class="cat-name">Solar irradiation</div><div class="cat-desc">Global Horizontal Irradiance (GHI) for PV feasibility (Global Solar Atlas)</div></div>
+      <div class="cat-row"><div class="cat-name">Solar hourly profile</div><div class="cat-desc">Hourly PV generation profile for minigrid sizing (RenewableNinja API)</div></div>
+      <div class="cat-row alt"><div class="cat-name">Wind speed</div><div class="cat-desc">Wind speed at hub heights of 100 m, 150 m, or 200 m (Global Wind Atlas)</div></div>
+      <div class="cat-row"><div class="cat-name">Wind hourly profile</div><div class="cat-desc">Hourly wind generation profile for minigrid sizing (RenewableNinja API)</div></div>
+      <div class="cat-row alt"><div class="cat-name">Land cover</div><div class="cat-desc">17-category land classification affecting grid extension cost penalties (MODIS MCD12Q1)</div></div>
+    </div>
+
+    <div class="cat-group">
+      <div class="cat-header cat-blue">Infrastructure</div>
+      <div class="cat-row"><div class="cat-name">Medium voltage lines</div><div class="cat-desc">Existing power grid infrastructure for identifying connection points (GridFinder)</div></div>
+      <div class="cat-row alt"><div class="cat-name">Nighttime lights</div><div class="cat-desc">Proxy for existing electrification and economic activity (WorldPop / VIIRS NTL v2.1/2.2)</div></div>
+      <div class="cat-row"><div class="cat-name">Roads</div><div class="cat-desc">Road network proximity for logistics cost estimation (OpenStreetMap)</div></div>
+      <div class="cat-row alt"><div class="cat-name">Travel time</div><div class="cat-desc">Travel time to nearest urban centre, accounting for terrain and land cover (Malaria Atlas Project)</div></div>
+    </div>
+
+    <h3 class="ref-title">Dataset reference table</h3>
+    <p class="intro">All available datasets, their sources, and whether they are required or optional for a basic OnSSET model run.</p>
+
+    <div class="ref-table">
+      <div class="ref-head">
+        <div>Dataset</div><div>Description</div><div>Source</div><div>Status</div><div>Notes</div>
+      </div>
+      <div class="ref-row">
+        <div>Socio-economic specifications</div>
+        <div>Household energy consumption tiers, willingness to pay, and projected GDP growth. Used to calculate long-term economic viability and expected revenue for grid investments.</div>
+        <div>CCG / country-specific</div>
+        <div><span class="badge req">Required</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row alt">
+        <div>Population count</div>
+        <div>Spatial distribution of inhabitants, critical for estimating electricity demand and identifying clusters for potential microgrid or grid extension projects.</div>
+        <div>WorldPop</div>
+        <div><span class="badge req">Required</span></div>
+        <div>Resolution: 100 m or 1 km</div>
+      </div>
+      <div class="ref-row">
+        <div>Elevation model (DEM)</div>
+        <div>Digital Elevation Model data used to determine terrain slope. Both slope and elevation specify grid extension suitability.</div>
+        <div>NASA EarthData (SRTMGL3 ~90 m default)</div>
+        <div><span class="badge opt">Optional</span></div>
+        <div>Requires free NASA account</div>
+      </div>
+      <div class="ref-row alt">
+        <div>Solar irradiation</div>
+        <div>Global Horizontal Irradiance (GHI) data measuring energy received from the sun — the primary input for sizing solar PV installations.</div>
+        <div>Global Solar Atlas</div>
+        <div><span class="badge req">Required</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row">
+        <div>Solar hourly profile</div>
+        <div>Hourly solar generation profile for the country of interest, used to size PV-based minigrids.</div>
+        <div>RenewableNinja API</div>
+        <div><span class="badge req">Required</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row alt">
+        <div>Wind speed</div>
+        <div>Wind speed data at various hub heights used to assess the technical potential for wind energy generation.</div>
+        <div>Global Wind Atlas</div>
+        <div><span class="badge req">Required</span></div>
+        <div>Hub height: 100 m, 150 m, or 200 m. Default is 100 m</div>
+      </div>
+      <div class="ref-row">
+        <div>Wind hourly profile</div>
+        <div>Hourly wind generation profile for the country of interest, used to size wind-based minigrids.</div>
+        <div>RenewableNinja API</div>
+        <div><span class="badge req">Required</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row alt">
+        <div>Land cover</div>
+        <div>Land classified into 17 categories (MODIS). Different categories apply different penalties on grid extension cost calculations.</div>
+        <div>MODIS (MCD12Q1)</div>
+        <div><span class="badge opt">Optional</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row">
+        <div>Medium voltage lines</div>
+        <div>Existing MV power grid infrastructure. Enables the model to calculate the shortest and most cost-effective connection points for unelectrified areas.</div>
+        <div>GridFinder</div>
+        <div><span class="badge req">Required</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row alt">
+        <div>Nighttime lights</div>
+        <div>Nighttime light (NTL) intensity used as a proxy for existing electrification and economic activity, and to validate population data.</div>
+        <div>WorldPop / VIIRS NTL v2.1/2.2</div>
+        <div><span class="badge req">Required</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row">
+        <div>Roads</div>
+        <div>Road network data used as a proxy for accessibility. Proximity to roads reduces logistical costs of transporting and maintaining equipment.</div>
+        <div>OpenStreetMap (OSM)</div>
+        <div><span class="badge opt">Optional</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row alt">
+        <div>Travel time</div>
+        <div>Estimated travel time to the nearest urban centre, accounting for road quality, terrain slope, and land cover. Used for estimating diesel transport costs for off-grid generators.</div>
+        <div>Malaria Atlas Project</div>
+        <div><span class="badge opt">Optional</span></div>
+        <div></div>
+      </div>
+      <div class="ref-row">
+        <div>Settlements</div>
+        <div>Pre-clustered population settlements from GHSL (Somalia, Sudan, South Sudan) or HRSL (all other countries), calibrated to 2016 population values.</div>
+        <div>Khavari et al.</div>
+        <div><span class="badge opt">Optional</span></div>
+        <div></div>
+      </div>
+    </div>
   </div>
 </div>
 
