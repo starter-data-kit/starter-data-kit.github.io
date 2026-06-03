@@ -19,7 +19,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
 .hdr p{color:var(--mt);font-size:1rem}
 .line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
@@ -30,6 +30,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
+/* Info section */
+.info-section{margin-bottom:60px}
+.intro{font-size:.92rem;color:var(--mt);line-height:1.7;margin-bottom:24px}
+.cat-group{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.cat-head{display:grid;grid-template-columns:1fr 130px 1fr;background:#1a3a5c;color:#fff;font-weight:600;font-size:.88rem}
+.cat-head div{padding:10px 14px}
+.cat-row{display:grid;grid-template-columns:1fr 130px 1fr;font-size:.875rem;border-top:1px solid #f0ece4}
+.cat-row.alt{background:#f9f8f5}
+.cat-row div{padding:9px 14px;line-height:1.45;color:var(--mt)}
+.cat-row div:first-child{font-weight:500;color:var(--tx)}
+.cat-row a{color:var(--ac);text-decoration:none}
+.cat-row a:hover{text-decoration:underline}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -53,23 +65,68 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       <label for="country">Country</label>
       <select id="country">
         <option value="">— Select a country —</option>
-        <!-- Populated dynamically from FILES below -->
       </select>
     </div>
-
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Excel
     </button>
-
     <p class="note">Downloads <code>1_C_SDK_&lt;Country&gt;.xlsx</code> directly from Google Drive.</p>
   </div>
-</div>
 
+  <!-- Dataset info section -->
+  <div class="info-section">
+    <p class="intro">Each Starter Data Kit contains climate, land, energy and water data ready to help create a model. The datasets can be viewed through four categories:</p>
+
+    <!-- Climate -->
+    <div class="cat-group">
+      <div class="cat-head"><div>Climate</div><div>Scale</div><div>Source</div></div>
+      <div class="cat-row"><div>Crop Emission Factors</div><div>Global</div><div>Cao et al. 2026</div></div>
+      <div class="cat-row alt"><div>Livestock Emission Factors</div><div>Country-specific</div><div><a href="https://www.fao.org/faostat" target="_blank">FAOSTAT</a></div></div>
+      <div class="cat-row"><div>Land Emission Factors</div><div>Global</div><div>MIT Climate Portal, NOAA and Omwoyo et al. 2025</div></div>
+      <div class="cat-row alt"><div>Land Use Change Emission Factors</div><div>Regional</div><div>IPCC Tier 1 2006 and 2019</div></div>
+      <div class="cat-row"><div>Fuel Emission Factors</div><div>Global</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+    </div>
+
+    <!-- Land -->
+    <div class="cat-group">
+      <div class="cat-head"><div>Land</div><div>Scale</div><div>Source</div></div>
+      <div class="cat-row"><div>Crop Costs</div><div>Global</div><div>SIWI and APRA</div></div>
+      <div class="cat-row alt"><div>Crop Demand</div><div>Country-specific</div><div><a href="https://www.fao.org/faostat" target="_blank">FAOSTAT (Food Balances)</a></div></div>
+      <div class="cat-row"><div>Crop Yield</div><div>Country-specific</div><div><a href="https://www.fao.org/faostat" target="_blank">FAOSTAT</a></div></div>
+      <div class="cat-row alt"><div>Livestock Costs</div><div>Global</div><div>Rapiya et al. (2025)</div></div>
+      <div class="cat-row"><div>Livestock Demand</div><div>Country-specific</div><div><a href="https://www.fao.org/faostat" target="_blank">FAOSTAT</a></div></div>
+      <div class="cat-row alt"><div>Livestock Yield</div><div>Country-specific</div><div><a href="https://www.fao.org/faostat" target="_blank">FAOSTAT</a></div></div>
+      <div class="cat-row"><div>Land Cover</div><div>Country-specific</div><div><a href="https://www.fao.org/faostat" target="_blank">FAOSTAT</a></div></div>
+    </div>
+
+    <!-- Energy -->
+    <div class="cat-group">
+      <div class="cat-head"><div>Energy</div><div>Scale</div><div>Source</div></div>
+      <div class="cat-row"><div>Energy Demands</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row alt"><div>Availability Factor</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row"><div>Capacity Factors</div><div>Global</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row alt"><div>Operational Life</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row"><div>Installed Capacity</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row alt"><div>Efficiencies</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row"><div>Costs</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row alt"><div>Renewable Potential</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+      <div class="cat-row"><div>Fossil Fuel Reserves</div><div>Country-specific</div><div><em>See OSeMOSYS Starter Data Kits</em></div></div>
+    </div>
+
+    <!-- Water -->
+    <div class="cat-group">
+      <div class="cat-head"><div>Water</div><div>Scale</div><div>Source</div></div>
+      <div class="cat-row"><div>Variables – Availability, Potential and Withdrawal</div><div>Country-specific</div><div><a href="https://www.fao.org/aquastat" target="_blank">AQUASTAT</a></div></div>
+      <div class="cat-row alt"><div>Costs</div><div>Global</div><div>Plappally and Leinhard 2012</div></div>
+      <div class="cat-row"><div>Efficiency – Power Plant Usage</div><div>Global</div><div><a href="https://www.wri.org" target="_blank">WRI (2020)</a></div></div>
+    </div>
+  </div>
+
+</div>
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
 
 <script>
-// Country -> Google Drive file ID mapping
 var FILES = {
   "Angola": "1zyOysn-W4NzODw9whgOvK8HKs8htKLHp",
   "Benin": "19wIRYLOcD1DNDjPxWekc1PQn6IESIzpH",
@@ -81,7 +138,7 @@ var FILES = {
   "Central African Republic": "12HDPRDQB6Xh-6NE1CeHB-BNBxwXXupMf",
   "Chad": "11KAmByVYPmIGrVDTcZitbXu7qHPCUXO-",
   "Comoros": "1dNKBP8168IsrmxBPWN8z2ksEP7S_THsM",
-  "Côte d’Ivoire": "1TFRMFi5nApclBw8KP--cRJvWhllsuSKC",
+  "Côte d'Ivoire": "1TFRMFi5nApclBw8KP--cRJvWhllsuSKC",
   "Democratic Republic of the Congo": "10QDiKZN7WmoGwLx21apbOZtN-PoS4Dur",
   "Djibouti": "1InrwWRXWTkPbfQmlYmAWvYMxPnL4wjtJ",
   "Equatorial Guinea": "1ch8KEMO_6VdbKyPQYQtjOZQG7XKlirz7",
@@ -122,25 +179,22 @@ var FILES = {
   "Zimbabwe": "1aI7-cDvXztYkWas2Vy5O0CC-P4BCwvwx"
 };
 
-// Populate dropdown alphabetically
 var sel = document.getElementById('country');
 var btn = document.getElementById('dlBtn');
 
-Object.keys(FILES).sort(function(a, b) {
-  return a.localeCompare(b);
-}).forEach(function(name) {
+Object.keys(FILES).sort(function(a,b){ return a.localeCompare(b); }).forEach(function(name){
   var opt = document.createElement('option');
   opt.value = name;
   opt.textContent = name;
   sel.appendChild(opt);
 });
 
-sel.addEventListener('change', function() { btn.disabled = !sel.value; });
+sel.addEventListener('change', function(){ btn.disabled = !sel.value; });
 
-function doDownload() {
+function doDownload(){
   var id = FILES[sel.value];
-  if (!id) return;
-  window.location.href = 'https://drive.google.com/uc?export=download&id=' + id;
+  if(!id) return;
+  window.open('https://drive.google.com/file/d/' + id + '/view?usp=sharing', '_blank');
 }
 </script>
 </body>
