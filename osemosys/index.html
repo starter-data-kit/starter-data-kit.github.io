@@ -18,8 +18,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .hdr .logo{width:90px;height:90px;object-fit:contain;margin:0 auto 16px;display:block}
 .hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
 .hdr p{color:var(--mt);font-size:1rem}
-.line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
+.line{width:50px;height:3px;background:var(--ac);margin:28px auto 28px;border-radius:2px}
+.intro-card{background:var(--cd);border-radius:16px;padding:24px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:24px;font-size:.95rem;color:var(--mt);line-height:1.75;opacity:0;transform:translateY(16px);animation:fadeUp .35s ease forwards}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s .1s ease forwards}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
@@ -30,22 +31,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
-/* Info section */
 .info-section{margin-bottom:60px}
-.intro{font-size:.92rem;color:var(--mt);line-height:1.7;margin-bottom:16px}
+.section-intro{font-size:.92rem;color:var(--mt);line-height:1.7;margin-bottom:20px}
 .stats-row{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
-.stat-pill{background:var(--cd);border:1px solid #e8e4dc;border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:140px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.stat-pill .num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:var(--ac)}
+.stat-pill{background:var(--cd);border:1px solid #e8e4dc;border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:130px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.stat-pill .num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:var(--ac)}
 .stat-pill .lbl{font-size:.78rem;color:var(--mt);margin-top:2px}
-.param-table{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-top:8px}
-.param-head{display:grid;grid-template-columns:180px 1fr;gap:0;background:#1a3a5c;color:#fff;font-weight:600;font-size:.88rem}
-.param-head div{padding:10px 16px}
-.param-row{display:grid;grid-template-columns:180px 1fr;gap:0;font-size:.875rem;border-top:1px solid #f0ece4}
-.param-row:first-of-type{border-top:none}
-.param-row.alt{background:#f9f8f5}
-.param-row div{padding:10px 16px;line-height:1.5}
-.param-row div:first-child{font-weight:600;color:var(--tx)}
-.param-row div:last-child{color:var(--mt)}
+.data-group{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.data-head{display:grid;background:#1a3a5c;color:#fff;font-weight:600;font-size:.88rem}
+.data-head div{padding:10px 14px}
+.data-row{display:grid;font-size:.875rem;border-top:1px solid #f0ece4}
+.data-row.alt{background:#f9f8f5}
+.data-row div{padding:9px 14px;line-height:1.5;color:var(--mt)}
+.data-row div:first-child{font-weight:500;color:var(--tx)}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -53,132 +51,82 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 <body>
 <div class="bg"></div>
 <div class="w">
-  <a href="../" class="back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    All Tools
-  </a>
+  <a href="../" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All Tools</a>
   <div class="hdr">
     <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/osemosys_logo.png" alt="OSeMOSYS">
     <h1>OSeMOSYS</h1>
     <p>Open Source Energy Modelling System</p>
   </div>
   <div class="line"></div>
-
+  <div class="intro-card">OSeMOSYS is an open-source energy modelling system for long-run integrated assessment and planning. Each Starter Data Kit covers 12 parameters across 199 technologies and 30 useful energy demands, supporting whole-system modelling at country level for the period 2023–2050.</div>
   <div class="panel">
-    <div class="field">
-      <label for="country">Country</label>
-      <select id="country">
-        <option value="">— Select a country —</option>
-      </select>
+    <div class="field"><label for="country">Country</label>
+      <select id="country"><option value="">— Select a country —</option></select>
     </div>
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Excel
     </button>
-    <p class="note">Downloads <code>1_SDK_&lt;Country&gt;.xlsx</code> directly from Google Drive.</p>
+    <p class="note">Downloads <code>1_SDK_&lt;Country&gt;.xlsx</code> from Google Drive.</p>
   </div>
-
-  <!-- Dataset info section -->
   <div class="info-section">
-    <p class="intro">Each SDK contains a total of 12 parameters, which are described below. Likewise, each SDK includes 199 technologies and 30 useful energy demands distributed across the different sectors mentioned previously.</p>
-    <p class="intro">The design of these SDKs is intended to support the modelling of whole energy systems at the country level, enabling comprehensive sector-coupling analyses. However, users may choose to use the complete dataset or only selected components, depending on their specific needs.</p>
-
+    <p class="section-intro">Each SDK contains a total of 12 parameters, described below. Likewise, each SDK includes 199 technologies and 30 useful energy demands distributed across the different sectors. The design of these SDKs supports modelling of whole energy systems at country level, enabling comprehensive sector-coupling analyses. Users may choose to use the complete dataset or only selected components, depending on their specific needs.</p>
     <div class="stats-row">
       <div class="stat-pill"><div class="num">12</div><div class="lbl">Parameters</div></div>
       <div class="stat-pill"><div class="num">199</div><div class="lbl">Technologies</div></div>
-      <div class="stat-pill"><div class="num">30</div><div class="lbl">Useful energy demands</div></div>
+      <div class="stat-pill"><div class="num">30</div><div class="lbl">Energy demands</div></div>
       <div class="stat-pill"><div class="num">2023–2050</div><div class="lbl">Time horizon</div></div>
     </div>
-
-    <div class="param-table">
-      <div class="param-head"><div>Parameter</div><div>Description</div></div>
-      <div class="param-row"><div>Annual demand</div><div>Historical and projected useful energy demand 2023–2050.</div></div>
-      <div class="param-row alt"><div>Capacity factor</div><div>Ratio of energy produced by a generating unit for the period considered to the energy that could have been produced at continuous full operation during the same period. Applicable to renewable power technologies only.</div></div>
-      <div class="param-row"><div>Availability factor</div><div>Planned and forced outage percentage.</div></div>
-      <div class="param-row alt"><div>Operational life</div><div>Technical lifespan.</div></div>
-      <div class="param-row"><div>Installed capacity</div><div>Historical installed capacity per technology.</div></div>
-      <div class="param-row alt"><div>Efficiency</div><div>Ratio between output energy and input energy.</div></div>
-      <div class="param-row"><div>Capital cost</div><div>Overnight costs from 2023 to 2050. Projected data was considered when available, otherwise constant values were assumed.</div></div>
-      <div class="param-row alt"><div>Fixed cost</div><div>Fixed operational and maintenance costs. Projected data was considered when available, otherwise constant values were assumed.</div></div>
-      <div class="param-row"><div>Variable cost</div><div>Variable costs represent the fuel costs in the case of primary energy supply and import technologies, and the variable non-fuel costs for the rest of the technologies.</div></div>
-      <div class="param-row alt"><div>Emission factor</div><div>Dioxide carbon emission factors per fuel.</div></div>
-      <div class="param-row"><div>Fossil fuel reserves</div><div>Crude oil, natural gas, coal, and uranium reserves.</div></div>
-      <div class="param-row alt"><div>Renewable energy potential</div><div>Estimated maximum potential for power generation from renewable sources.</div></div>
+    <div class="data-group">
+      <div class="data-head" style="grid-template-columns:180px 1fr"><div>Parameter</div><div>Description</div></div>
+      <div class="data-row" style="grid-template-columns:180px 1fr"><div>Annual demand</div><div>Historical and projected useful energy demand 2023–2050.</div></div>
+      <div class="data-row alt" style="grid-template-columns:180px 1fr"><div>Capacity factor</div><div>Ratio of energy produced by a generating unit to the energy it could have produced at continuous full operation. Applicable to renewable power technologies only.</div></div>
+      <div class="data-row" style="grid-template-columns:180px 1fr"><div>Availability factor</div><div>Planned and forced outage percentage.</div></div>
+      <div class="data-row alt" style="grid-template-columns:180px 1fr"><div>Operational life</div><div>Technical lifespan.</div></div>
+      <div class="data-row" style="grid-template-columns:180px 1fr"><div>Installed capacity</div><div>Historical installed capacity per technology.</div></div>
+      <div class="data-row alt" style="grid-template-columns:180px 1fr"><div>Efficiency</div><div>Ratio between output energy and input energy.</div></div>
+      <div class="data-row" style="grid-template-columns:180px 1fr"><div>Capital cost</div><div>Overnight costs from 2023 to 2050. Projected data was considered when available, otherwise constant values were assumed.</div></div>
+      <div class="data-row alt" style="grid-template-columns:180px 1fr"><div>Fixed cost</div><div>Fixed operational and maintenance costs. Projected data was considered when available, otherwise constant values were assumed.</div></div>
+      <div class="data-row" style="grid-template-columns:180px 1fr"><div>Variable cost</div><div>Fuel costs for primary energy supply and import technologies; variable non-fuel costs for all other technologies.</div></div>
+      <div class="data-row alt" style="grid-template-columns:180px 1fr"><div>Emission factor</div><div>Dioxide carbon emission factors per fuel.</div></div>
+      <div class="data-row" style="grid-template-columns:180px 1fr"><div>Fossil fuel reserves</div><div>Crude oil, natural gas, coal, and uranium reserves.</div></div>
+      <div class="data-row alt" style="grid-template-columns:180px 1fr"><div>Renewable energy potential</div><div>Estimated maximum potential for power generation from renewable sources.</div></div>
     </div>
   </div>
-
 </div>
-<footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
+<footer><div class="w">&copy; 2025–2026 CCG. and contributors</div></footer>
 <script>
-var FILES = {
-  "Angola": "12FxcJO0xDogpKW5BHM7ujDTU5moXkkqc",
-  "Benin": "16_QuUz8wJbt525TjRhe-eaBnjWYtRIaW",
-  "Botswana": "1h6QgU1HfMtofogI7Pl6qHOLvoJVyUPH1",
-  "Burkina Faso": "1z6sCXCuYaSvfsOGiU7eW4T4MkR9GjkDY",
-  "Burundi": "1TY7cY7zmQKDZb5SF0vmsifVo2dCp7kLJ",
-  "Cabo Verde": "14CpxAmQkv3DIkoL3UdjuOBMWfy-3IC3Y",
-  "Cameroon": "1Ly_khjaZ3A3aoz8J73gmRST9QPu-zt9H",
-  "Central African Republic": "1U9QptwaLdBM9yN0xa0KXZsBMPC_HDESj",
-  "Chad": "1F9YjvcT8XCbKWNU4zEGIV490rbnvul5b",
-  "Comoros": "1n-A-XuxYfP2aZ9QvJC8ssnkZdwhxOq8D",
-  "Cote d'Ivoire": "11HPo5FSIxgxb3tWMXgqur9uqh5RpXghc",
-  "Democratic Republic of the Congo": "1AK91wZDQFnqEb17Hxp9-Y1FpUfTo4KFI",
-  "Djibouti": "1CVl24gveKX5DCEqUuSYYCMHMjZb75yF7",
-  "Equatorial Guinea": "1C4Vfz0SUqcaQfvTL-PjH7DrzKVnZblbN",
-  "Eritrea": "1PI51igL5viujaBtIak9vlMAWDhO0jWYY",
-  "Eswatini": "1FChZCGw3UScniMQ5A-V9jrmTXQ2juWXY",
-  "Ethiopia": "17GqEn6fjjREySxTIVbz4S1maN-MMKrH2",
-  "Gabon": "1E3vBbqFY9wfoQCcX7Ok7rA5-8MePBm3i",
-  "Gambia": "1Qkp4o44E1guLqZQUGXCbDAPbFxYWvzQz",
-  "Ghana": "1C8-oqS3h1ToF2ECn9pO5IoL30EHO9sbE",
-  "Guinea": "1a-mhV4nJJ_kriNSU-FSaEouEaMCGHXKG",
-  "Guinea-Bissau": "1div6XKkE-AX3YiBzm8XThLolFGORCmX7",
-  "Kenya": "1JGjNp7Ex2rI3Sydb8CIjKDfHYf9NIBMY",
-  "Lesotho": "1rY0DDpfmaPAriUycFwy9MDKOuiSBlQnp",
-  "Liberia": "1STrG_tlJOEUajTDkLtv8RPnJc9aC0uWb",
-  "Madagascar": "1h-fFe63IbzV2LEQX6ELH41q1YqelQ7zm",
-  "Malawi": "1agV7iAWMkdl4mjy5QNlxMfh-3GsrO-TR",
-  "Mali": "1hoTTWziFTLYmZbfqpFt-tolcW44lUN_W",
-  "Mauritania": "1SWRhQCMUcQZQG84MkMb0z-9mk2LuZBdV",
-  "Mauritius": "14Wadh-ZL46dOdqCJLH_WzSt_aVFHDD8_",
-  "Mozambique": "1N3LpecDnsVUOG5EAGMFMQVaCGPQIN1hz",
-  "Namibia": "1X58hmE-aGEv2v8g-8skwpugjJdTwRcQA",
-  "Niger": "1qkqUKeE1nREw9LZixD_gps-1uSPCcOrl",
-  "Nigeria": "1G_F9OaEm0VXfA-kPZxT_hsRm01qmXRX9",
-  "Republic of the Congo": "1KGyowWsSiQsEtgcERyEvnOho9hDx7HwO",
-  "Rwanda": "1v7Xsm0F-Ip6oKaVnymBJLA7HgV1vnA2G",
-  "Sao Tome and Principe": "1JVF5Tf14CMLb-soaY7CdSqVW1RkMDrE-",
-  "Senegal": "1Z73xeUtLQZjhONkCvem_hgvErBD7dPQA",
-  "Seychelles": "1ylmVmkt3FDFpjw8uc4_gc9seRrRqwILZ",
-  "Sierra Leone": "1YjAzX0WRwL20Vdz5kucCEyuH2X5rlfn0",
-  "Somalia": "1bBuRVOJo508wBRzosCEJ5-PyEGeJ9m8Y",
-  "South Africa": "1iGYtKQbwmA4jqMy5Du8pkYkbBac_miZO",
-  "South Sudan": "1e2CP-LrK6kBhTbGv8MPbRORfwiIBjvSe",
-  "Sudan": "1HtcTdP0NPgN8wD1JB8sZFTfwIg_AlU1c",
-  "Tanzania": "1mH4bJ8sngdjsMW8wk0OXOIQkh_SYFY_l",
-  "Togo": "19F9o-fTeicnf3EnMrSoWFnttuUQ0kmFU",
-  "Uganda": "1nx-Y0kSHAbmo58JOZSUmuD0myMkheVgR",
-  "Zambia": "1RrcF9X08mIzcgZmTO5itVOKMWR6YDMGF",
-  "Zimbabwe": "1Qc-0FC_3uWq1f3Ik1YAyIzvEDU7sGobQ"
+var FILES={
+  "Angola":"12FxcJO0xDogpKW5BHM7ujDTU5moXkkqc","Benin":"16_QuUz8wJbt525TjRhe-eaBnjWYtRIaW",
+  "Botswana":"1h6QgU1HfMtofogI7Pl6qHOLvoJVyUPH1","Burkina Faso":"1z6sCXCuYaSvfsOGiU7eW4T4MkR9GjkDY",
+  "Burundi":"1TY7cY7zmQKDZb5SF0vmsifVo2dCp7kLJ","Cabo Verde":"14CpxAmQkv3DIkoL3UdjuOBMWfy-3IC3Y",
+  "Cameroon":"1Ly_khjaZ3A3aoz8J73gmRST9QPu-zt9H","Central African Republic":"1U9QptwaLdBM9yN0xa0KXZsBMPC_HDESj",
+  "Chad":"1F9YjvcT8XCbKWNU4zEGIV490rbnvul5b","Comoros":"1n-A-XuxYfP2aZ9QvJC8ssnkZdwhxOq8D",
+  "Cote d'Ivoire":"11HPo5FSIxgxb3tWMXgqur9uqh5RpXghc","Democratic Republic of the Congo":"1AK91wZDQFnqEb17Hxp9-Y1FpUfTo4KFI",
+  "Djibouti":"1CVl24gveKX5DCEqUuSYYCMHMjZb75yF7","Equatorial Guinea":"1C4Vfz0SUqcaQfvTL-PjH7DrzKVnZblbN",
+  "Eritrea":"1PI51igL5viujaBtIak9vlMAWDhO0jWYY","Eswatini":"1FChZCGw3UScniMQ5A-V9jrmTXQ2juWXY",
+  "Ethiopia":"17GqEn6fjjREySxTIVbz4S1maN-MMKrH2","Gabon":"1E3vBbqFY9wfoQCcX7Ok7rA5-8MePBm3i",
+  "Gambia":"1Qkp4o44E1guLqZQUGXCbDAPbFxYWvzQz","Ghana":"1C8-oqS3h1ToF2ECn9pO5IoL30EHO9sbE",
+  "Guinea":"1a-mhV4nJJ_kriNSU-FSaEouEaMCGHXKG","Guinea-Bissau":"1div6XKkE-AX3YiBzm8XThLolFGORCmX7",
+  "Kenya":"1JGjNp7Ex2rI3Sydb8CIjKDfHYf9NIBMY","Lesotho":"1rY0DDpfmaPAriUycFwy9MDKOuiSBlQnp",
+  "Liberia":"1STrG_tlJOEUajTDkLtv8RPnJc9aC0uWb","Madagascar":"1h-fFe63IbzV2LEQX6ELH41q1YqelQ7zm",
+  "Malawi":"1agV7iAWMkdl4mjy5QNlxMfh-3GsrO-TR","Mali":"1hoTTWziFTLYmZbfqpFt-tolcW44lUN_W",
+  "Mauritania":"1SWRhQCMUcQZQG84MkMb0z-9mk2LuZBdV","Mauritius":"14Wadh-ZL46dOdqCJLH_WzSt_aVFHDD8_",
+  "Mozambique":"1N3LpecDnsVUOG5EAGMFMQVaCGPQIN1hz","Namibia":"1X58hmE-aGEv2v8g-8skwpugjJdTwRcQA",
+  "Niger":"1qkqUKeE1nREw9LZixD_gps-1uSPCcOrl","Nigeria":"1G_F9OaEm0VXfA-kPZxT_hsRm01qmXRX9",
+  "Republic of the Congo":"1KGyowWsSiQsEtgcERyEvnOho9hDx7HwO","Rwanda":"1v7Xsm0F-Ip6oKaVnymBJLA7HgV1vnA2G",
+  "Sao Tome and Principe":"1JVF5Tf14CMLb-soaY7CdSqVW1RkMDrE-","Senegal":"1Z73xeUtLQZjhONkCvem_hgvErBD7dPQA",
+  "Seychelles":"1ylmVmkt3FDFpjw8uc4_gc9seRrRqwILZ","Sierra Leone":"1YjAzX0WRwL20Vdz5kucCEyuH2X5rlfn0",
+  "Somalia":"1bBuRVOJo508wBRzosCEJ5-PyEGeJ9m8Y","South Africa":"1iGYtKQbwmA4jqMy5Du8pkYkbBac_miZO",
+  "South Sudan":"1e2CP-LrK6kBhTbGv8MPbRORfwiIBjvSe","Sudan":"1HtcTdP0NPgN8wD1JB8sZFTfwIg_AlU1c",
+  "Tanzania":"1mH4bJ8sngdjsMW8wk0OXOIQkh_SYFY_l","Togo":"19F9o-fTeicnf3EnMrSoWFnttuUQ0kmFU",
+  "Uganda":"1nx-Y0kSHAbmo58JOZSUmuD0myMkheVgR","Zambia":"1RrcF9X08mIzcgZmTO5itVOKMWR6YDMGF",
+  "Zimbabwe":"1Qc-0FC_3uWq1f3Ik1YAyIzvEDU7sGobQ"
 };
-
-var sel = document.getElementById('country');
-var btn = document.getElementById('dlBtn');
-
-Object.keys(FILES).sort(function(a,b){ return a.localeCompare(b); }).forEach(function(name){
-  var opt = document.createElement('option');
-  opt.value = name;
-  opt.textContent = name;
-  sel.appendChild(opt);
-});
-
-sel.addEventListener('change', function(){ btn.disabled = !sel.value; });
-
-function doDownload(){
-  var id = FILES[sel.value];
-  if(!id) return;
-  window.open('https://drive.google.com/file/d/' + id + '/view?usp=sharing', '_blank');
-}
+var sel=document.getElementById('country'),btn=document.getElementById('dlBtn');
+Object.keys(FILES).sort(function(a,b){return a.localeCompare(b);}).forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+sel.addEventListener('change',function(){btn.disabled=!sel.value;});
+function doDownload(){var id=FILES[sel.value];if(!id)return;window.open('https://drive.google.com/file/d/'+id+'/view?usp=sharing','_blank');}
 </script>
 </body>
 </html>
