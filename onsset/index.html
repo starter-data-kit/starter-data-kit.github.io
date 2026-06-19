@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,8 @@
 <title>OnSSET — Starter Data Kits</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f2ee;--tx:#1a1a1a;--mt:#5c5c5c;--ac:#e8a838;--cd:#fff}
+:root{--ac:#e8a838}
+:root{--bg:#f4f2ee;--tx:#1a1a1a;--mt:#5c5c5c;--cd:#fff}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
 .bg{position:fixed;inset:0;pointer-events:none;z-index:0}
@@ -18,8 +20,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .hdr .logo{width:90px;height:90px;object-fit:contain;margin:0 auto 16px;display:block}
 .hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
 .hdr p{color:var(--mt);font-size:1rem}
-.line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
+.line{width:50px;height:3px;background:var(--ac);margin:28px auto 28px;border-radius:2px}
+.intro-card{background:var(--cd);border-radius:16px;padding:24px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:24px;font-size:.95rem;color:var(--mt);line-height:1.75;opacity:0;transform:translateY(16px);animation:fadeUp .35s ease forwards}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s .1s ease forwards}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
@@ -34,315 +37,128 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .msg.soon{background:#fff8e1;color:#f57f17}
 .msg.ok{background:#e8f5e9;color:#2e7d32}
 .msg.multi{background:#e3f2fd;color:#1565c0}
+/* Shared info section */
 .info-section{margin-bottom:60px}
-.intro{font-size:.92rem;color:var(--mt);line-height:1.6;margin-bottom:24px}
-.cat-group{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-bottom:20px}
-.cat-header{padding:10px 16px;font-weight:600;font-size:.88rem;color:#fff;letter-spacing:.3px}
-.cat-blue{background:#1a3a5c}
-.cat-row{display:grid;grid-template-columns:200px 1fr;gap:12px;padding:10px 16px;font-size:.875rem}
-.cat-row.alt{background:#f9f8f5}
-.cat-name{font-weight:500;color:var(--tx)}
-.cat-desc{color:var(--mt);line-height:1.5}
-.ref-title{font-family:'Playfair Display',serif;font-size:1.2rem;margin:36px 0 10px;color:var(--tx)}
-.ref-table{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-top:16px;font-size:.82rem}
-.ref-head{display:grid;grid-template-columns:140px 1fr 130px 80px 130px;gap:8px;padding:10px 14px;background:#1a3a5c;color:#fff;font-weight:600}
-.ref-row{display:grid;grid-template-columns:140px 1fr 130px 80px 130px;gap:8px;padding:10px 14px;align-items:start}
-.ref-row.alt{background:#f9f8f5}
-.ref-row div{color:var(--mt);line-height:1.45}
-.ref-row div:first-child{font-weight:500;color:var(--tx)}
+.section-intro{font-size:.92rem;color:var(--mt);line-height:1.7;margin-bottom:24px}
+.stats-row{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.stat-pill{background:var(--cd);border:1px solid #e8e4dc;border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:130px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.stat-pill .num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:var(--ac)}
+.stat-pill .lbl{font-size:.78rem;color:var(--mt);margin-top:2px}
+.data-group{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.data-head{display:grid;gap:0;background:#1a3a5c;color:#fff;font-weight:600;font-size:.88rem}
+.data-head div{padding:10px 14px}
+.data-row{display:grid;gap:0;font-size:.875rem;border-top:1px solid #f0ece4}
+.data-row.alt{background:#f9f8f5}
+.data-row div{padding:9px 14px;line-height:1.5;color:var(--mt)}
+.data-row div:first-child{font-weight:500;color:var(--tx)}
+.data-row a{color:var(--ac);text-decoration:none}
+.data-row a:hover{text-decoration:underline}
 .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.75rem;font-weight:600}
 .badge.req{background:#e8f5e9;color:#2e7d32}
 .badge.opt{background:#fff8e1;color:#e65100}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.data-head.cols3{grid-template-columns:1fr 130px 1fr}
+.data-row.cols3{grid-template-columns:1fr 130px 1fr}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="w">
-  <a href="../" class="back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    All Tools
-  </a>
+  <a href="../" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All Tools</a>
   <div class="hdr">
     <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/OnSSET_Logo.png" alt="OnSSET">
     <h1>OnSSET</h1>
-    <p>Open Source Spatial Electrification</p>
+    <p>Open Source Spatial Electrification Tool</p>
   </div>
   <div class="line"></div>
-
+  <div class="intro-card">OnSSET is a GIS-based model for electricity access planning in developing countries. Each Starter Data Kit contains geospatial and socio-economic input files ready for use directly in OnSSET, grouped into three categories.</div>
   <div class="panel">
-    <div class="field">
-      <label for="country">Country</label>
-      <select id="country">
-        <option value="">— Select a country —</option>
-        <option value="Angola">Angola</option>
-        <option value="Benin">Benin</option>
-        <option value="Botswana">Botswana</option>
-        <option value="Burkina Faso">Burkina Faso</option>
-        <option value="Burundi">Burundi</option>
-        <option value="Cabo Verde">Cabo Verde</option>
-        <option value="Cameroon">Cameroon</option>
-        <option value="Central African Republic">Central African Republic</option>
-        <option value="Chad">Chad</option>
-        <option value="Comoros">Comoros</option>
-        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-        <option value="DR Congo">DR Congo</option>
-        <option value="Djibouti">Djibouti</option>
-        <option value="Equatorial Guinea">Equatorial Guinea</option>
-        <option value="Eritrea">Eritrea</option>
-        <option value="Eswatini">Eswatini</option>
-        <option value="Ethiopia">Ethiopia</option>
-        <option value="Gabon">Gabon</option>
-        <option value="Gambia">Gambia</option>
-        <option value="Ghana">Ghana</option>
-        <option value="Guinea">Guinea</option>
-        <option value="Guinea-Bissau">Guinea-Bissau</option>
-        <option value="Kenya">Kenya</option>
-        <option value="Lesotho">Lesotho</option>
-        <option value="Liberia">Liberia</option>
-        <option value="Madagascar">Madagascar</option>
-        <option value="Malawi">Malawi</option>
-        <option value="Mali">Mali</option>
-        <option value="Mauritania">Mauritania</option>
-        <option value="Mauritius">Mauritius</option>
-        <option value="Mozambique">Mozambique</option>
-        <option value="Namibia">Namibia</option>
-        <option value="Niger">Niger</option>
-        <option value="Nigeria">Nigeria</option>
-        <option value="Republic of Congo">Republic of Congo</option>
-        <option value="Rwanda">Rwanda</option>
-        <option value="São Tomé and Príncipe">São Tomé and Príncipe</option>
-        <option value="Senegal">Senegal</option>
-        <option value="Sierra Leone">Sierra Leone</option>
-        <option value="Somalia">Somalia</option>
-        <option value="South Africa">South Africa</option>
-        <option value="South Sudan">South Sudan</option>
-        <option value="Sudan">Sudan</option>
-        <option value="Tanzania">Tanzania</option>
-        <option value="Togo">Togo</option>
-        <option value="Uganda">Uganda</option>
-        <option value="Zambia">Zambia</option>
-        <option value="Zimbabwe">Zimbabwe</option>
+    <div class="field"><label for="country">Country</label>
+      <select id="country"><option value="">— Select a country —</option>
+        <option>Angola</option><option>Benin</option><option>Botswana</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cameroon</option><option>Central African Republic</option><option>Chad</option><option>Comoros</option><option>Côte d'Ivoire</option><option>DR Congo</option><option>Djibouti</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Eswatini</option><option>Ethiopia</option><option>Gabon</option><option>Gambia</option><option>Ghana</option><option>Guinea</option><option>Guinea-Bissau</option><option>Kenya</option><option>Lesotho</option><option>Liberia</option><option>Madagascar</option><option>Malawi</option><option>Mali</option><option>Mauritania</option><option>Mauritius</option><option>Mozambique</option><option>Namibia</option><option>Niger</option><option>Nigeria</option><option>Republic of Congo</option><option>Rwanda</option><option>São Tomé and Príncipe</option><option>Senegal</option><option>Sierra Leone</option><option>Somalia</option><option>South Africa</option><option>South Sudan</option><option>Sudan</option><option>Tanzania</option><option>Togo</option><option>Uganda</option><option>Zambia</option><option>Zimbabwe</option>
       </select>
     </div>
-
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download ZIP
     </button>
-
     <p class="note">Downloads country-level OnSSET data as a ZIP from Google Drive. Large files (&gt;25 MB) will show a Google virus-scan warning — click <strong>Download anyway</strong> to proceed.</p>
     <div class="msg" id="msg"></div>
   </div>
-</div>
-
-  <!-- Dataset info section -->
   <div class="info-section">
-    <p class="intro">Each Starter Data Kit contains geospatial and socio-economic input files ready for use in OnSSET. Datasets are grouped into three categories:</p>
-
-    <div class="cat-group">
-      <div class="cat-header cat-blue">Socio-Demographics</div>
-      <div class="cat-row"><div class="cat-name">Socio-economic specifications</div><div class="cat-desc">Household energy tiers, willingness to pay, and projected GDP growth projections</div></div>
-      <div class="cat-row alt"><div class="cat-name">Population count</div><div class="cat-desc">Spatial population distribution at 100 m or 1 km resolution (WorldPop)</div></div>
-      <div class="cat-row"><div class="cat-name">Settlements</div><div class="cat-desc">Pre-clustered population settlements calibrated to 2016 values (Khavari et al.)</div></div>
+    <div class="data-group">
+      <div class="data-head cols3"><div>Socio-Demographics</div><div>Scale</div><div>Source</div></div>
+      <div class="data-row cols3"><div>Socio-economic specifications</div><div>Country-specific</div><div>CCG / country-specific</div></div>
+      <div class="data-row cols3 alt"><div>Population count</div><div>100 m or 1 km</div><div>WorldPop</div></div>
+      <div class="data-row cols3"><div>Settlements</div><div>Country-specific</div><div>Khavari et al.</div></div>
     </div>
-
-    <div class="cat-group">
-      <div class="cat-header cat-blue">Physical &amp; Environment</div>
-      <div class="cat-row"><div class="cat-name">Elevation model (DEM)</div><div class="cat-desc">Terrain elevation and slope at ~90 m resolution (NASA EarthData / SRTMGL3). Requires free NASA account.</div></div>
-      <div class="cat-row alt"><div class="cat-name">Solar irradiation</div><div class="cat-desc">Global Horizontal Irradiance (GHI) for PV feasibility (Global Solar Atlas)</div></div>
-      <div class="cat-row"><div class="cat-name">Solar hourly profile</div><div class="cat-desc">Hourly PV generation profile for minigrid sizing (RenewableNinja API)</div></div>
-      <div class="cat-row alt"><div class="cat-name">Wind speed</div><div class="cat-desc">Wind speed at hub heights of 100 m, 150 m, or 200 m (Global Wind Atlas)</div></div>
-      <div class="cat-row"><div class="cat-name">Wind hourly profile</div><div class="cat-desc">Hourly wind generation profile for minigrid sizing (RenewableNinja API)</div></div>
-      <div class="cat-row alt"><div class="cat-name">Land cover</div><div class="cat-desc">17-category land classification affecting grid extension cost penalties (MODIS MCD12Q1)</div></div>
+    <div class="data-group">
+      <div class="data-head cols3"><div>Physical &amp; Environment</div><div>Scale</div><div>Source</div></div>
+      <div class="data-row cols3"><div>Elevation model (DEM)</div><div>~90 m</div><div>NASA EarthData / SRTMGL3 — requires free NASA account</div></div>
+      <div class="data-row cols3 alt"><div>Solar irradiation</div><div>Global</div><div>Global Solar Atlas</div></div>
+      <div class="data-row cols3"><div>Solar hourly profile</div><div>Country-specific</div><div>RenewableNinja API</div></div>
+      <div class="data-row cols3 alt"><div>Wind speed</div><div>Global</div><div>Global Wind Atlas (hub heights: 100 m, 150 m, 200 m)</div></div>
+      <div class="data-row cols3"><div>Wind hourly profile</div><div>Country-specific</div><div>RenewableNinja API</div></div>
+      <div class="data-row cols3 alt"><div>Land cover</div><div>Global</div><div>MODIS MCD12Q1</div></div>
     </div>
-
-    <div class="cat-group">
-      <div class="cat-header cat-blue">Infrastructure</div>
-      <div class="cat-row"><div class="cat-name">Medium voltage lines</div><div class="cat-desc">Existing power grid infrastructure for identifying connection points (GridFinder)</div></div>
-      <div class="cat-row alt"><div class="cat-name">Nighttime lights</div><div class="cat-desc">Proxy for existing electrification and economic activity (WorldPop / VIIRS NTL v2.1/2.2)</div></div>
-      <div class="cat-row"><div class="cat-name">Roads</div><div class="cat-desc">Road network proximity for logistics cost estimation (OpenStreetMap)</div></div>
-      <div class="cat-row alt"><div class="cat-name">Travel time</div><div class="cat-desc">Travel time to nearest urban centre, accounting for terrain and land cover (Malaria Atlas Project)</div></div>
+    <div class="data-group">
+      <div class="data-head cols3"><div>Infrastructure</div><div>Scale</div><div>Source</div></div>
+      <div class="data-row cols3"><div>Medium voltage lines</div><div>Country-specific</div><div>GridFinder</div></div>
+      <div class="data-row cols3 alt"><div>Nighttime lights</div><div>Country-specific</div><div>WorldPop / VIIRS NTL v2.1/2.2</div></div>
+      <div class="data-row cols3"><div>Roads</div><div>Country-specific</div><div>OpenStreetMap (OSM)</div></div>
+      <div class="data-row cols3 alt"><div>Travel time</div><div>Country-specific</div><div>Malaria Atlas Project</div></div>
     </div>
-
-    <h3 class="ref-title">Dataset reference table</h3>
-    <p class="intro">All available datasets, their sources, and whether they are required or optional for a basic OnSSET model run.</p>
-
-    <div class="ref-table">
-      <div class="ref-head">
-        <div>Dataset</div><div>Description</div><div>Source</div><div>Status</div><div>Notes</div>
-      </div>
-      <div class="ref-row">
-        <div>Socio-economic specifications</div>
-        <div>Household energy consumption tiers, willingness to pay, and projected GDP growth. Used to calculate long-term economic viability and expected revenue for grid investments.</div>
-        <div>CCG / country-specific</div>
-        <div><span class="badge req">Required</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row alt">
-        <div>Population count</div>
-        <div>Spatial distribution of inhabitants, critical for estimating electricity demand and identifying clusters for potential microgrid or grid extension projects.</div>
-        <div>WorldPop</div>
-        <div><span class="badge req">Required</span></div>
-        <div>Resolution: 100 m or 1 km</div>
-      </div>
-      <div class="ref-row">
-        <div>Elevation model (DEM)</div>
-        <div>Digital Elevation Model data used to determine terrain slope. Both slope and elevation specify grid extension suitability.</div>
-        <div>NASA EarthData (SRTMGL3 ~90 m default)</div>
-        <div><span class="badge opt">Optional</span></div>
-        <div>Requires free NASA account</div>
-      </div>
-      <div class="ref-row alt">
-        <div>Solar irradiation</div>
-        <div>Global Horizontal Irradiance (GHI) data measuring energy received from the sun — the primary input for sizing solar PV installations.</div>
-        <div>Global Solar Atlas</div>
-        <div><span class="badge req">Required</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row">
-        <div>Solar hourly profile</div>
-        <div>Hourly solar generation profile for the country of interest, used to size PV-based minigrids.</div>
-        <div>RenewableNinja API</div>
-        <div><span class="badge req">Required</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row alt">
-        <div>Wind speed</div>
-        <div>Wind speed data at various hub heights used to assess the technical potential for wind energy generation.</div>
-        <div>Global Wind Atlas</div>
-        <div><span class="badge req">Required</span></div>
-        <div>Hub height: 100 m, 150 m, or 200 m. Default is 100 m</div>
-      </div>
-      <div class="ref-row">
-        <div>Wind hourly profile</div>
-        <div>Hourly wind generation profile for the country of interest, used to size wind-based minigrids.</div>
-        <div>RenewableNinja API</div>
-        <div><span class="badge req">Required</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row alt">
-        <div>Land cover</div>
-        <div>Land classified into 17 categories (MODIS). Different categories apply different penalties on grid extension cost calculations.</div>
-        <div>MODIS (MCD12Q1)</div>
-        <div><span class="badge opt">Optional</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row">
-        <div>Medium voltage lines</div>
-        <div>Existing MV power grid infrastructure. Enables the model to calculate the shortest and most cost-effective connection points for unelectrified areas.</div>
-        <div>GridFinder</div>
-        <div><span class="badge req">Required</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row alt">
-        <div>Nighttime lights</div>
-        <div>Nighttime light (NTL) intensity used as a proxy for existing electrification and economic activity, and to validate population data.</div>
-        <div>WorldPop / VIIRS NTL v2.1/2.2</div>
-        <div><span class="badge req">Required</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row">
-        <div>Roads</div>
-        <div>Road network data used as a proxy for accessibility. Proximity to roads reduces logistical costs of transporting and maintaining equipment.</div>
-        <div>OpenStreetMap (OSM)</div>
-        <div><span class="badge opt">Optional</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row alt">
-        <div>Travel time</div>
-        <div>Estimated travel time to the nearest urban centre, accounting for road quality, terrain slope, and land cover. Used for estimating diesel transport costs for off-grid generators.</div>
-        <div>Malaria Atlas Project</div>
-        <div><span class="badge opt">Optional</span></div>
-        <div></div>
-      </div>
-      <div class="ref-row">
-        <div>Settlements</div>
-        <div>Pre-clustered population settlements from GHSL (Somalia, Sudan, South Sudan) or HRSL (all other countries), calibrated to 2016 population values.</div>
-        <div>Khavari et al.</div>
-        <div><span class="badge opt">Optional</span></div>
-        <div></div>
-      </div>
+    <p class="section-intro" style="margin-top:20px">The table below summarises all available datasets, their sources, and whether they are required or optional for a basic OnSSET model run.</p>
+    <div class="data-group">
+      <div class="data-head" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Dataset</div><div>Description</div><div>Source</div><div>Status</div><div>Notes</div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Socio-economic specs</div><div>Household energy consumption tiers, willingness to pay, and projected GDP growth.</div><div>CCG / country-specific</div><div><span class="badge req">Required</span></div><div></div></div>
+      <div class="data-row alt" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Population count</div><div>Spatial distribution of inhabitants for estimating electricity demand and identifying clusters.</div><div>WorldPop</div><div><span class="badge req">Required</span></div><div>100 m or 1 km</div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Elevation model (DEM)</div><div>Digital Elevation Model used to determine terrain slope and grid extension suitability.</div><div>NASA EarthData (SRTMGL3)</div><div><span class="badge opt">Optional</span></div><div>Requires NASA account</div></div>
+      <div class="data-row alt" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Solar irradiation</div><div>Global Horizontal Irradiance (GHI) — primary input for sizing solar PV installations.</div><div>Global Solar Atlas</div><div><span class="badge req">Required</span></div><div></div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Solar hourly profile</div><div>Hourly solar generation profile for sizing PV-based minigrids.</div><div>RenewableNinja API</div><div><span class="badge req">Required</span></div><div></div></div>
+      <div class="data-row alt" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Wind speed</div><div>Wind speed data at various hub heights for assessing wind energy potential.</div><div>Global Wind Atlas</div><div><span class="badge req">Required</span></div><div>Default: 100 m hub height</div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Wind hourly profile</div><div>Hourly wind generation profile for sizing wind-based minigrids.</div><div>RenewableNinja API</div><div><span class="badge req">Required</span></div><div></div></div>
+      <div class="data-row alt" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Land cover</div><div>17-category classification applying penalties to grid extension cost calculations.</div><div>MODIS (MCD12Q1)</div><div><span class="badge opt">Optional</span></div><div></div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Medium voltage lines</div><div>Existing MV grid infrastructure for calculating cost-effective connection points.</div><div>GridFinder</div><div><span class="badge req">Required</span></div><div></div></div>
+      <div class="data-row alt" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Nighttime lights</div><div>NTL intensity used as proxy for electrification and economic activity.</div><div>WorldPop / VIIRS NTL v2.1/2.2</div><div><span class="badge req">Required</span></div><div></div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Roads</div><div>Road network proximity for estimating logistics costs of equipment transport.</div><div>OpenStreetMap (OSM)</div><div><span class="badge opt">Optional</span></div><div></div></div>
+      <div class="data-row alt" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Travel time</div><div>Travel time to nearest urban centre for estimating diesel transport costs.</div><div>Malaria Atlas Project</div><div><span class="badge opt">Optional</span></div><div></div></div>
+      <div class="data-row" style="grid-template-columns:140px 1fr 130px 80px 130px"><div>Settlements</div><div>Pre-clustered population settlements calibrated to 2016 values.</div><div>Khavari et al.</div><div><span class="badge opt">Optional</span></div><div></div></div>
     </div>
   </div>
 </div>
-
-<footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
-
+<footer><div class="w">&copy; 2025–2026 CCG. and contributors</div></footer>
 <script>
-var FILES = {
-  "Angola":                    ["1RscoMz3v_s5Y_rFUJZolDuqhYNm13k5Y"],
-  "Benin":                     ["1jyVXQhT-RtKmI4Duz-39I7qXiVhja4Bq"],
-  "Botswana":                  ["1brV1E-RITQm7Z2-CyReEQNqUVB8QbqgA"],
-  "Burkina Faso":              ["19x5SVuYOhNXLnVyTIEF2z50kMjni1Ev3"],
-  "Burundi":                   ["1iM8wEswjRbnj_G8zXy68gi7PGVPa9Aln"],
-  "Cameroon":                  ["1DZf16saFkzCEKy0HA1W2RPy8hTZWTEHv"],
-  "Central African Republic":  ["1TOc5xMqrSwHh7fSWEXlLceh2qI_0o4Vo"],
-  "Republic of Congo":         ["17GnWYx40YB9Fqoa6l0N1VxKmnp22sVej"],
-  "Djibouti":                  ["18bPn8wSSMY16a_qYDK4c1WZ62uTTJSzf"],
-  "Equatorial Guinea":         ["14PaMQfhxO5SBf_La-HoEe6q03fqg16XM"],
-  "Eritrea":                   ["1asec65sS3dVTB-APudtoO8v5LN3GsqjE"],
-  "Ethiopia":                  ["1ANdibteyPpztbK96EV1xqbOdl9LCpgll"],
-  "Gabon":                     ["1PcHRbPoTCcS4k0iZ3sBBbR5NgBfLfn83"],
-  "Ghana":                     ["1ubDd3407XDfZzmFtXTZodP1duF5Hkc33"],
-  "Guinea":                    ["1mqtIU_NE9eTDrAhCwJE2Qc6SwkIq9VFz"],
-  "Guinea-Bissau":             ["1OzeZTQMB_7kMjURAaudtmngbb0_TLIuw"],
-  "Côte d'Ivoire":             ["1F4GqAtKCItuVSlQtS2afXN564-0T7VAc"],
-  "Kenya":                     ["1QDk3QSrYVk5L-Gp7eu_Nxs_B-3wA8_xb"],
-  "Malawi":                    ["1bvw_EabIIPaa_xmBihZTH_RmrEQaAn1A"],
-  "Mali":                      ["1n0hXfkDybSQzslxDqPOdpHabtA3i9IYK"],
-  "Mauritania":                ["1F15-u-7Ccl7NQQjPHPQS4JQcLdd1FR_L", "1rZSaOAj20qylo3bzsH7PnkyCl8edEHMx"],
-  "Mozambique":                ["1nw1mSCPyY_dyQM8miHexAoKKaFZ9E8me"],
-  "Namibia":                   ["1WHja-_fyvYsJKquSSxGJkNBg5lAudL1t"],
-  "Niger":                     ["1eZXiq6PAUEBfu0HcIArxx_x3Ky2Ldvji"],
-  "Nigeria":                   ["147LG2zfS9i_dzkG8cM-eMlrWvqXqA4rc"],
-  "Rwanda":                    ["1iY9U4TAInnAClxzgO_j48BaEtu_ARWVb"],
-  "Eswatini":                  ["12wWiF9fFzOEUBHJxm457bEbyuB3WsWym"],
-  "Senegal":                   ["1wXBldNhYdKmQsXHn6qNvtveC21UQXGKE"],
-  "Sierra Leone":              ["177kNNX1HNzHaFq3N3NDaRnDpeAqbC88g"],
-  "Somalia":                   ["1ypSOHcJOEOYqckzFFe7RMM7smECMIOF0"],
-  "South Sudan":               ["1KwQa7WathdAIGeQEmsRZueiKwd9jSUEj"],
-  "Chad":                      ["1mzw3KLIU3IP0twtCGJwp4u0UKNbKjvBJ"],
-  "Tanzania":                  ["1VQIUHCrMQUsm1vnTCsC8iHvp3dgoCc5R"]
+var FILES={
+  "Angola":["1RscoMz3v_s5Y_rFUJZolDuqhYNm13k5Y"],"Benin":["1jyVXQhT-RtKmI4Duz-39I7qXiVhja4Bq"],
+  "Botswana":["1brV1E-RITQm7Z2-CyReEQNqUVB8QbqgA"],"Burkina Faso":["19x5SVuYOhNXLnVyTIEF2z50kMjni1Ev3"],
+  "Burundi":["1iM8wEswjRbnj_G8zXy68gi7PGVPa9Aln"],"Cameroon":["1DZf16saFkzCEKy0HA1W2RPy8hTZWTEHv"],
+  "Central African Republic":["1TOc5xMqrSwHh7fSWEXlLceh2qI_0o4Vo"],"Republic of Congo":["17GnWYx40YB9Fqoa6l0N1VxKmnp22sVej"],
+  "Djibouti":["18bPn8wSSMY16a_qYDK4c1WZ62uTTJSzf"],"Equatorial Guinea":["14PaMQfhxO5SBf_La-HoEe6q03fqg16XM"],
+  "Eritrea":["1asec65sS3dVTB-APudtoO8v5LN3GsqjE"],"Ethiopia":["1ANdibteyPpztbK96EV1xqbOdl9LCpgll"],
+  "Gabon":["1PcHRbPoTCcS4k0iZ3sBBbR5NgBfLfn83"],"Ghana":["1ubDd3407XDfZzmFtXTZodP1duF5Hkc33"],
+  "Guinea":["1mqtIU_NE9eTDrAhCwJE2Qc6SwkIq9VFz"],"Guinea-Bissau":["1OzeZTQMB_7kMjURAaudtmngbb0_TLIuw"],
+  "Côte d'Ivoire":["1F4GqAtKCItuVSlQtS2afXN564-0T7VAc"],"Kenya":["1QDk3QSrYVk5L-Gp7eu_Nxs_B-3wA8_xb"],
+  "Malawi":["1bvw_EabIIPaa_xmBihZTH_RmrEQaAn1A"],"Mali":["1n0hXfkDybSQzslxDqPOdpHabtA3i9IYK"],
+  "Mauritania":["1F15-u-7Ccl7NQQjPHPQS4JQcLdd1FR_L","1rZSaOAj20qylo3bzsH7PnkyCl8edEHMx"],
+  "Mozambique":["1nw1mSCPyY_dyQM8miHexAoKKaFZ9E8me"],"Namibia":["1WHja-_fyvYsJKquSSxGJkNBg5lAudL1t"],
+  "Niger":["1eZXiq6PAUEBfu0HcIArxx_x3Ky2Ldvji"],"Nigeria":["147LG2zfS9i_dzkG8cM-eMlrWvqXqA4rc"],
+  "Rwanda":["1iY9U4TAInnAClxzgO_j48BaEtu_ARWVb"],"Eswatini":["12wWiF9fFzOEUBHJxm457bEbyuB3WsWym"],
+  "Senegal":["1wXBldNhYdKmQsXHn6qNvtveC21UQXGKE"],"Sierra Leone":["177kNNX1HNzHaFq3N3NDaRnDpeAqbC88g"],
+  "Somalia":["1ypSOHcJOEOYqckzFFe7RMM7smECMIOF0"],"South Sudan":["1KwQa7WathdAIGeQEmsRZueiKwd9jSUEj"],
+  "Chad":["1mzw3KLIU3IP0twtCGJwp4u0UKNbKjvBJ"],"Tanzania":["1VQIUHCrMQUsm1vnTCsC8iHvp3dgoCc5R"]
 };
-
-var sel = document.getElementById('country');
-var btn = document.getElementById('dlBtn');
-var msg = document.getElementById('msg');
-
-sel.addEventListener('change', function() { btn.disabled = !sel.value; msg.style.display = 'none'; });
-
-function triggerDownload(id) {
-  window.open('https://drive.google.com/uc?export=download&id=' + id, '_blank');
-}
-
-function doDownload() {
-  var country = sel.value;
-  if (!country) return;
-  var ids = FILES[country];
-
-  if (!ids) {
-    msg.className = 'msg soon';
-    msg.textContent = '⏳ Data for ' + country + ' is coming soon.';
-    msg.style.display = 'block';
-    setTimeout(function() { msg.style.display = 'none'; }, 5000);
-    return;
-  }
-
-  ids.forEach(function(id, i) {
-    setTimeout(function() { triggerDownload(id); }, i * 1500);
-  });
-
-  if (ids.length > 1) {
-    msg.className = 'msg multi';
-    msg.textContent = '⬇ Downloading ' + ids.length + ' ZIP files for ' + country + '…';
-  } else {
-    msg.className = 'msg ok';
-    msg.textContent = '⬇ Downloading ' + country + '.zip…';
-  }
-  msg.style.display = 'block';
-  setTimeout(function() { msg.style.display = 'none'; }, 6000);
+var sel=document.getElementById('country'),btn=document.getElementById('dlBtn'),msg=document.getElementById('msg');
+sel.addEventListener('change',function(){btn.disabled=!sel.value;msg.style.display='none';});
+function doDownload(){
+  var c=sel.value;if(!c)return;
+  var ids=FILES[c];
+  if(!ids){msg.className='msg soon';msg.textContent='⏳ Data for '+c+' is coming soon.';msg.style.display='block';setTimeout(function(){msg.style.display='none';},5000);return;}
+  ids.forEach(function(id,i){setTimeout(function(){window.open('https://drive.google.com/uc?export=download&id='+id,'_blank');},i*1500);});
+  msg.className=ids.length>1?'msg multi':'msg ok';
+  msg.textContent=ids.length>1?'⬇ Downloading '+ids.length+' ZIP files for '+c+'…':'⬇ Downloading '+c+'.zip…';
+  msg.style.display='block';setTimeout(function(){msg.style.display='none';},6000);
 }
 </script>
 </body>
