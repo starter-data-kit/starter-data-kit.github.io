@@ -1,60 +1,631 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NISMOD — Starter Data Kits</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f4f2ee;--tx:#1a1a1a;--mt:#5c5c5c;--ac:#e67e22;--cd:#fff}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
-.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
-.bg::before{content:'';position:absolute;top:-30%;right:-20%;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(45,106,79,.06)0%,transparent 70%)}
-.w{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 24px}
-.back{display:inline-flex;align-items:center;gap:6px;margin-top:40px;font-size:.9rem;color:var(--mt);text-decoration:none;transition:color .2s}
-.back:hover{color:var(--ac)}
-.back svg{width:18px;height:18px}
-.hdr{text-align:center;padding:40px 0 12px}
-.hdr .ic{width:72px;height:72px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:var(--ac);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
-.hdr p{color:var(--mt);font-size:1rem}
-.line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
-.field{margin-bottom:20px}
-.field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
-.field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-.field select:focus{outline:none;border-color:var(--ac)}
-.field select:disabled{opacity:.5;cursor:wait}
-.btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center}
-.btn:hover{opacity:.88;transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
-.btn svg{width:20px;height:20px}
-.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none}
-footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-</style>
-</head>
-<body>
-<div class="bg"></div>
-<div class="w">
-  <a href="../" class="back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    All Tools
-  </a>
-  <div class="hdr">
-    <div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 12l6 4"/><path d="M12 12l-4 6"/></svg></div>
-    <h1>NISMOD</h1>
-    <p>National Infrastructure Systems Model</p>
-  </div>
-  <div class="line"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>NISMOD — Starter Data Kits</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f4f2ee;
+        --tx: #1a1a1a;
+        --mt: #5c5c5c;
+        --ac: #e67e22;
+        --cd: #fff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--tx);
+        min-height: 100vh;
+      }
+      .bg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .bg::before {
+        content: "";
+        position: absolute;
+        top: -30%;
+        right: -20%;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(45, 106, 79, 0.06) 0%,
+          transparent 70%
+        );
+      }
+      .w {
+        position: relative;
+        z-index: 1;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 40px;
+        font-size: 0.9rem;
+        color: var(--mt);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .back:hover {
+        color: var(--ac);
+      }
+      .back svg {
+        width: 18px;
+        height: 18px;
+      }
+      .hdr {
+        text-align: center;
+        padding: 40px 0 12px;
+      }
+      .hdr .ic {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        margin: 0 auto 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--ac);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+      .hdr h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+        font-size: 2rem;
+        margin-bottom: 6px;
+      }
+      .hdr p {
+        color: var(--mt);
+        font-size: 1rem;
+      }
+      .hdr .logo {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+        margin: 0 auto 16px;
+        display: block;
+      }
+      .line {
+        width: 50px;
+        height: 3px;
+        background: var(--ac);
+        margin: 28px auto 36px;
+        border-radius: 2px;
+      }
+      .panel {
+        background: var(--cd);
+        border-radius: 16px;
+        padding: 36px 32px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.45s ease forwards;
+      }
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-weight: 500;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--mt);
+        margin-bottom: 8px;
+      }
+      .field select {
+        width: 100%;
+        padding: 12px 16px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        border: 1.5px solid #ddd;
+        border-radius: 10px;
+        background: #fafaf8;
+        color: var(--tx);
+        appearance: none;
+        cursor: pointer;
+        transition: border-color 0.2s;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+      }
+      .field select:focus {
+        outline: none;
+        border-color: var(--ac);
+      }
+      .field select:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      a.btn {
+        text-decoration: none;
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+        padding: 14px 32px;
+        background: var(--ac);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.15s;
+        width: 100%;
+        justify-content: center;
+      }
+      .btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .btn:disabled,
+      .btn[aria-disabled="true"] {
+        background: #bbb;
+        cursor: not-allowed;
+        transform: none;
+        pointer-events: none;
+      }
+      .btn svg {
+        width: 20px;
+        height: 20px;
+      }
+      .msg {
+        margin-top: 14px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        font-size: 0.9rem;
+        display: none;
+      }
+      footer {
+        text-align: center;
+        padding: 32px 0;
+        font-size: 0.85rem;
+        color: var(--mt);
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .no-js .js {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="no-js">
+    <div class="bg"></div>
+    <div class="w">
+      <a href="../" class="back">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        All Tools
+      </a>
+      <div class="hdr">
+        <img
+          class="logo"
+          src="https://energy-modelling-tools.github.io/nismod/assets/img/logos/nismod.svg"
+        />
+        <h1>NISMOD</h1>
+        <p>National Infrastructure Systems Model</p>
+      </div>
+      <div class="line"></div>
 
-    <div class="panel" style="text-align:center;padding:48px 32px">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" style="margin-bottom:16px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <p style="color:var(--mt);font-size:1.05rem;font-weight:500">Data coming soon</p>
-      <p style="color:var(--mt);font-size:.85rem;margin-top:8px">This tool's datasets are being prepared and will be available shortly.</p>
+      <div class="panel">
+        <div class="field">
+          <p>
+            The latest listing of available NISMOD starter data kits is
+            available here:
+          </p>
+          <a
+            class="btn"
+            href="https://github.com/nismod/irv-datapkg/blob/main/records.csv"
+          >
+            Catalogue of NISMOD Starter Data Kits
+          </a>
+        </div>
+        <div class="field js">
+          <label for="country">Country</label>
+          <select id="country">
+            <option value="">— Select a country —</option>
+          </select>
+        </div>
+        <a
+          class="btn"
+          target="_blank"
+          rel="noreferrer noopener"
+          id="dlBtn"
+          href=""
+          aria-disabled="true"
+          tabindex="-1"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download
+        </a>
+      </div>
+
+      <div class="panel">
+        <h2>What's in the download?</h2>
+        <p>
+          This starter data kit collects extracts from global, open datasets
+          relating to climate hazards and infrastructure systems. Many of them
+          are visualised on an interactive map in the
+          <a href="https://global.infrastructureresilience.org"
+            >GRI Risk Viewer</a
+          >.
+        </p>
+
+        <p>
+          These extracts are derived from global datasets which have been
+          clipped to the national scale (or subnational, in cases where national
+          boundaries have been split, generally to separate outlying islands or
+          non-contiguous regions), using Natural Earth (2023) boundaries, and is
+          not meant to express an opinion about borders, territory or
+          sovereignty.
+        </p>
+
+        <p>
+          Human-induced climate change is increasing the frequency and severity
+          of climate and weather extremes. This is causing widespread, adverse
+          impacts to societies, economies and infrastructures. Climate risk
+          analysis is essential to inform policy decisions aimed at reducing
+          risk. Yet, access to data is often a barrier, particularly in low and
+          middle-income countries. Data are often scattered, hard to find, in
+          formats that are difficult to use or requiring considerable technical
+          expertise. Nevertheless, there are global, open datasets which provide
+          some information about climate hazards, society, infrastructure and
+          the economy. This "data starter kit" aims to kickstart the process and
+          act as a starting point for further model development and scenario
+          analysis.
+        </p>
+
+        <p>Hazards:</p>
+        <ul>
+          <li>coastal and river flooding (Ward et al, 2020)</li>
+          <li>
+            extreme heat and drought (Russell et al 2023, derived from Lange et
+            al, 2020)
+          </li>
+          <li>
+            tropical cyclone wind speeds (Russell 2022, derived from Bloemendaal
+            et al 2020 and Bloemendaal et al 2022)
+          </li>
+        </ul>
+        <p>Exposure:</p>
+        <ul>
+          <li>population (Schiavina et al, 2023)</li>
+          <li>built-up area (Pesaresi et al, 2023)</li>
+          <li>roads (OpenStreetMap, 2023)</li>
+          <li>railways (OpenStreetMap, 2023)</li>
+          <li>power plants (Global Energy Observatory et al, 2018)</li>
+          <li>power transmission lines (Arderne et al, 2020)</li>
+        </ul>
+        <p>
+          The spatial intersection of hazard and exposure datasets is a first
+          step to analyse vulnerability and risk to infrastructure and people.
+        </p>
+
+        <p>
+          To learn more about related concepts, there is a free short course
+          available through the Open University on
+          <a
+            href="https://www.open.edu/openlearncreate/course/view.php?id=17734"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Infrastructure and Climate Resilience
+          </a>
+          . This
+          <a
+            href="https://opsis.eci.ox.ac.uk/courses/2-infra-for-resil/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            overview of the course
+          </a>
+          has more details.
+        </p>
+
+        <p>
+          These Python libraries may be a useful place to start analysis of the
+          data in the packages produced by this workflow:
+        </p>
+
+        <ul>
+          <li>
+            <a href="https://github.com/nismod/snkit"><code>snkit</code></a>
+            helps clean network data
+          </li>
+          <li>
+            <a href="https://github.com/nismod/snail"
+              ><code>nismod-snail</code></a
+            >
+            is designed to help implement infrastructure exposure, damage and
+            risk calculations
+          </li>
+        </ul>
+        <p>
+          The
+          <a href="https://github.com/nismod/open-gira"
+            ><code>open-gira</code></a
+          >
+          repository contains a larger workflow for global-scale open-data
+          infrastructure risk and resilience analysis.
+        </p>
+
+        <p>
+          For a more developed example, some of these datasets were key inputs
+          to a regional climate risk assessment of current and future flooding
+          risks to transport networks in East Africa, which has a related online
+          visualisation tool at
+          <a href="https://east-africa.infrastructureresilience.org/"
+            >https://east-africa.infrastructureresilience.org/</a
+          >
+          and is described in detail in Hickford et al (2023).
+        </p>
+
+        <h3>References</h3>
+        <ul>
+          <li>
+            Arderne, Christopher, Nicolas, Claire, Zorn, Conrad, &amp; Koks,
+            Elco E. (2020). Data from: Predictive mapping of the global power
+            system using open data [Dataset]. In Nature Scientific Data (1.1.1,
+            Vol. 7, Number Article 19). Zenodo. DOI:
+            <a href="https://doi.org/10.5281/zenodo.3628142"
+              >10.5281/zenodo.3628142</a
+            >
+          </li>
+          <li>
+            Bloemendaal, Nadia; de Moel, H. (Hans); Muis, S; Haigh, I.D. (Ivan);
+            Aerts, J.C.J.H. (Jeroen) (2020): STORM tropical cyclone wind speed
+            return periods. 4TU.ResearchData. [Dataset]. DOI:
+            <a href="https://doi.org/10.4121/12705164.v3"
+              >10.4121/12705164.v3</a
+            >
+          </li>
+          <li>
+            Bloemendaal, Nadia; de Moel, Hans; Dullaart, Job; Haarsma, R.J.
+            (Reindert); Haigh, I.D. (Ivan); Martinez, Andrew B.; et al. (2022):
+            STORM climate change tropical cyclone wind speed return periods.
+            4TU.ResearchData. [Dataset]. DOI:
+            <a href="https://doi.org/10.4121/14510817.v3"
+              >10.4121/14510817.v3</a
+            >
+          </li>
+          <li>
+            Global Energy Observatory, Google, KTH Royal Institute of Technology
+            in Stockholm, Enipedia, World Resources Institute. (2018) Global
+            Power Plant Database. Published on Resource Watch and Google Earth
+            Engine;
+            <a href="http://resourcewatch.org/">resourcewatch.org/</a>
+          </li>
+          <li>
+            Hickford et al (2023) Decision support systems for resilient
+            strategic transport networks in low-income countries – Final Report.
+            Available online:
+            <a
+              href="https://transport-links.com/hvt-publications/final-report-decision-support-systems-for-resilient-strategic-transport-networks-in-low-income-countries"
+              >https://transport-links.com/hvt-publications/final-report-decision-support-systems-for-resilient-strategic-transport-networks-in-low-income-countries</a
+            >
+          </li>
+          <li>
+            Lange, S., Volkholz, J., Geiger, T., Zhao, F., Vega, I., Veldkamp,
+            T., et al. (2020). Projecting exposure to extreme climate impact
+            events across six event categories and three spatial scales. Earth's
+            Future, 8, e2020EF001616. DOI:
+            <a href="https://doi.org/10.1029/2020EF001616"
+              >10.1029/2020EF001616</a
+            >
+          </li>
+          <li>
+            Natural Earth (2023) Admin 0 Map Units, v5.1.1. [Dataset] Available
+            online:
+            <a
+              href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/"
+              >www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details</a
+            >
+          </li>
+          <li>
+            OpenStreetMap contributors, Russell T., Thomas F., nismod/datapkg
+            contributors (2023) Road and Rail networks derived from
+            OpenStreetMap. [Dataset] Available at
+            <a href="https://global.infrastructureresilience.org"
+              >global.infrastructureresilience.org</a
+            >
+          </li>
+          <li>
+            Pesaresi M., Politis P. (2023): GHS-BUILT-S R2023A - GHS built-up
+            surface grid, derived from Sentinel2 composite and Landsat,
+            multitemporal (1975-2030) European Commission, Joint Research Centre
+            (JRC) PID:
+            <a
+              href="http://data.europa.eu/89h/9f06f36f-4b11-47ec-abb0-4f8b7b1d72ea"
+              >data.europa.eu/89h/9f06f36f-4b11-47ec-abb0-4f8b7b1d72ea</a
+            >, doi:10.2905/9F06F36F-4B11-47EC-ABB0-4F8B7B1D72EA
+          </li>
+          <li>
+            Russell, T., Nicholas, C., &amp; Bernhofen, M. (2023). Annual
+            probability of extreme heat and drought events, derived from Lange
+            et al 2020 (Version 2) [Dataset]. Zenodo. DOI:
+            <a href="https://doi.org/10.5281/zenodo.8147088"
+              >10.5281/zenodo.8147088</a
+            >
+          </li>
+          <li>
+            Schiavina M., Freire S., Carioli A., MacManus K. (2023): GHS-POP
+            R2023A - GHS population grid multitemporal (1975-2030). European
+            Commission, Joint Research Centre (JRC) PID:
+            <a
+              href="http://data.europa.eu/89h/2ff68a52-5b5b-4a22-8f40-c41da8332cfe"
+              >data.europa.eu/89h/2ff68a52-5b5b-4a22-8f40-c41da8332cfe</a
+            >, doi:10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE
+          </li>
+          <li>
+            Ward, P.J., H.C. Winsemius, S. Kuzma, M.F.P. Bierkens, A. Bouwman,
+            H. de Moel, A. Díaz Loaiza, et al. (2020) Aqueduct Floods
+            Methodology. Technical Note. Washington, D.C.: World Resources
+            Institute. Available online at:
+            <a
+              href="https://www.wri.org/publication/aqueduct-floods-methodology"
+              >www.wri.org/publication/aqueduct-floods-methodology</a
+            >.
+          </li>
+        </ul>
+      </div>
     </div>
-</div>
-<footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
-</body>
+    <footer>
+      <div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div>
+    </footer>
+    <script>
+      // Update from 'https://github.com/nismod/irv-datapkg/raw/refs/heads/main/records.csv'
+      const url = "./records.csv";
+
+      function parseCsv(csvText) {
+        const rows = [];
+        let row = [];
+        let field = "";
+        let inQuotes = false;
+
+        for (let i = 0; i < csvText.length; i += 1) {
+          const char = csvText[i];
+          const nextChar = csvText[i + 1];
+
+          if (char === '"') {
+            if (inQuotes && nextChar === '"') {
+              field += char;
+              i += 1;
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (char === "," && !inQuotes) {
+            row.push(field);
+            field = "";
+          } else if ((char === "\n" || char === "\r") && !inQuotes) {
+            if (char === "\r" && nextChar === "\n") {
+              i += 1;
+            }
+            row.push(field);
+            if (row.some((value) => value.trim() !== "")) {
+              rows.push(row);
+            }
+            row = [];
+            field = "";
+          } else {
+            field += char;
+          }
+        }
+
+        row.push(field);
+        if (row.some((value) => value.trim() !== "")) {
+          rows.push(row);
+        }
+
+        const headers = rows.shift().map((header) => header.trim());
+
+        return rows.map((values) =>
+          headers.reduce((record, header, index) => {
+            record[header] = (values[index] || "").trim();
+            return record;
+          }, {}),
+        );
+      }
+
+      document.body.classList.remove("no-js");
+
+      const countrySelect = document.getElementById("country");
+      const downloadLink = document.getElementById("dlBtn");
+
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Failed to load starter data kit listing: ${response.status}`,
+            );
+          }
+
+          return response.text();
+        })
+        .then((csvText) => parseCsv(csvText))
+        .then((records) => {
+          records.sort(function (a, b) {
+            return a.country < b.country ? -1 : a.country > b.country ? 1 : 0;
+          });
+          records.forEach((record) => {
+            if (!record.country || !record.url) {
+              return;
+            }
+
+            const option = document.createElement("option");
+            option.textContent = record.country;
+            option.setAttribute("data-url", record.url);
+            countrySelect.appendChild(option);
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      countrySelect.addEventListener("change", () => {
+        const selectedOption = countrySelect.selectedOptions[0];
+        const selectedUrl = selectedOption
+          ? selectedOption.getAttribute("data-url")
+          : "";
+
+        if (selectedUrl) {
+          downloadLink.setAttribute("href", selectedUrl);
+          downloadLink.removeAttribute("aria-disabled");
+          downloadLink.removeAttribute("tabindex");
+        } else {
+          downloadLink.setAttribute("href", "");
+          downloadLink.setAttribute("aria-disabled", "true");
+          downloadLink.setAttribute("tabindex", "-1");
+        }
+      });
+    </script>
+  </body>
 </html>
