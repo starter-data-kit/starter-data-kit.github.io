@@ -1,744 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MAED - Starter Data Kits</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #eef2f6;
-      --header: #173a69;
-      --hero-top: #2f3d55;
-      --hero-bottom: #404d64;
-      --card: #ffffff;
-      --text: #22324a;
-      --muted: #66758c;
-      --border: #d7dee8;
-      --primary: #9aa8bc;
-      --primary-text: #ffffff;
-      --primary-hover: #8796ab;
-      --outline: #cfd7e3;
-      --accent: #2f78d0;
-      --success-bg: #eefbf3;
-      --success-text: #276749;
-      --success-border: #c6f6d5;
-      --error-bg: #fff5f5;
-      --error-text: #c53030;
-      --error-border: #fed7d7;
-      --loading-bg: #ebf8ff;
-      --loading-text: #2b6cb0;
-      --loading-border: #bee3f8;
-    }
-
-    body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    .header {
-      background: var(--header);
-      color: #fff;
-      padding: 0.9rem 1.25rem;
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: 0.2px;
-    }
-
-    .hero {
-      background: linear-gradient(180deg, var(--hero-top) 0%, var(--hero-bottom) 100%);
-      color: #fff;
-      text-align: center;
-      padding: 4rem 1.5rem 3.8rem;
-    }
-
-    .hero h2 {
-      font-size: 3rem;
-      line-height: 1.15;
-      margin-bottom: 0.9rem;
-      font-weight: 800;
-    }
-
-    .hero p {
-      font-size: 1.15rem;
-      line-height: 1.45;
-      max-width: 780px;
-      margin: 0 auto;
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 500;
-    }
-
-    .content {
-      max-width: 900px;
-      margin: 2.5rem auto 0;
-      padding: 0 1.25rem 2rem;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 1px 4px rgba(28, 39, 60, 0.06);
-      padding: 2.2rem 2.4rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .card h3 {
-      font-size: 2rem;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      font-weight: 800;
-    }
-
-    .card p {
-      font-size: 1rem;
-      line-height: 1.55;
-      color: var(--muted);
-      margin-bottom: 1.6rem;
-      max-width: 720px;
-    }
-
-    .card .subhead {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.4rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #4a5a73;
-      margin-bottom: 0.55rem;
-    }
-
-    select {
-      width: 100%;
-      padding: 1rem 1.1rem;
-      border: 2px solid var(--outline);
-      border-radius: 12px;
-      font-size: 1rem;
-      color: var(--text);
-      background: #fff;
-      appearance: none;
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 12 12'%3E%3Cpath fill='%23596578' d='M1.5 4l4.5 4 4.5-4z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #a9b9cf;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.65rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 800;
-      padding: 1rem 2rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: 0.2s ease;
-      min-width: 230px;
-    }
-
-    .btn-primary {
-      border: none;
-      background: var(--primary);
-      color: var(--primary-text);
-    }
-
-    .btn-primary:hover:not(:disabled) {
-      background: var(--primary-hover);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.75;
-      cursor: not-allowed;
-    }
-
-    .btn-outline {
-      border: 2px solid var(--outline);
-      background: #fff;
-      color: #42536c;
-    }
-
-    .btn-outline:hover {
-      background: #f8fafc;
-    }
-
-    .status {
-      display: none;
-      margin-top: 0.9rem;
-      padding: 0.85rem 1rem;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .status.loading {
-      display: block;
-      background: var(--loading-bg);
-      color: var(--loading-text);
-      border: 1px solid var(--loading-border);
-    }
-
-    .status.error {
-      display: block;
-      background: var(--error-bg);
-      color: var(--error-text);
-      border: 1px solid var(--error-border);
-    }
-
-    .status.success {
-      display: block;
-      background: var(--success-bg);
-      color: var(--success-text);
-      border: 1px solid var(--success-border);
-    }
-
-    .eb-badge {
-      display: inline-block;
-      margin-left: 0.5rem;
-      padding: 0.15rem 0.55rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--success-text);
-      background: var(--success-bg);
-      border: 1px solid var(--success-border);
-      border-radius: 999px;
-      vertical-align: middle;
-    }
-
-    .stats {
-      display: flex;
-      gap: 2.25rem;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-top: 1.35rem;
-    }
-
-    .stat .num {
-      font-size: 2.1rem;
-      line-height: 1;
-      font-weight: 900;
-      color: var(--accent);
-      margin-bottom: 0.35rem;
-    }
-
-    .stat .label {
-      font-size: 0.92rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .var-list {
-      color: #4a5a73;
-      font-size: 0.96rem;
-      line-height: 1.8;
-      padding-left: 1.15rem;
-      margin-top: 0.25rem;
-    }
-
-    .var-list li strong {
-      color: var(--text);
-    }
-
-    .var-list .src {
-      color: #8e99a8;
-      font-size: 0.88rem;
-    }
-
-    .contact-block {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      padding: 1rem 1.2rem;
-      background: #f6f8fb;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      max-width: 360px;
-    }
-
-    .contact-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .contact-email {
-      font-size: 0.96rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    .contact-email:hover {
-      text-decoration: underline;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 1.5rem 1rem 2rem;
-      font-size: 0.88rem;
-      color: #9aa4b2;
-    }
-
-    @media (max-width: 768px) {
-      .hero h2 { font-size: 2.1rem; }
-      .card { padding: 1.5rem; }
-      .card h3 { font-size: 1.6rem; }
-      .btn { width: 100%; }
-      .stats { gap: 1.5rem; }
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAED — Starter Data Kits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f2ee;--tx:#1a1a1a;--mt:#5c5c5c;--ac:#1b3a5c;--cd:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bg::before{content:'';position:absolute;top:-30%;right:-20%;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(45,106,79,.06)0%,transparent 70%)}
+.w{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 24px}
+.back{display:inline-flex;align-items:center;gap:6px;margin-top:40px;font-size:.9rem;color:var(--mt);text-decoration:none;transition:color .2s}
+.back:hover{color:var(--ac)}
+.back svg{width:18px;height:18px}
+.hdr{text-align:center;padding:40px 0 12px}
+.hdr .logo{width:90px;height:90px;object-fit:contain;margin:0 auto 16px;display:block}
+.hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
+.hdr p{color:var(--mt);font-size:1rem}
+.line{width:50px;height:3px;background:var(--ac);margin:28px auto 28px;border-radius:2px}
+.intro-card{background:var(--cd);border-radius:16px;padding:24px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:24px;font-size:.95rem;color:var(--mt);line-height:1.75;opacity:0;transform:translateY(16px);animation:fadeUp .35s ease forwards}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s .1s ease forwards}
+.field{margin-bottom:20px}
+.field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
+.field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.field select:focus{outline:none;border-color:var(--ac)}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:flex;align-items:center;gap:8px;padding:14px 32px;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;justify-content:center;text-decoration:none}
+.btn-primary{background:var(--ac);color:#fff;flex:1}
+.btn-primary:hover:not(:disabled){opacity:.88;transform:translateY(-1px)}
+.btn-primary:disabled{background:#bbb;cursor:not-allowed}
+.btn-outline{background:#fff;color:var(--mt);border:1.5px solid #ddd}
+.btn-outline:hover{background:#f7f7f5}
+.btn svg{width:20px;height:20px;flex-shrink:0}
+.note{margin-top:14px;font-size:.82rem;color:var(--mt);line-height:1.5}
+.status{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:.88rem;font-weight:500;display:none}
+.status.success{display:block;background:#f0fff4;color:#276749;border:1px solid #c6f6d5}
+.status.error{display:block;background:#fff5f5;color:#c53030;border:1px solid #fed7d7}
+.stats-row{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.stat-pill{background:var(--bg);border:1px solid #e8e4dc;border-radius:10px;padding:12px 16px;text-align:center;flex:1;min-width:110px}
+.stat-pill .num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--ac)}
+.stat-pill .lbl{font-size:.75rem;color:var(--mt);margin-top:2px}
+/* Info section */
+.info-section{margin-bottom:60px}
+.section-intro{font-size:.92rem;color:var(--mt);line-height:1.7;margin-bottom:24px}
+.data-group{border:1px solid #e8e4dc;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.data-head{display:grid;background:#1a3a5c;color:#fff;font-weight:600;font-size:.88rem}
+.data-head div{padding:10px 14px}
+.data-row{display:grid;font-size:.875rem;border-top:1px solid #f0ece4}
+.data-row.alt{background:#f9f8f5}
+.data-row div{padding:9px 14px;line-height:1.5;color:var(--mt)}
+.data-row div:first-child{font-weight:500;color:var(--tx)}
+.eb-note{font-size:.82rem;color:var(--mt);margin-top:8px;line-height:1.5;padding:0 2px}
+.contact-card{background:var(--cd);border:1px solid #e8e4dc;border-radius:12px;padding:20px 24px;display:inline-flex;flex-direction:column;gap:4px}
+.contact-name{font-weight:600;color:var(--tx);font-size:.95rem}
+.contact-email{color:var(--ac);text-decoration:none;font-size:.9rem}
+.contact-email:hover{text-decoration:underline}
+.section-title{font-family:'Playfair Display',serif;font-size:1.2rem;margin:32px 0 10px;color:var(--tx)}
+footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+</style>
 </head>
 <body>
-  <div class="header">MAED</div>
+<div class="bg"></div>
+<div class="w">
+  <a href="../" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All Tools</a>
+  <div class="hdr">
+    <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/MAED_Logo.png" alt="MAED">
+    <h1>MAED</h1>
+    <p>Model for Analysis of Energy Demand</p>
+  </div>
+  <div class="line"></div>
+  <div class="intro-card">MAED is an energy demand modelling tool developed by the IAEA for analysing energy demand at national level. Each Starter Data Kit provides country-specific socio-economic input data for building zero-order MAED models, covering historic data (2010–2023) and future projections to 2050. Countries marked ⚡ also include UN Energy Balance pivots.</div>
 
-  <section class="hero">
-    <h2>Model for Analysis of Energy Demand</h2>
-    <p>Download country-specific Starter Data Kits for building zero-order MAED energy demand models.</p>
-  </section>
+  <div class="panel">
+    <div class="field">
+      <label for="countrySelect">Country</label>
+      <select id="countrySelect"><option value="">— Select a country —</option></select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="downloadBtn" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Excel
+      </button>
+      <a class="btn btn-outline" href="https://www.open.edu/openlearncreate/course/view.php?id=11720" target="_blank" rel="noopener">MAED e-Learning ↗</a>
+    </div>
+    <div class="status" id="status"></div>
+    <div class="stats-row">
+      <div class="stat-pill"><div class="num" id="countryCount">0</div><div class="lbl">Countries</div></div>
+      <div class="stat-pill"><div class="num">2010–2050</div><div class="lbl">Year range</div></div>
+      <div class="stat-pill"><div class="num">11</div><div class="lbl">Variables</div></div>
+      <div class="stat-pill"><div class="num" id="ebCount">20</div><div class="lbl">With Energy Balance</div></div>
+    </div>
+  </div>
 
-  <main class="content">
-    <section class="card">
-      <h3>Download Starter Data Kit</h3>
-      <p>Select a country to download an Excel workbook with historic socio-economic input data (2010–2023). Countries marked with ⚡ also include UN Energy Balance pivots and future projections — population and GDP — with the model's calculation rows driven by live formulas.</p>
+  <div class="info-section">
+    <p class="section-intro">Each workbook contains a Cover Page, a Socio-Economic sheet with live formulas, and — for ⚡ countries — UN Energy Balance pivots plus population and GDP projections to 2050.</p>
 
-      <div class="form-group">
-        <label for="countrySelect">Country</label>
-        <select id="countrySelect">
-          <option value="">-- Select a country --</option>
-        </select>
-      </div>
+    <div class="data-group">
+      <div class="data-head" style="grid-template-columns:1fr 120px 1fr"><div>Socio-Economic (all countries)</div><div>Unit</div><div>Source</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 120px 1fr"><div>Population</div><div>million</div><div>World Bank</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 120px 1fr"><div>Total GDP</div><div>const. 2015 USD bn</div><div>World Bank</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 120px 1fr"><div>Urban Population</div><div>%</div><div>World Bank</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 120px 1fr"><div>Rural Population</div><div>%</div><div>World Bank</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 120px 1fr"><div>Active Labour Force</div><div>million</div><div>ILO</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 120px 1fr"><div>Household Size</div><div>persons/hh</div><div>UN</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 120px 1fr"><div>Pop in Large Cities &gt;300k</div><div>million</div><div>UN DESA</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 120px 1fr"><div>Sectoral GDP — Agriculture</div><div>%</div><div>World Bank</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 120px 1fr"><div>Sectoral GDP — Industry</div><div>%</div><div>World Bank</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 120px 1fr"><div>Sectoral GDP — Manufacturing</div><div>%</div><div>World Bank</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 120px 1fr"><div>Sectoral GDP — Services</div><div>%</div><div>World Bank</div></div>
+    </div>
 
-      <div class="btn-row">
-        <button class="btn btn-primary" id="downloadBtn" disabled>
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
-          </svg>
-          Download Excel
-        </button>
+    <div class="data-group">
+      <div class="data-head" style="grid-template-columns:1fr 1fr"><div>Future Projections (⚡ countries)</div><div>Source</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 1fr"><div>Population (2022–2050) — annual with year-on-year growth rate computed by formula</div><div>UN WPP 2022 (medium variant) / World Bank</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 1fr"><div>Total GDP (2024–2029) — constant 2015 US$</div><div>World Bank / IMF World Economic Outlook</div></div>
+    </div>
 
-        <a
-          class="btn btn-outline"
-          href="https://www.open.edu/openlearncreate/course/view.php?id=11720"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          MAED e-Learning ↗
-        </a>
-      </div>
+    <div class="data-group">
+      <div class="data-head" style="grid-template-columns:1fr 1fr"><div>Energy Balance (⚡ countries, 20 currently)</div><div>Detail</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 1fr"><div>Flows</div><div>Primary production, Imports, Exports, Stock changes, Transformation, Own use, Losses, Final consumption by sector</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 1fr"><div>Fuels</div><div>Primary Coal, Coal Products, Primary Oil, Oil Products, Natural Gas, Biofuels &amp; Waste, Nuclear, Electricity, Heat, Total</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 1fr"><div>Units</div><div>Terajoules (TJ)</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 1fr"><div>Year selector</div><div>Use the Year dropdown in cell B6 of the Energy Balance tab to switch between 2021 and 2020 — the whole grid updates live</div></div>
+    </div>
+    <p class="eb-note">Energy Balance data is currently populated for 20 countries. Other workbooks contain the Socio-Economic sheet only; coverage will expand as additional UN balance sources are processed.</p>
 
-      <div class="status" id="status"></div>
+    <div class="data-group" style="margin-top:20px">
+      <div class="data-head" style="grid-template-columns:1fr 1fr"><div>Data vintage &amp; sources</div><div>Coverage</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 1fr"><div>Historic socio-economic</div><div>2010–2023 — World Bank, ILO, UN DESA</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 1fr"><div>Population projections</div><div>UN WPP 2022 medium variant / World Bank Population Estimates &amp; Projections</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 1fr"><div>GDP</div><div>Historic and projected, constant 2015 US$ — World Bank / IMF WEO</div></div>
+      <div class="data-row alt" style="grid-template-columns:1fr 1fr"><div>Energy Balance</div><div>Terajoules, most recent two UN reporting years — UN Energy Statistics</div></div>
+    </div>
 
-      <div class="stats">
-        <div class="stat">
-          <div class="num" id="countryCount">0</div>
-          <div class="label">Countries</div>
-        </div>
-        <div class="stat">
-          <div class="num">2010–2050</div>
-          <div class="label">Year Range</div>
-        </div>
-        <div class="stat">
-          <div class="num">11</div>
-          <div class="label">Socio-Econ Variables</div>
-        </div>
-        <div class="stat">
-          <div class="num" id="ebCount">20</div>
-          <div class="label">With Energy Balance</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h3>What's in the download?</h3>
-      <p>Each workbook contains a Cover Page, a Socio-Economic sheet (with live formulas driving the calculated rows), and — for ⚡ countries — UN Energy Balance pivots plus population and GDP projections.</p>
-
-      <div class="subhead">Socio-Economic (all countries)</div>
-      <ul class="var-list">
-        <li><strong>Population</strong> (million) <span class="src">— World Bank</span></li>
-        <li><strong>Total GDP</strong> (constant 2015 USD billion) <span class="src">— World Bank</span></li>
-        <li><strong>Urban Population</strong> (%) <span class="src">— World Bank</span></li>
-        <li><strong>Rural Population</strong> (%) <span class="src">— World Bank</span></li>
-        <li><strong>Active Labour Force</strong> (million) <span class="src">— ILO</span></li>
-        <li><strong>Household Size</strong> (persons/hh) <span class="src">— UN</span></li>
-        <li><strong>Pop in Large Cities &gt;300k</strong> (million) <span class="src">— UN DESA</span></li>
-        <li><strong>Sectoral GDP</strong> — Agriculture, Industry, Manufacturing, Services (%) <span class="src">— World Bank</span></li>
-      </ul>
-
-      <div class="subhead">Future Projections <span class="eb-badge" id="fcBadgeInline">⚡ countries</span></div>
-      <ul class="var-list">
-        <li><strong>Population (Future)</strong> — annual 2022–2050, with year-on-year growth rate computed by formula <span class="src">— UN WPP 2022 / World Bank Population Estimates &amp; Projections</span></li>
-        <li><strong>Total GDP (Future)</strong> — annual 2024–2029, constant 2015 US$ <span class="src">— World Bank / IMF World Economic Outlook</span></li>
-        <li><span class="src">Where source years are not reported, intervening values are interpolated; coverage is partial for a few small economies.</span></li>
-      </ul>
-
-      <div class="subhead">Energy Balance <span class="eb-badge" id="ebBadgeInline">20 countries</span></div>
-      <ul class="var-list">
-        <li><strong>Flows</strong> — Primary production, Imports, Exports, Stock changes, Transformation, Energy industries own use, Losses, Final consumption by sector (Industry, Transport, Residential, Services, Agriculture, Non-energy use) <span class="src">— UN Energy Statistics</span></li>
-        <li><strong>Fuels</strong> — Primary Coal, Coal Products, Primary Oil, Oil Products, Natural Gas, Biofuels and Waste, Nuclear, Electricity, Heat, Total <span class="src">— UN Energy Statistics</span></li>
-        <li><strong>Units</strong> — Terajoules (TJ)</li>
-        <li><strong>Years</strong> — Use the <strong>Year dropdown</strong> in cell <code>B6</code> of the <em>Energy Balance</em> tab to switch between reporting years. Where two years are available, you can pick either 2021 or 2020 and the whole grid updates live.</li>
-      </ul>
-      <p style="font-size: 0.88rem; margin-top: 0.75rem; color: #8e99a8;">
-        Energy Balance data is currently populated for 20 countries. Other workbooks contain the Socio-Economic sheet only; coverage will expand as additional UN balance sources are processed.
-      </p>
-
-      <div class="subhead">Data vintage &amp; sources</div>
-      <ul class="var-list">
-        <li><strong>Historic socio-economic</strong> (2010–2023) <span class="src">— World Bank, ILO, UN DESA</span></li>
-        <li><strong>Population projections</strong> — future population and growth rate <span class="src">— UN World Population Prospects 2022 (medium variant) / World Bank Population Estimates &amp; Projections</span></li>
-        <li><strong>GDP</strong> — historic and projected, on a <strong>constant 2015 US$</strong> basis <span class="src">— World Bank / IMF World Economic Outlook</span></li>
-        <li><strong>Energy Balance</strong> — Terajoules, most recent two UN reporting years <span class="src">— UN Energy Statistics</span></li>
-      </ul>
-      <p style="font-size: 0.82rem; margin-top: 0.6rem; color: #8e99a8;">
-        Future projections are provided for select countries; where source years are not reported, intervening values are interpolated. Forecast data is intended for zero-order model reconstruction, not policy or financial decisions.
-      </p>
-    </section>
-
-    <section class="card">
-      <h3>Contact</h3>
-      <p>Questions about the data, spot an error, or interested in contributing additional country kits? Get in touch.</p>
-      <div class="contact-block">
-        <span class="contact-name">Naomi Tan</span>
-        <a class="contact-email" href="mailto:n.tan@lboro.ac.uk">n.tan@lboro.ac.uk</a>
-      </div>
-    </section>
-  </main>
-
-  <div class="footer">Starter Data Kits · Climate Compatible Growth Programme</div>
-
-  <script>
-    // ISO3 codes of the countries whose kits currently include populated
-    // Energy Balance pivots. Edit this set as more EB files get processed —
-    // the dropdown ⚡, the stat tile and the badge all update automatically.
-    const COUNTRIES_WITH_EB = new Set([
-      "AFG", "ALB", "DZA", "ASM", "AND", "AGO", "ATG", "ARG", "ARM", "ABW",
-      "AUS", "AUT", "AZE", "BTN", "BEN", "BRN", "BFA", "BDI", "KHM", "CHN"
-    ]);
-
-    const COUNTRIES = [
-      { file: "AFG_Afghanistan.xlsx", iso3: "AFG", name: "Afghanistan", fileId: "1lEVG4JQetTh6I-7RxvYW8h55o2kNOBfx" },
-      { file: "ALB_Albania.xlsx", iso3: "ALB", name: "Albania", fileId: "1mERl9otuz3P-Pqu4YpSa9eIpphWJpm8k" },
-      { file: "DZA_Algeria.xlsx", iso3: "DZA", name: "Algeria", fileId: "1AAC9OYAVYqIdz9axswYYKjU7oQOd-B-5" },
-      { file: "ASM_American Samoa.xlsx", iso3: "ASM", name: "American Samoa", fileId: "1lYT22qj2IJzslxhbduc3FiGDs8kydT3t" },
-      { file: "AND_Andorra.xlsx", iso3: "AND", name: "Andorra", fileId: "1Lq7Q8hud1ZdXn9_1bj_fpO9ejbpeAPHm" },
-      { file: "AGO_Angola.xlsx", iso3: "AGO", name: "Angola", fileId: "1bqV8wI8fZZrVay7mAC5UPHB-4ItzCXdV" },
-      { file: "ATG_Antigua and Barbuda.xlsx", iso3: "ATG", name: "Antigua and Barbuda", fileId: "1tveK0ddXQAd8llWD_ykuVrORqmwG8189" },
-      { file: "ARG_Argentina.xlsx", iso3: "ARG", name: "Argentina", fileId: "1ga7YfedtThb1EjpoTIzUqzFSzu91NGuC" },
-      { file: "ARM_Armenia.xlsx", iso3: "ARM", name: "Armenia", fileId: "1Kuysceu4La7LQraPnKOk-dG8oICYex5q" },
-      { file: "ABW_Aruba.xlsx", iso3: "ABW", name: "Aruba", fileId: "1rdmPF-px5iaCGodboutvE9XHNerYWPAh" },
-      { file: "AUS_Australia.xlsx", iso3: "AUS", name: "Australia", fileId: "13XstCgryt9xMIJxzz4_HG-2VwNZoBqDI" },
-      { file: "AUT_Austria.xlsx", iso3: "AUT", name: "Austria", fileId: "19ImVARL4uLIoU6GDWECTp1roypDCB3Rs" },
-      { file: "AZE_Azerbaijan.xlsx", iso3: "AZE", name: "Azerbaijan", fileId: "1UDGzUdMErOGgT0M3qZiPOhYkcDxyOZ6i" },
-      { file: "BHS_Bahamas The.xlsx", iso3: "BHS", name: "Bahamas The", fileId: "1H59TU-hEOIJZ27mvEtzR03IT36-GDyk9" },
-      { file: "BHR_Bahrain.xlsx", iso3: "BHR", name: "Bahrain", fileId: "1jRn2cYk7tJJmq_PECg8sNwcK5GtplJik" },
-      { file: "BGD_Bangladesh.xlsx", iso3: "BGD", name: "Bangladesh", fileId: "1UJxx81aGFO3BasRa8IOQvDyPCDVlpkAy" },
-      { file: "BRB_Barbados.xlsx", iso3: "BRB", name: "Barbados", fileId: "18Bs8SvCUE9h24x9aOj6suAKic6_KgN5o" },
-      { file: "BLR_Belarus.xlsx", iso3: "BLR", name: "Belarus", fileId: "1VzhbCjhYDi-WBD7psmcQKZbEz7tZ9Bc_" },
-      { file: "BEL_Belgium.xlsx", iso3: "BEL", name: "Belgium", fileId: "14DfHkIjp9wQ9HqhR17f8ZTfihDolie97" },
-      { file: "BLZ_Belize.xlsx", iso3: "BLZ", name: "Belize", fileId: "10kYscYT8FxCrKHJkYeh_-1BdUaS7aqhP" },
-      { file: "BEN_Benin.xlsx", iso3: "BEN", name: "Benin", fileId: "1z-pjqcTqYw4PvQTIJQGa8ZNGv2FjawXC" },
-      { file: "BMU_Bermuda.xlsx", iso3: "BMU", name: "Bermuda", fileId: "1tVhSoURCRC1ONdOdbmydjLlzOc5P7Xxr" },
-      { file: "BTN_Bhutan.xlsx", iso3: "BTN", name: "Bhutan", fileId: "1dZtD_j1rS3_7FVL4LY9BWwGhY_DOZ_St" },
-      { file: "BOL_Bolivia.xlsx", iso3: "BOL", name: "Bolivia", fileId: "1uuc9FJEnoj6soI-TvFVFenokdxB9Hmdc" },
-      { file: "BIH_Bosnia and Herzegovina.xlsx", iso3: "BIH", name: "Bosnia and Herzegovina", fileId: "1TILSIaGlol8Ohs1g0WgXZ8ZmaJFEOMHE" },
-      { file: "BWA_Botswana.xlsx", iso3: "BWA", name: "Botswana", fileId: "1bsyeZBXu5stjocUYWPuz6tIq6Dg1evfH" },
-      { file: "BRA_Brazil.xlsx", iso3: "BRA", name: "Brazil", fileId: "1dl17dV3aXoql220hNa1sWJuaDHVaC__I" },
-      { file: "BRN_Brunei Darussalam.xlsx", iso3: "BRN", name: "Brunei Darussalam", fileId: "16gtpe9vlOcx7b5DbZQ3ZFFamB0tsxDRn" },
-      { file: "BGR_Bulgaria.xlsx", iso3: "BGR", name: "Bulgaria", fileId: "1B2ZY4JvZ4bBbSxhdb5mwh8pyBVJVWUlL" },
-      { file: "BFA_Burkina Faso.xlsx", iso3: "BFA", name: "Burkina Faso", fileId: "14nHTKHLrsOgVYLGBIqiOMVt_JspGBGl8" },
-      { file: "BDI_Burundi.xlsx", iso3: "BDI", name: "Burundi", fileId: "1G-_lEyxWKeKG2u6ispwZqqfjfP9LF0D6" },
-      { file: "CPV_Cabo Verde.xlsx", iso3: "CPV", name: "Cabo Verde", fileId: "1gLjo1_3HKaaMiAAd3lXdLkh3AnA3ajdK" },
-      { file: "KHM_Cambodia.xlsx", iso3: "KHM", name: "Cambodia", fileId: "1kNNNDXOkzDm3tx9CR_vcWRH_FXKuj2Fb" },
-      { file: "CMR_Cameroon.xlsx", iso3: "CMR", name: "Cameroon", fileId: "1QKkwzap5udypkTPHFBozr-GfURT6wjtU" },
-      { file: "CAN_Canada.xlsx", iso3: "CAN", name: "Canada", fileId: "1UmON7T4xi61Rp6Ch8h8AyABVaczTdITs" },
-      { file: "CYM_Cayman Islands.xlsx", iso3: "CYM", name: "Cayman Islands", fileId: "1bZ0hIgEyJ6k28a2mCl6RHkeHhXYm_JjD" },
-      { file: "CAF_Central African Republic.xlsx", iso3: "CAF", name: "Central African Republic", fileId: "1ZejuYuH-S4JW6KBm6cL7sm-giqXSGaB_" },
-      { file: "TCD_Chad.xlsx", iso3: "TCD", name: "Chad", fileId: "19T2M6LJZ5ZUMnpm2uSKVWz_YFsj-ovQm" },
-      { file: "CHI_Channel Islands.xlsx", iso3: "CHI", name: "Channel Islands", fileId: "1rUh6ZH8hGWEj97r_eEpbuxz8kLn8SpVl" },
-      { file: "CHL_Chile.xlsx", iso3: "CHL", name: "Chile", fileId: "1aP-HPYN1_CWDfvMnj1aMZJr-GKVX2ibX" },
-      { file: "CHN_China.xlsx", iso3: "CHN", name: "China", fileId: "1NMG28KfFmvL24rpKuZHaaYpwPHsj1DNx" },
-      { file: "COL_Colombia.xlsx", iso3: "COL", name: "Colombia", fileId: "1ZzcJnWPrRwN87VUchHEUXftkl0lf_30s" },
-      { file: "COM_Comoros.xlsx", iso3: "COM", name: "Comoros", fileId: "1aCkpQHYdVzzVykeCFL-txiITN7Ub5TiU" },
-      { file: "COD_Congo Dem. Rep..xlsx", iso3: "COD", name: "Congo Dem. Rep.", fileId: "1Qup425plt5rRyol46dC27mAGlna-x8Rd" },
-      { file: "COG_Congo Rep..xlsx", iso3: "COG", name: "Congo Rep.", fileId: "1xqB2QqEMcQ1Zha-SHO5jx_JUbLH9PeYD" },
-      { file: "CRI_Costa Rica.xlsx", iso3: "CRI", name: "Costa Rica", fileId: "18Q7Rko-Qv20gHlARMtyGYW0wFbVcqeD5" },
-      { file: "CIV_Cote dIvoire.xlsx", iso3: "CIV", name: "Cote dIvoire", fileId: "16TkFwoSCwS2uIrEEnC69xjTKlqLqDHpO" },
-      { file: "HRV_Croatia.xlsx", iso3: "HRV", name: "Croatia", fileId: "1VSnSsqhm9kU82yodGwjIqhtFLKRjPQO-" },
-      { file: "CUB_Cuba.xlsx", iso3: "CUB", name: "Cuba", fileId: "17rtgihKJhD9xCYI0cNu4OLLshez7Dejv" },
-      { file: "CUW_Curacao.xlsx", iso3: "CUW", name: "Curacao", fileId: "1Jy5nFrKG7ayumarg4pgHg79fXO5JYqD-" },
-      { file: "CYP_Cyprus.xlsx", iso3: "CYP", name: "Cyprus", fileId: "1VM1OY8zgL65lnlIOZxH0LrepQhoEsZ-I" },
-      { file: "CZE_Czechia.xlsx", iso3: "CZE", name: "Czechia", fileId: "1j6oD8eEEqYbLxvhzmF7Bf7zpza-N7BRY" },
-      { file: "DNK_Denmark.xlsx", iso3: "DNK", name: "Denmark", fileId: "1YbHG1TqCEALwoC9FgtSWoCPnKf5AyQhQ" },
-      { file: "DJI_Djibouti.xlsx", iso3: "DJI", name: "Djibouti", fileId: "1alhcCXzlho5cVoi2W3ktNuGQV80A9yNP" },
-      { file: "DMA_Dominica.xlsx", iso3: "DMA", name: "Dominica", fileId: "1WDC6UFvWMINuJvyUlZgLhTI5A2gHHtCX" },
-      { file: "DOM_Dominican Republic.xlsx", iso3: "DOM", name: "Dominican Republic", fileId: "1moPwMoVkzkuxXPC3c_yElz8YZilO6-XN" },
-      { file: "ECU_Ecuador.xlsx", iso3: "ECU", name: "Ecuador", fileId: "1ag4WDFpFwMe_fhw884Syz0D4SkA2IjTw" },
-      { file: "EGY_Egypt Arab Rep..xlsx", iso3: "EGY", name: "Egypt Arab Rep.", fileId: "1PgDJVNpGpQX6hi44TxJnPmc4htdyyt-7" },
-      { file: "SLV_El Salvador.xlsx", iso3: "SLV", name: "El Salvador", fileId: "10lKAReV8-l6wWJSqzGS0kfcqw1ABNNsp" },
-      { file: "GNQ_Equatorial Guinea.xlsx", iso3: "GNQ", name: "Equatorial Guinea", fileId: "1KO01Qxl8ltJT5VIQNyaYggePFqL7ofZE" },
-      { file: "ERI_Eritrea.xlsx", iso3: "ERI", name: "Eritrea", fileId: "1uqc7ea0EJ_8VmnhHMyXcpgkVdI2SRTzZ" },
-      { file: "EST_Estonia.xlsx", iso3: "EST", name: "Estonia", fileId: "18BaiHxMLRwhobnewlcCkO_zszmDlsVsp" },
-      { file: "SWZ_Eswatini.xlsx", iso3: "SWZ", name: "Eswatini", fileId: "1q6PN870PexpMJiQQjsKOPbRo-CACoIg_" },
-      { file: "ETH_Ethiopia.xlsx", iso3: "ETH", name: "Ethiopia", fileId: "1yhazasAFvCKxS5UiD0FUQ1Kr2EHAsGs6" },
-      { file: "FRO_Faroe Islands.xlsx", iso3: "FRO", name: "Faroe Islands", fileId: "14I-o72JE-tqU6UUdqy5slQ0dltlXIUXG" },
-      { file: "FJI_Fiji.xlsx", iso3: "FJI", name: "Fiji", fileId: "1rbvrK2E43cZZ69Zj4jUceWdY6MdDTFz5" },
-      { file: "FIN_Finland.xlsx", iso3: "FIN", name: "Finland", fileId: "11murFTMXSHOVa8jsl_bU_G3baS9Tvc_C" },
-      { file: "FRA_France.xlsx", iso3: "FRA", name: "France", fileId: "1jSIS8qLqeqCrwt07-r5HbkQNM6WTEqia" },
-      { file: "PYF_French Polynesia.xlsx", iso3: "PYF", name: "French Polynesia", fileId: "1RDgImZBpcy46TF1rNRojtj8z90swdGhK" },
-      { file: "GAB_Gabon.xlsx", iso3: "GAB", name: "Gabon", fileId: "1DFf9zEmMmM11EGYEDpRsEc6a071Cu4cq" },
-      { file: "GMB_Gambia The.xlsx", iso3: "GMB", name: "Gambia The", fileId: "1C-4NUjbrExvYB2SoxBSoaqjYTQItjMiX" },
-      { file: "GEO_Georgia.xlsx", iso3: "GEO", name: "Georgia", fileId: "1f0ryHd_LKW902-JcQUpI-QnD9iysKOkD" },
-      { file: "DEU_Germany.xlsx", iso3: "DEU", name: "Germany", fileId: "14Z--wu1IkKSvxYawroEjPkUfSfI3Ml8L" },
-      { file: "GHA_Ghana.xlsx", iso3: "GHA", name: "Ghana", fileId: "16JKlf0lqME0xLMc4Gy81CUJDGBTLlk5W" },
-      { file: "GRC_Greece.xlsx", iso3: "GRC", name: "Greece", fileId: "1IyNcwcgGP3aU6w7ZfxW5HQo2gcwuk0Xf" },
-      { file: "GRL_Greenland.xlsx", iso3: "GRL", name: "Greenland", fileId: "1xSNxjKoG2T34brn6uJMVJtqcskzjJi1E" },
-      { file: "GRD_Grenada.xlsx", iso3: "GRD", name: "Grenada", fileId: "1vRHE2Bq7ZUzbgMwQezyzMC6g52v4W9vN" },
-      { file: "GUM_Guam.xlsx", iso3: "GUM", name: "Guam", fileId: "1VWxi5WIZSb9LtOA-4tiCAEFFi8Vp72wO" },
-      { file: "GTM_Guatemala.xlsx", iso3: "GTM", name: "Guatemala", fileId: "13O81M6bmsZeEZ6Rob1jTBn7kmId0rjey" },
-      { file: "GIN_Guinea.xlsx", iso3: "GIN", name: "Guinea", fileId: "1N5k27-H5LSdYX1oT312CejzPDX_7Li4t" },
-      { file: "GNB_Guinea-Bissau.xlsx", iso3: "GNB", name: "Guinea-Bissau", fileId: "1s04oxtdED-0b5y_MtpT6_QkHoYO1J5Dz" },
-      { file: "GUY_Guyana.xlsx", iso3: "GUY", name: "Guyana", fileId: "15VlV_X5VX0AIkPiGxK6yQRsAjzgOFQ1Z" },
-      { file: "HTI_Haiti.xlsx", iso3: "HTI", name: "Haiti", fileId: "1RNnF366NuXBMiYwLNbrBsPgiCCoiDhtZ" },
-      { file: "HND_Honduras.xlsx", iso3: "HND", name: "Honduras", fileId: "12DBK1DSoERKSE5Ubezpc8ASb_yQloojm" },
-      { file: "HKG_Hong Kong SAR China.xlsx", iso3: "HKG", name: "Hong Kong SAR China", fileId: "1W5HJZ3PMoQpszbIwK6iEXT92P3NCorgG" },
-      { file: "HUN_Hungary.xlsx", iso3: "HUN", name: "Hungary", fileId: "1hIYr3WQX6MSSrg2uKOaPludkhmNDmmNz" },
-      { file: "ISL_Iceland.xlsx", iso3: "ISL", name: "Iceland", fileId: "11zyvHC0qO-_5HJVkoVklVWaKELZ_KvYq" },
-      { file: "IND_India.xlsx", iso3: "IND", name: "India", fileId: "19-Z94XT4v18NNLkL1WN7yh_6O12GYUyb" },
-      { file: "IDN_Indonesia.xlsx", iso3: "IDN", name: "Indonesia", fileId: "1T0-xYjA9iz6nYcY5don7w4X7lawNPOM4" },
-      { file: "IRN_Iran Islamic Rep..xlsx", iso3: "IRN", name: "Iran Islamic Rep.", fileId: "1flEwjrGETqXxqeZs2DjxjSpFpR8opgDm" },
-      { file: "IRQ_Iraq.xlsx", iso3: "IRQ", name: "Iraq", fileId: "1GhHKC2EQrb0B9cmIBuQ8FTjBJkZRFGTd" },
-      { file: "IRL_Ireland.xlsx", iso3: "IRL", name: "Ireland", fileId: "1WWxbsVj9OjsCWhYC7-A7YpTMkbR7z4pv" },
-      { file: "IMN_Isle of Man.xlsx", iso3: "IMN", name: "Isle of Man", fileId: "1Lt8aCuOg3-KTomcfo8UBHHvMWFDf3u7Y" },
-      { file: "ISR_Israel.xlsx", iso3: "ISR", name: "Israel", fileId: "1SW8H07OuIvfWaaKFa7loTcCGCddhkMxY" },
-      { file: "ITA_Italy.xlsx", iso3: "ITA", name: "Italy", fileId: "1jSoMjCi319NnhzED7KJoV6O95ZsNnS79" },
-      { file: "JAM_Jamaica.xlsx", iso3: "JAM", name: "Jamaica", fileId: "1VmgLWAtLx7lKcTEa-Ok9cqRqytl_wcug" },
-      { file: "JPN_Japan.xlsx", iso3: "JPN", name: "Japan", fileId: "11vdP95CoRGVPh5kimKKEAgTk-AKhrO6D" },
-      { file: "JOR_Jordan.xlsx", iso3: "JOR", name: "Jordan", fileId: "1YW_Yx_4IojYG88iDBZo84IlZ2bmUGVo3" },
-      { file: "KAZ_Kazakhstan.xlsx", iso3: "KAZ", name: "Kazakhstan", fileId: "1z1o0lWAkA2kfCiYYkmo0UI2JBYysSKoD" },
-      { file: "KEN_Kenya.xlsx", iso3: "KEN", name: "Kenya", fileId: "1cYARJBEiJJSsNnrhIoah91VsjebXc5EI" },
-      { file: "KIR_Kiribati.xlsx", iso3: "KIR", name: "Kiribati", fileId: "1m4-iHyR2dSjBDizosDdBGq8LeGbZlMD8" },
-      { file: "KOR_Korea Rep..xlsx", iso3: "KOR", name: "Korea Rep.", fileId: "1JBRz9Y-tDvI4RTtpU0J2z04em5axk1Nv" },
-      { file: "XKX_Kosovo.xlsx", iso3: "XKX", name: "Kosovo", fileId: "1o1eBCVTqwlKLPytC3D_iF4UXHoLcwpGX" },
-      { file: "KWT_Kuwait.xlsx", iso3: "KWT", name: "Kuwait", fileId: "1_4-Hs2rchFgKL0VFlR5mqZGiV9dz__VZ" },
-      { file: "KGZ_Kyrgyz Republic.xlsx", iso3: "KGZ", name: "Kyrgyz Republic", fileId: "1OC8KOfQH1r4_ngZAHGkw_rnthvoK2MwF" },
-      { file: "LAO_Lao PDR.xlsx", iso3: "LAO", name: "Lao PDR", fileId: "1bLUhHnMA1fL_bu-0rURtbPBehXEm517E" },
-      { file: "LVA_Latvia.xlsx", iso3: "LVA", name: "Latvia", fileId: "1N1_x5df4r-ofnr1yOwmOJ7Tx9QakTi-s" },
-      { file: "LBN_Lebanon.xlsx", iso3: "LBN", name: "Lebanon", fileId: "147WpuAVlypeWSgOMTSX8QnIWspakUtN9" },
-      { file: "LSO_Lesotho.xlsx", iso3: "LSO", name: "Lesotho", fileId: "11yRSaLSiMtA5YRDsJAAVI_JnO1mPeIjg" },
-      { file: "LBR_Liberia.xlsx", iso3: "LBR", name: "Liberia", fileId: "1LVHElCfoy3QtxdU_Aobhz7nLTH8_t5fD" },
-      { file: "LBY_Libya.xlsx", iso3: "LBY", name: "Libya", fileId: "1uxoZyOk2Fhy9TiSKTcL5aPSPvMfPEaot" },
-      { file: "LIE_Liechtenstein.xlsx", iso3: "LIE", name: "Liechtenstein", fileId: "16q2RB9aNCAFC0Zr-7vzAjhQxj8eCQgZ3" },
-      { file: "LTU_Lithuania.xlsx", iso3: "LTU", name: "Lithuania", fileId: "1cOVo27eDSTXDJ5PdJtWyEBbUMwSNRTu4" },
-      { file: "LUX_Luxembourg.xlsx", iso3: "LUX", name: "Luxembourg", fileId: "1dxSBOG4ZMFIOhqo1-B2ttUYF6lvSfol9" },
-      { file: "MAC_Macao SAR China.xlsx", iso3: "MAC", name: "Macao SAR China", fileId: "10v2coV45D22IpewzAa5njErWDqML-lVE" },
-      { file: "MDG_Madagascar.xlsx", iso3: "MDG", name: "Madagascar", fileId: "1KBxxJjvUj7jkwLNrDBevkVh1zmpwz2vN" },
-      { file: "MWI_Malawi.xlsx", iso3: "MWI", name: "Malawi", fileId: "1lSMg1kBK-T4_i6UdOGdrlsQ6QDhYgksf" },
-      { file: "MYS_Malaysia.xlsx", iso3: "MYS", name: "Malaysia", fileId: "1SnEbMpWB8VkwlI4QefIVYZd9ZUwPB8K_" },
-      { file: "MDV_Maldives.xlsx", iso3: "MDV", name: "Maldives", fileId: "1rG2V4Zc_f_1joWlMh7Hs9bpWnm5G1aeu" },
-      { file: "MLI_Mali.xlsx", iso3: "MLI", name: "Mali", fileId: "1XRUGqinigutpXQtGrTHQeWjJkBc1G3V3" },
-      { file: "MLT_Malta.xlsx", iso3: "MLT", name: "Malta", fileId: "1bMN4g8pnwMMuigZ_XN4T0cnwW19ffH_I" },
-      { file: "MHL_Marshall Islands.xlsx", iso3: "MHL", name: "Marshall Islands", fileId: "1u2x3PxKHNA7EWLYiqfsYgpjL77GSKqPm" },
-      { file: "MRT_Mauritania.xlsx", iso3: "MRT", name: "Mauritania", fileId: "1INcZhzA9SbBqaDzWzQEc05WGgnglP8dz" },
-      { file: "MUS_Mauritius.xlsx", iso3: "MUS", name: "Mauritius", fileId: "1PIaENEMXteAvQMcqS3oJUkMKbY2E7tm_" },
-      { file: "MEX_Mexico.xlsx", iso3: "MEX", name: "Mexico", fileId: "1jICR787DPT2COvpbYMmuYDL9epKySDcp" },
-      { file: "FSM_Micronesia Fed. Sts..xlsx", iso3: "FSM", name: "Micronesia Fed. Sts.", fileId: "1TFRQ7_bxVKzk3kuMy4uCKGq8nFujOPbl" },
-      { file: "MDA_Moldova.xlsx", iso3: "MDA", name: "Moldova", fileId: "1aFaV4C8LMeAs4wk5CfpoMOujD5OaMrJu" },
-      { file: "MCO_Monaco.xlsx", iso3: "MCO", name: "Monaco", fileId: "1hz6j44zACEXC9DTtfsB5DE28HK8NP_0A" },
-      { file: "MNG_Mongolia.xlsx", iso3: "MNG", name: "Mongolia", fileId: "1vXgvrWHyEYUAN6X51j1gRxPseLoreXf9" },
-      { file: "MNE_Montenegro.xlsx", iso3: "MNE", name: "Montenegro", fileId: "1yxIJyJmWh0P7JB8dPdeUM2imPUHyF0On" },
-      { file: "MAR_Morocco.xlsx", iso3: "MAR", name: "Morocco", fileId: "1XKsgPte5i4AUW25Kwazk0VPrOsURw0WD" },
-      { file: "MOZ_Mozambique.xlsx", iso3: "MOZ", name: "Mozambique", fileId: "1xPyLlY4pC4M6xn1L2YwQfg75PppR4JzO" },
-      { file: "MMR_Myanmar.xlsx", iso3: "MMR", name: "Myanmar", fileId: "1R19HwMNhM7y5_V6tbDCvr6KSTiULZZd5" },
-      { file: "NAM_Namibia.xlsx", iso3: "NAM", name: "Namibia", fileId: "18Yn10tONnqs4a5-8AgTSdiihIniq06o_" },
-      { file: "NRU_Nauru.xlsx", iso3: "NRU", name: "Nauru", fileId: "1Fb84gp5AmKzkoPGRq4LrRs-7hMolpkA1" },
-      { file: "NPL_Nepal.xlsx", iso3: "NPL", name: "Nepal", fileId: "1TW5aOnHGozsKsrYy5aYRRtfUhx0v0_wh" },
-      { file: "NLD_Netherlands.xlsx", iso3: "NLD", name: "Netherlands", fileId: "1yrKuiaoWuTz9xysTyHlaxOgMpExino6r" },
-      { file: "NCL_New Caledonia.xlsx", iso3: "NCL", name: "New Caledonia", fileId: "19xs7qtGTW8bLJypcNg5c73tV75okhx04" },
-      { file: "NZL_New Zealand.xlsx", iso3: "NZL", name: "New Zealand", fileId: "1-dNF9Fbad2uT9_YkPQC0wI_XyJigpUMr" },
-      { file: "NIC_Nicaragua.xlsx", iso3: "NIC", name: "Nicaragua", fileId: "1KNerKYnNTCD5wNflruwKdnwJ8Wqwgu-_" },
-      { file: "NER_Niger.xlsx", iso3: "NER", name: "Niger", fileId: "1wYxk47Fv32ikIusp_Mt6K1s3Gkp4ZLs4" },
-      { file: "NGA_Nigeria.xlsx", iso3: "NGA", name: "Nigeria", fileId: "1JmHeSl0FbWzShMdyfUZ-yWm0dTr7q_IT" },
-      { file: "MKD_North Macedonia.xlsx", iso3: "MKD", name: "North Macedonia", fileId: "1DqpBDJ9FcALkJGwR4N_FH9Ny33LqPi_7" },
-      { file: "MNP_Northern Mariana Islands.xlsx", iso3: "MNP", name: "Northern Mariana Islands", fileId: "1cnu_Bz9k6S2Dk6mQCp71OXq3t0qOLj_-" },
-      { file: "NOR_Norway.xlsx", iso3: "NOR", name: "Norway", fileId: "1U0hJoPTAQ3OLHzcEzOX6vZMee-YPJPam" },
-      { file: "OMN_Oman.xlsx", iso3: "OMN", name: "Oman", fileId: "1-jH0jtKjzp_cjpXGRK8HCAhBemdXl1_v" },
-      { file: "PAK_Pakistan.xlsx", iso3: "PAK", name: "Pakistan", fileId: "1f1Y0jCO4zuywRUbBBk8TSdGnEgwzf49p" },
-      { file: "PLW_Palau.xlsx", iso3: "PLW", name: "Palau", fileId: "1uez82ztVBdB-LvXAnchbEAfn6sAOce8M" },
-      { file: "PAN_Panama.xlsx", iso3: "PAN", name: "Panama", fileId: "1WD5lQvIf1BfegVFlSf170miHi63_vsNd" },
-      { file: "PNG_Papua New Guinea.xlsx", iso3: "PNG", name: "Papua New Guinea", fileId: "1PcGQiEldJ33_LoC0hFzVe0QyohTWf14O" },
-      { file: "PRY_Paraguay.xlsx", iso3: "PRY", name: "Paraguay", fileId: "17PKSu0iNBDAGCM5jdzKHgbveeKZ_osA3" },
-      { file: "PER_Peru.xlsx", iso3: "PER", name: "Peru", fileId: "1_NAFJEOuwa-IdBIMA4WKH6qzK3L9GB1A" },
-      { file: "PHL_Philippines.xlsx", iso3: "PHL", name: "Philippines", fileId: "1ywIQVSa1HyA0zcNuWwrehwF6OP-8HWiL" },
-      { file: "POL_Poland.xlsx", iso3: "POL", name: "Poland", fileId: "1s3fE7fZ929zB_UEUcCJ1Aj2-BYEeQC9V" },
-      { file: "PRT_Portugal.xlsx", iso3: "PRT", name: "Portugal", fileId: "1DhoB0Obut4qv0owKrzXV1mM8Qp9E6_Sq" },
-      { file: "PRI_Puerto Rico (US).xlsx", iso3: "PRI", name: "Puerto Rico (US)", fileId: "1C4cg60f6qSkilRydbY9YI661iTUaxFin" },
-      { file: "QAT_Qatar.xlsx", iso3: "QAT", name: "Qatar", fileId: "1NsNn6iFrtxHTvAEa7z8ip4DawXhMGttA" },
-      { file: "ROU_Romania.xlsx", iso3: "ROU", name: "Romania", fileId: "1jj9LA8FXXXI5VHt2XQbfiuX06sS-YN_N" },
-      { file: "RUS_Russian Federation.xlsx", iso3: "RUS", name: "Russian Federation", fileId: "1B20XQsDUckzNG9lRstrfrNus5eyl8xyV" },
-      { file: "RWA_Rwanda.xlsx", iso3: "RWA", name: "Rwanda", fileId: "1B_AHV1ANDKFTVQ-L7AUqVPubvDyNGjo6" },
-      { file: "WSM_Samoa.xlsx", iso3: "WSM", name: "Samoa", fileId: "1WxCYQJCEodN2I-N3qp48KEY_yvfhUG9f" },
-      { file: "SMR_San Marino.xlsx", iso3: "SMR", name: "San Marino", fileId: "1KE5EzIGbShTkSIeCe4Lg3G1nnUE52ilw" },
-      { file: "STP_Sao Tome and Principe.xlsx", iso3: "STP", name: "Sao Tome and Principe", fileId: "1l0SASueZiZ14xyZxVBBYWR1IWO66KiiH" },
-      { file: "SAU_Saudi Arabia.xlsx", iso3: "SAU", name: "Saudi Arabia", fileId: "1XmTw0y6ktXfIirg1JGPpU2Z-s6ccnNUu" },
-      { file: "SEN_Senegal.xlsx", iso3: "SEN", name: "Senegal", fileId: "1OpwXq3QjRyXZW378QmsdTIVDyxy6ogR6" },
-      { file: "SRB_Serbia.xlsx", iso3: "SRB", name: "Serbia", fileId: "1vxGs4SVRENmQW0cNTil1LZh3cyCEXXuj" },
-      { file: "SYC_Seychelles.xlsx", iso3: "SYC", name: "Seychelles", fileId: "1Tix7AHt5Tdu8PCZNWm1kXgat2mZ3Jdyu" },
-      { file: "SLE_Sierra Leone.xlsx", iso3: "SLE", name: "Sierra Leone", fileId: "19DKlke_1JeCJdhvmDxXzCyPrNjWAJbnn" },
-      { file: "SGP_Singapore.xlsx", iso3: "SGP", name: "Singapore", fileId: "1AR12T-iPrsuOojJ-RMoNJ9-dmIdLm9hc" },
-      { file: "SXM_Sint Maarten (Dutch part).xlsx", iso3: "SXM", name: "Sint Maarten (Dutch part)", fileId: "1RSrBRTTpZKrKjIW9y5XD4tMsZ8eaId7j" },
-      { file: "SVK_Slovak Republic.xlsx", iso3: "SVK", name: "Slovak Republic", fileId: "1I9Wut__6FtW4mOF8_I0uwbsoSemwC9Xa" },
-      { file: "SVN_Slovenia.xlsx", iso3: "SVN", name: "Slovenia", fileId: "1Q7YSE8gfitkb0j4Co9Juh5a7QV073uyO" },
-      { file: "SLB_Solomon Islands.xlsx", iso3: "SLB", name: "Solomon Islands", fileId: "1h_9SXgQsBPmM-VGdyeIvT0e774EDDnEx" },
-      { file: "SOM_Somalia Fed. Rep..xlsx", iso3: "SOM", name: "Somalia Fed. Rep.", fileId: "1U3SmW_eaGNlpNQnsw_2TcjcSHfx838WP" },
-      { file: "ZAF_South Africa.xlsx", iso3: "ZAF", name: "South Africa", fileId: "1ZxVM_obtqAKngn5L0eIimhQdRqj_j7bA" },
-      { file: "SSD_South Sudan.xlsx", iso3: "SSD", name: "South Sudan", fileId: "1J5G0K9uZtxmQZWtDiTwAnVugp6Jicdkw" },
-      { file: "ESP_Spain.xlsx", iso3: "ESP", name: "Spain", fileId: "12z__ccqoc7UOoTJVnSdV9j-ItxlGOeoj" },
-      { file: "LKA_Sri Lanka.xlsx", iso3: "LKA", name: "Sri Lanka", fileId: "1y_KMHguVFkqpgVJiOGI1fYf9x4UnqdWh" },
-      { file: "KNA_St. Kitts and Nevis.xlsx", iso3: "KNA", name: "St. Kitts and Nevis", fileId: "1qwaBuxwfFPeETck2SLV3Ef6QCs6VQm9V" },
-      { file: "LCA_St. Lucia.xlsx", iso3: "LCA", name: "St. Lucia", fileId: "1r3qrJQSDg3tPJluS8PR2_ikQsUmI_g3B" },
-      { file: "VCT_St. Vincent and the Grenadines.xlsx", iso3: "VCT", name: "St. Vincent and the Grenadines", fileId: "1WkiBpMKUykTf7vC0y8dIgUBLLu1S8jvo" },
-      { file: "SDN_Sudan.xlsx", iso3: "SDN", name: "Sudan", fileId: "1N_8FnNgJpNkhFmOUasbXRubfYiJfcwbv" },
-      { file: "SUR_Suriname.xlsx", iso3: "SUR", name: "Suriname", fileId: "1UehfoSsQGAA4viNZShIjsKTBQZtVAys_" },
-      { file: "SWE_Sweden.xlsx", iso3: "SWE", name: "Sweden", fileId: "13LxmXvmRArpb86KLuTe8VN7q7uIoomf-" },
-      { file: "CHE_Switzerland.xlsx", iso3: "CHE", name: "Switzerland", fileId: "1JXCQEbs0SAb9Tpt0UIcqQ1cD4ChY7BEU" },
-      { file: "SYR_Syrian Arab Republic.xlsx", iso3: "SYR", name: "Syrian Arab Republic", fileId: "1zbgG5-rrL-i1ESLgTzX0MhhdTArxMxWL" },
-      { file: "TJK_Tajikistan.xlsx", iso3: "TJK", name: "Tajikistan", fileId: "1uIROEJ2F9s97qxguIk4lqjgAdchPizY7" },
-      { file: "TZA_Tanzania.xlsx", iso3: "TZA", name: "Tanzania", fileId: "1D7wvzVRGukGfmE0MuwRmK7fnXupfhjYI" },
-      { file: "THA_Thailand.xlsx", iso3: "THA", name: "Thailand", fileId: "1QTMHh93ENK2R6PHHhI5Pq2sUj_Bw8l5W" },
-      { file: "TLS_Timor-Leste.xlsx", iso3: "TLS", name: "Timor-Leste", fileId: "1-3E6fs4S5ITrbzSiNTlvhqMU3fpoUrbd" },
-      { file: "TGO_Togo.xlsx", iso3: "TGO", name: "Togo", fileId: "1rMc7u53g_Gx2uqmh6-qa3zeSlsoe90Jt" },
-      { file: "TON_Tonga.xlsx", iso3: "TON", name: "Tonga", fileId: "1mCsNyZ4DBLhrKSRgn2KklRIGIKMBuy2i" },
-      { file: "TTO_Trinidad and Tobago.xlsx", iso3: "TTO", name: "Trinidad and Tobago", fileId: "1zB0CcBdGT0DnAf8IsrysF0OBaoPzU7QQ" },
-      { file: "TUN_Tunisia.xlsx", iso3: "TUN", name: "Tunisia", fileId: "1EUTgDMOgZvaiVTr8IlcosKCreqTYkn_G" },
-      { file: "TUR_Turkiye.xlsx", iso3: "TUR", name: "Turkiye", fileId: "1l4Ehd7N7DsqBhr4mwXyV1u6ij6QAcLGW" },
-      { file: "TKM_Turkmenistan.xlsx", iso3: "TKM", name: "Turkmenistan", fileId: "1evNCpwAyJUJsEeHkU-N3GdvoXe9IVrtb" },
-      { file: "TCA_Turks and Caicos Islands.xlsx", iso3: "TCA", name: "Turks and Caicos Islands", fileId: "1t3jS29rfsnr-u-j957iMfd6sSL8zfFQA" },
-      { file: "TUV_Tuvalu.xlsx", iso3: "TUV", name: "Tuvalu", fileId: "1tJUwZRMzFPZeWiB1CQf7Sfw5tXXTyO0u" },
-      { file: "UGA_Uganda.xlsx", iso3: "UGA", name: "Uganda", fileId: "1qcqpAQvGuKl5wZc7LHLIUAxW7wEkdIo9" },
-      { file: "UKR_Ukraine.xlsx", iso3: "UKR", name: "Ukraine", fileId: "1iw7XextkaVeV51_puCaJm1eRXhyha9xh" },
-      { file: "ARE_United Arab Emirates.xlsx", iso3: "ARE", name: "United Arab Emirates", fileId: "1g6TzdeChj07ik_NRTM2ih8Y7TzGioAbi" },
-      { file: "GBR_United Kingdom.xlsx", iso3: "GBR", name: "United Kingdom", fileId: "1bO70K_epBQA8JVtXWIx51Totq_ctD2w4" },
-      { file: "USA_United States.xlsx", iso3: "USA", name: "United States", fileId: "1HO1oYMZtRTLtqesq-C0ggIFMETGIJYG-" },
-      { file: "URY_Uruguay.xlsx", iso3: "URY", name: "Uruguay", fileId: "1ofGf5A94Shr-zafuMta_JruRLCy0TzV5" },
-      { file: "UZB_Uzbekistan.xlsx", iso3: "UZB", name: "Uzbekistan", fileId: "1uoxVl1jjKDTFgiam2DjZ_cofsOZJiXCX" },
-      { file: "VUT_Vanuatu.xlsx", iso3: "VUT", name: "Vanuatu", fileId: "1kyjP-QR8CVdqkszTcQFOaixoT6BqCcye" },
-      { file: "VNM_Viet Nam.xlsx", iso3: "VNM", name: "Viet Nam", fileId: "1ZuJAK7M7mq5Ff32W3_oWaPsNYxfQHAvG" },
-      { file: "VIR_Virgin Islands (U.S.).xlsx", iso3: "VIR", name: "Virgin Islands (U.S.)", fileId: "107yC1R5LHdCxYHQypigrVc74jtlZJM2y" },
-      { file: "PSE_West Bank and Gaza.xlsx", iso3: "PSE", name: "West Bank and Gaza", fileId: "1lGIs2X_GBI4TJ0TSw0WuX8B0h1-6TNBe" },
-      { file: "YEM_Yemen Rep..xlsx", iso3: "YEM", name: "Yemen Rep.", fileId: "1CBqsN5oI3Y5StZtMdfOcvIuzKwqVz1B0" },
-      { file: "ZMB_Zambia.xlsx", iso3: "ZMB", name: "Zambia", fileId: "1D9OOi2hfgaQ02JNTT2qvx3SPqqFlT-tF" },
-      { file: "ZWE_Zimbabwe.xlsx", iso3: "ZWE", name: "Zimbabwe", fileId: "1EQ8F9okd9A3EkdT_U29pUZttvA9OOIeH" }
-    ];
-
-    const countrySelect = document.getElementById("countrySelect");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const statusEl = document.getElementById("status");
-    const countryCountEl = document.getElementById("countryCount");
-    const ebCountEl = document.getElementById("ebCount");
-    const ebBadgeInline = document.getElementById("ebBadgeInline");
-
-    function buildDownloadUrl(fileId) {
-      return `https://drive.google.com/uc?export=download&id=${encodeURIComponent(fileId)}`;
-    }
-
-    function setStatus(type, message) {
-      statusEl.className = `status ${type}`;
-      statusEl.textContent = message;
-      statusEl.style.display = "block";
-    }
-
-    function clearStatus() {
-      statusEl.className = "status";
-      statusEl.textContent = "";
-      statusEl.style.display = "none";
-    }
-
-    function getDisplayName(country) {
-      const ebMark = COUNTRIES_WITH_EB.has(country.iso3) ? " ⚡" : "";
-      return `${country.name} (${country.iso3})${ebMark}`;
-    }
-
-    function populateCountries() {
-      const sorted = [...COUNTRIES].sort((a, b) => a.name.localeCompare(b.name));
-
-      for (const country of sorted) {
-        const option = document.createElement("option");
-        option.value = country.fileId;
-        option.textContent = getDisplayName(country);
-        option.dataset.countryName = country.name;
-        option.dataset.iso3 = country.iso3;
-        option.dataset.fileName = country.file;
-        option.dataset.hasEb = COUNTRIES_WITH_EB.has(country.iso3) ? "1" : "0";
-        countrySelect.appendChild(option);
-      }
-
-      countryCountEl.textContent = String(sorted.length);
-      ebCountEl.textContent = String(COUNTRIES_WITH_EB.size);
-      ebBadgeInline.textContent = `${COUNTRIES_WITH_EB.size} countries`;
-    }
-
-    function updateDownloadButton() {
-      downloadBtn.disabled = !countrySelect.value;
-    }
-
-    function downloadKit() {
-      const fileId = countrySelect.value;
-      const option = countrySelect.options[countrySelect.selectedIndex];
-
-      if (!fileId) {
-        setStatus("error", "Please select a country first.");
-        return;
-      }
-
-      clearStatus();
-      window.open(buildDownloadUrl(fileId), "_blank", "noopener,noreferrer");
-      const ebNote = option.dataset.hasEb === "1" ? " (with Energy Balance)" : "";
-      setStatus("success", `✓ Downloading ${option.dataset.countryName}${ebNote}...`);
-
-      setTimeout(() => {
-        clearStatus();
-      }, 3000);
-    }
-
-    function init() {
-      setStatus("loading", "Loading country list...");
-      populateCountries();
-      updateDownloadButton();
-      clearStatus();
-    }
-
-    countrySelect.addEventListener("change", updateDownloadButton);
-    downloadBtn.addEventListener("click", downloadKit);
-
-    init();
-  </script>
+    <h3 class="section-title">Contact</h3>
+    <p class="section-intro">Questions about the data, spot an error, or interested in contributing additional country kits?</p>
+    <div class="contact-card">
+      <span class="contact-name">Naomi Tan</span>
+      <a class="contact-email" href="mailto:n.tan@lboro.ac.uk">n.tan@lboro.ac.uk</a>
+    </div>
+  </div>
+</div>
+<footer><div class="w">&copy; 2025–2026 CCG. and contributors</div></footer>
+<script>
+const COUNTRIES_WITH_EB = new Set([
+  "AFG","ALB","DZA","ASM","AND","AGO","ATG","ARG","ARM","ABW",
+  "AUS","AUT","AZE","BTN","BEN","BRN","BFA","BDI","KHM","CHN"
+]);
+const COUNTRIES = [
+  {file:"AFG_Afghanistan.xlsx",iso3:"AFG",name:"Afghanistan",fileId:"1lEVG4JQetTh6I-7RxvYW8h55o2kNOBfx"},
+  {file:"ALB_Albania.xlsx",iso3:"ALB",name:"Albania",fileId:"1mERl9otuz3P-Pqu4YpSa9eIpphWJpm8k"},
+  {file:"DZA_Algeria.xlsx",iso3:"DZA",name:"Algeria",fileId:"1AAC9OYAVYqIdz9axswYYKjU7oQOd-B-5"},
+  {file:"ASM_American Samoa.xlsx",iso3:"ASM",name:"American Samoa",fileId:"1lYT22qj2IJzslxhbduc3FiGDs8kydT3t"},
+  {file:"AND_Andorra.xlsx",iso3:"AND",name:"Andorra",fileId:"1Lq7Q8hud1ZdXn9_1bj_fpO9ejbpeAPHm"},
+  {file:"AGO_Angola.xlsx",iso3:"AGO",name:"Angola",fileId:"1bqV8wI8fZZrVay7mAC5UPHB-4ItzCXdV"},
+  {file:"ATG_Antigua and Barbuda.xlsx",iso3:"ATG",name:"Antigua and Barbuda",fileId:"1tveK0ddXQAd8llWD_ykuVrORqmwG8189"},
+  {file:"ARG_Argentina.xlsx",iso3:"ARG",name:"Argentina",fileId:"1ga7YfedtThb1EjpoTIzUqzFSzu91NGuC"},
+  {file:"ARM_Armenia.xlsx",iso3:"ARM",name:"Armenia",fileId:"1Kuysceu4La7LQraPnKOk-dG8oICYex5q"},
+  {file:"ABW_Aruba.xlsx",iso3:"ABW",name:"Aruba",fileId:"1rdmPF-px5iaCGodboutvE9XHNerYWPAh"},
+  {file:"AUS_Australia.xlsx",iso3:"AUS",name:"Australia",fileId:"13XstCgryt9xMIJxzz4_HG-2VwNZoBqDI"},
+  {file:"AUT_Austria.xlsx",iso3:"AUT",name:"Austria",fileId:"19ImVARL4uLIoU6GDWECTp1roypDCB3Rs"},
+  {file:"AZE_Azerbaijan.xlsx",iso3:"AZE",name:"Azerbaijan",fileId:"1UDGzUdMErOGgT0M3qZiPOhYkcDxyOZ6i"},
+  {file:"BHS_Bahamas The.xlsx",iso3:"BHS",name:"Bahamas The",fileId:"1H59TU-hEOIJZ27mvEtzR03IT36-GDyk9"},
+  {file:"BHR_Bahrain.xlsx",iso3:"BHR",name:"Bahrain",fileId:"1jRn2cYk7tJJmq_PECg8sNwcK5GtplJik"},
+  {file:"BGD_Bangladesh.xlsx",iso3:"BGD",name:"Bangladesh",fileId:"1UJxx81aGFO3BasRa8IOQvDyPCDVlpkAy"},
+  {file:"BRB_Barbados.xlsx",iso3:"BRB",name:"Barbados",fileId:"18Bs8SvCUE9h24x9aOj6suAKic6_KgN5o"},
+  {file:"BLR_Belarus.xlsx",iso3:"BLR",name:"Belarus",fileId:"1VzhbCjhYDi-WBD7psmcQKZbEz7tZ9Bc_"},
+  {file:"BEL_Belgium.xlsx",iso3:"BEL",name:"Belgium",fileId:"14DfHkIjp9wQ9HqhR17f8ZTfihDolie97"},
+  {file:"BLZ_Belize.xlsx",iso3:"BLZ",name:"Belize",fileId:"10kYscYT8FxCrKHJkYeh_-1BdUaS7aqhP"},
+  {file:"BEN_Benin.xlsx",iso3:"BEN",name:"Benin",fileId:"1z-pjqcTqYw4PvQTIJQGa8ZNGv2FjawXC"},
+  {file:"BMU_Bermuda.xlsx",iso3:"BMU",name:"Bermuda",fileId:"1tVhSoURCRC1ONdOdbmydjLlzOc5P7Xxr"},
+  {file:"BTN_Bhutan.xlsx",iso3:"BTN",name:"Bhutan",fileId:"1dZtD_j1rS3_7FVL4LY9BWwGhY_DOZ_St"},
+  {file:"BOL_Bolivia.xlsx",iso3:"BOL",name:"Bolivia",fileId:"1uuc9FJEnoj6soI-TvFVFenokdxB9Hmdc"},
+  {file:"BIH_Bosnia and Herzegovina.xlsx",iso3:"BIH",name:"Bosnia and Herzegovina",fileId:"1TILSIaGlol8Ohs1g0WgXZ8ZmaJFEOMHE"},
+  {file:"BWA_Botswana.xlsx",iso3:"BWA",name:"Botswana",fileId:"1bsyeZBXu5stjocUYWPuz6tIq6Dg1evfH"},
+  {file:"BRA_Brazil.xlsx",iso3:"BRA",name:"Brazil",fileId:"1dl17dV3aXoql220hNa1sWJuaDHVaC__I"},
+  {file:"BRN_Brunei Darussalam.xlsx",iso3:"BRN",name:"Brunei Darussalam",fileId:"16gtpe9vlOcx7b5DbZQ3ZFFamB0tsxDRn"},
+  {file:"BGR_Bulgaria.xlsx",iso3:"BGR",name:"Bulgaria",fileId:"1B2ZY4JvZ4bBbSxhdb5mwh8pyBVJVWUlL"},
+  {file:"BFA_Burkina Faso.xlsx",iso3:"BFA",name:"Burkina Faso",fileId:"14nHTKHLrsOgVYLGBIqiOMVt_JspGBGl8"},
+  {file:"BDI_Burundi.xlsx",iso3:"BDI",name:"Burundi",fileId:"1G-_lEyxWKeKG2u6ispwZqqfjfP9LF0D6"},
+  {file:"CPV_Cabo Verde.xlsx",iso3:"CPV",name:"Cabo Verde",fileId:"1gLjo1_3HKaaMiAAd3lXdLkh3AnA3ajdK"},
+  {file:"KHM_Cambodia.xlsx",iso3:"KHM",name:"Cambodia",fileId:"1kNNNDXOkzDm3tx9CR_vcWRH_FXKuj2Fb"},
+  {file:"CMR_Cameroon.xlsx",iso3:"CMR",name:"Cameroon",fileId:"1QKkwzap5udypkTPHFBozr-GfURT6wjtU"},
+  {file:"CAN_Canada.xlsx",iso3:"CAN",name:"Canada",fileId:"1UmON7T4xi61Rp6Ch8h8AyABVaczTdITs"},
+  {file:"CYM_Cayman Islands.xlsx",iso3:"CYM",name:"Cayman Islands",fileId:"1bZ0hIgEyJ6k28a2mCl6RHkeHhXYm_JjD"},
+  {file:"CAF_Central African Republic.xlsx",iso3:"CAF",name:"Central African Republic",fileId:"1ZejuYuH-S4JW6KBm6cL7sm-giqXSGaB_"},
+  {file:"TCD_Chad.xlsx",iso3:"TCD",name:"Chad",fileId:"19T2M6LJZ5ZUMnpm2uSKVWz_YFsj-ovQm"},
+  {file:"CHI_Channel Islands.xlsx",iso3:"CHI",name:"Channel Islands",fileId:"1rUh6ZH8hGWEj97r_eEpbuxz8kLn8SpVl"},
+  {file:"CHL_Chile.xlsx",iso3:"CHL",name:"Chile",fileId:"1aP-HPYN1_CWDfvMnj1aMZJr-GKVX2ibX"},
+  {file:"CHN_China.xlsx",iso3:"CHN",name:"China",fileId:"1NMG28KfFmvL24rpKuZHaaYpwPHsj1DNx"},
+  {file:"COL_Colombia.xlsx",iso3:"COL",name:"Colombia",fileId:"1ZzcJnWPrRwN87VUchHEUXftkl0lf_30s"},
+  {file:"COM_Comoros.xlsx",iso3:"COM",name:"Comoros",fileId:"1aCkpQHYdVzzVykeCFL-txiITN7Ub5TiU"},
+  {file:"COD_Congo Dem. Rep..xlsx",iso3:"COD",name:"Congo Dem. Rep.",fileId:"1Qup425plt5rRyol46dC27mAGlna-x8Rd"},
+  {file:"COG_Congo Rep..xlsx",iso3:"COG",name:"Congo Rep.",fileId:"1xqB2QqEMcQ1Zha-SHO5jx_JUbLH9PeYD"},
+  {file:"CRI_Costa Rica.xlsx",iso3:"CRI",name:"Costa Rica",fileId:"18Q7Rko-Qv20gHlARMtyGYW0wFbVcqeD5"},
+  {file:"CIV_Cote dIvoire.xlsx",iso3:"CIV",name:"Cote dIvoire",fileId:"16TkFwoSCwS2uIrEEnC69xjTKlqLqDHpO"},
+  {file:"HRV_Croatia.xlsx",iso3:"HRV",name:"Croatia",fileId:"1VSnSsqhm9kU82yodGwjIqhtFLKRjPQO-"},
+  {file:"CUB_Cuba.xlsx",iso3:"CUB",name:"Cuba",fileId:"17rtgihKJhD9xCYI0cNu4OLLshez7Dejv"},
+  {file:"CUW_Curacao.xlsx",iso3:"CUW",name:"Curacao",fileId:"1Jy5nFrKG7ayumarg4pgHg79fXO5JYqD-"},
+  {file:"CYP_Cyprus.xlsx",iso3:"CYP",name:"Cyprus",fileId:"1VM1OY8zgL65lnlIOZxH0LrepQhoEsZ-I"},
+  {file:"CZE_Czechia.xlsx",iso3:"CZE",name:"Czechia",fileId:"1j6oD8eEEqYbLxvhzmF7Bf7zpza-N7BRY"},
+  {file:"DNK_Denmark.xlsx",iso3:"DNK",name:"Denmark",fileId:"1YbHG1TqCEALwoC9FgtSWoCPnKf5AyQhQ"},
+  {file:"DJI_Djibouti.xlsx",iso3:"DJI",name:"Djibouti",fileId:"1alhcCXzlho5cVoi2W3ktNuGQV80A9yNP"},
+  {file:"DMA_Dominica.xlsx",iso3:"DMA",name:"Dominica",fileId:"1WDC6UFvWMINuJvyUlZgLhTI5A2gHHtCX"},
+  {file:"DOM_Dominican Republic.xlsx",iso3:"DOM",name:"Dominican Republic",fileId:"1moPwMoVkzkuxXPC3c_yElz8YZilO6-XN"},
+  {file:"ECU_Ecuador.xlsx",iso3:"ECU",name:"Ecuador",fileId:"1ag4WDFpFwMe_fhw884Syz0D4SkA2IjTw"},
+  {file:"EGY_Egypt Arab Rep..xlsx",iso3:"EGY",name:"Egypt Arab Rep.",fileId:"1PgDJVNpGpQX6hi44TxJnPmc4htdyyt-7"},
+  {file:"SLV_El Salvador.xlsx",iso3:"SLV",name:"El Salvador",fileId:"10lKAReV8-l6wWJSqzGS0kfcqw1ABNNsp"},
+  {file:"GNQ_Equatorial Guinea.xlsx",iso3:"GNQ",name:"Equatorial Guinea",fileId:"1KO01Qxl8ltJT5VIQNyaYggePFqL7ofZE"},
+  {file:"ERI_Eritrea.xlsx",iso3:"ERI",name:"Eritrea",fileId:"1uqc7ea0EJ_8VmnhHMyXcpgkVdI2SRTzZ"},
+  {file:"EST_Estonia.xlsx",iso3:"EST",name:"Estonia",fileId:"18BaiHxMLRwhobnewlcCkO_zszmDlsVsp"},
+  {file:"SWZ_Eswatini.xlsx",iso3:"SWZ",name:"Eswatini",fileId:"1q6PN870PexpMJiQQjsKOPbRo-CACoIg_"},
+  {file:"ETH_Ethiopia.xlsx",iso3:"ETH",name:"Ethiopia",fileId:"1yhazasAFvCKxS5UiD0FUQ1Kr2EHAsGs6"},
+  {file:"FRO_Faroe Islands.xlsx",iso3:"FRO",name:"Faroe Islands",fileId:"14I-o72JE-tqU6UUdqy5slQ0dltlXIUXG"},
+  {file:"FJI_Fiji.xlsx",iso3:"FJI",name:"Fiji",fileId:"1rbvrK2E43cZZ69Zj4jUceWdY6MdDTFz5"},
+  {file:"FIN_Finland.xlsx",iso3:"FIN",name:"Finland",fileId:"11murFTMXSHOVa8jsl_bU_G3baS9Tvc_C"},
+  {file:"FRA_France.xlsx",iso3:"FRA",name:"France",fileId:"1jSIS8qLqeqCrwt07-r5HbkQNM6WTEqia"},
+  {file:"PYF_French Polynesia.xlsx",iso3:"PYF",name:"French Polynesia",fileId:"1RDgImZBpcy46TF1rNRojtj8z90swdGhK"},
+  {file:"GAB_Gabon.xlsx",iso3:"GAB",name:"Gabon",fileId:"1DFf9zEmMmM11EGYEDpRsEc6a071Cu4cq"},
+  {file:"GMB_Gambia The.xlsx",iso3:"GMB",name:"Gambia The",fileId:"1C-4NUjbrExvYB2SoxBSoaqjYTQItjMiX"},
+  {file:"GEO_Georgia.xlsx",iso3:"GEO",name:"Georgia",fileId:"1f0ryHd_LKW902-JcQUpI-QnD9iysKOkD"},
+  {file:"DEU_Germany.xlsx",iso3:"DEU",name:"Germany",fileId:"14Z--wu1IkKSvxYawroEjPkUfSfI3Ml8L"},
+  {file:"GHA_Ghana.xlsx",iso3:"GHA",name:"Ghana",fileId:"16JKlf0lqME0xLMc4Gy81CUJDGBTLlk5W"},
+  {file:"GRC_Greece.xlsx",iso3:"GRC",name:"Greece",fileId:"1IyNcwcgGP3aU6w7ZfxW5HQo2gcwuk0Xf"},
+  {file:"GRL_Greenland.xlsx",iso3:"GRL",name:"Greenland",fileId:"1xSNxjKoG2T34brn6uJMVJtqcskzjJi1E"},
+  {file:"GRD_Grenada.xlsx",iso3:"GRD",name:"Grenada",fileId:"1vRHE2Bq7ZUzbgMwQezyzMC6g52v4W9vN"},
+  {file:"GUM_Guam.xlsx",iso3:"GUM",name:"Guam",fileId:"1VWxi5WIZSb9LtOA-4tiCAEFFi8Vp72wO"},
+  {file:"GTM_Guatemala.xlsx",iso3:"GTM",name:"Guatemala",fileId:"13O81M6bmsZeEZ6Rob1jTBn7kmId0rjey"},
+  {file:"GIN_Guinea.xlsx",iso3:"GIN",name:"Guinea",fileId:"1N5k27-H5LSdYX1oT312CejzPDX_7Li4t"},
+  {file:"GNB_Guinea-Bissau.xlsx",iso3:"GNB",name:"Guinea-Bissau",fileId:"1s04oxtdED-0b5y_MtpT6_QkHoYO1J5Dz"},
+  {file:"GUY_Guyana.xlsx",iso3:"GUY",name:"Guyana",fileId:"15VlV_X5VX0AIkPiGxK6yQRsAjzgOFQ1Z"},
+  {file:"HTI_Haiti.xlsx",iso3:"HTI",name:"Haiti",fileId:"1RNnF366NuXBMiYwLNbrBsPgiCCoiDhtZ"},
+  {file:"HND_Honduras.xlsx",iso3:"HND",name:"Honduras",fileId:"12DBK1DSoERKSE5Ubezpc8ASb_yQloojm"},
+  {file:"HKG_Hong Kong SAR China.xlsx",iso3:"HKG",name:"Hong Kong SAR China",fileId:"1W5HJZ3PMoQpszbIwK6iEXT92P3NCorgG"},
+  {file:"HUN_Hungary.xlsx",iso3:"HUN",name:"Hungary",fileId:"1hIYr3WQX6MSSrg2uKOaPludkhmNDmmNz"},
+  {file:"ISL_Iceland.xlsx",iso3:"ISL",name:"Iceland",fileId:"11zyvHC0qO-_5HJVkoVklVWaKELZ_KvYq"},
+  {file:"IND_India.xlsx",iso3:"IND",name:"India",fileId:"19-Z94XT4v18NNLkL1WN7yh_6O12GYUyb"},
+  {file:"IDN_Indonesia.xlsx",iso3:"IDN",name:"Indonesia",fileId:"1T0-xYjA9iz6nYcY5don7w4X7lawNPOM4"},
+  {file:"IRN_Iran Islamic Rep..xlsx",iso3:"IRN",name:"Iran Islamic Rep.",fileId:"1flEwjrGETqXxqeZs2DjxjSpFpR8opgDm"},
+  {file:"IRQ_Iraq.xlsx",iso3:"IRQ",name:"Iraq",fileId:"1GhHKC2EQrb0B9cmIBuQ8FTjBJkZRFGTd"},
+  {file:"IRL_Ireland.xlsx",iso3:"IRL",name:"Ireland",fileId:"1WWxbsVj9OjsCWhYC7-A7YpTMkbR7z4pv"},
+  {file:"IMN_Isle of Man.xlsx",iso3:"IMN",name:"Isle of Man",fileId:"1Lt8aCuOg3-KTomcfo8UBHHvMWFDf3u7Y"},
+  {file:"ISR_Israel.xlsx",iso3:"ISR",name:"Israel",fileId:"1SW8H07OuIvfWaaKFa7loTcCGCddhkMxY"},
+  {file:"ITA_Italy.xlsx",iso3:"ITA",name:"Italy",fileId:"1jSoMjCi319NnhzED7KJoV6O95ZsNnS79"},
+  {file:"JAM_Jamaica.xlsx",iso3:"JAM",name:"Jamaica",fileId:"1VmgLWAtLx7lKcTEa-Ok9cqRqytl_wcug"},
+  {file:"JPN_Japan.xlsx",iso3:"JPN",name:"Japan",fileId:"11vdP95CoRGVPh5kimKKEAgTk-AKhrO6D"},
+  {file:"JOR_Jordan.xlsx",iso3:"JOR",name:"Jordan",fileId:"1YW_Yx_4IojYG88iDBZo84IlZ2bmUGVo3"},
+  {file:"KAZ_Kazakhstan.xlsx",iso3:"KAZ",name:"Kazakhstan",fileId:"1z1o0lWAkA2kfCiYYkmo0UI2JBYysSKoD"},
+  {file:"KEN_Kenya.xlsx",iso3:"KEN",name:"Kenya",fileId:"1cYARJBEiJJSsNnrhIoah91VsjebXc5EI"},
+  {file:"KIR_Kiribati.xlsx",iso3:"KIR",name:"Kiribati",fileId:"1m4-iHyR2dSjBDizosDdBGq8LeGbZlMD8"},
+  {file:"KOR_Korea Rep..xlsx",iso3:"KOR",name:"Korea Rep.",fileId:"1JBRz9Y-tDvI4RTtpU0J2z04em5axk1Nv"},
+  {file:"XKX_Kosovo.xlsx",iso3:"XKX",name:"Kosovo",fileId:"1o1eBCVTqwlKLPytC3D_iF4UXHoLcwpGX"},
+  {file:"KWT_Kuwait.xlsx",iso3:"KWT",name:"Kuwait",fileId:"1_4-Hs2rchFgKL0VFlR5mqZGiV9dz__VZ"},
+  {file:"KGZ_Kyrgyz Republic.xlsx",iso3:"KGZ",name:"Kyrgyz Republic",fileId:"1OC8KOfQH1r4_ngZAHGkw_rnthvoK2MwF"},
+  {file:"LAO_Lao PDR.xlsx",iso3:"LAO",name:"Lao PDR",fileId:"1bLUhHnMA1fL_bu-0rURtbPBehXEm517E"},
+  {file:"LVA_Latvia.xlsx",iso3:"LVA",name:"Latvia",fileId:"1N1_x5df4r-ofnr1yOwmOJ7Tx9QakTi-s"},
+  {file:"LBN_Lebanon.xlsx",iso3:"LBN",name:"Lebanon",fileId:"147WpuAVlypeWSgOMTSX8QnIWspakUtN9"},
+  {file:"LSO_Lesotho.xlsx",iso3:"LSO",name:"Lesotho",fileId:"11yRSaLSiMtA5YRDsJAAVI_JnO1mPeIjg"},
+  {file:"LBR_Liberia.xlsx",iso3:"LBR",name:"Liberia",fileId:"1LVHElCfoy3QtxdU_Aobhz7nLTH8_t5fD"},
+  {file:"LBY_Libya.xlsx",iso3:"LBY",name:"Libya",fileId:"1uxoZyOk2Fhy9TiSKTcL5aPSPvMfPEaot"},
+  {file:"LIE_Liechtenstein.xlsx",iso3:"LIE",name:"Liechtenstein",fileId:"16q2RB9aNCAFC0Zr-7vzAjhQxj8eCQgZ3"},
+  {file:"LTU_Lithuania.xlsx",iso3:"LTU",name:"Lithuania",fileId:"1cOVo27eDSTXDJ5PdJtWyEBbUMwSNRTu4"},
+  {file:"LUX_Luxembourg.xlsx",iso3:"LUX",name:"Luxembourg",fileId:"1dxSBOG4ZMFIOhqo1-B2ttUYF6lvSfol9"},
+  {file:"MAC_Macao SAR China.xlsx",iso3:"MAC",name:"Macao SAR China",fileId:"10v2coV45D22IpewzAa5njErWDqML-lVE"},
+  {file:"MDG_Madagascar.xlsx",iso3:"MDG",name:"Madagascar",fileId:"1KBxxJjvUj7jkwLNrDBevkVh1zmpwz2vN"},
+  {file:"MWI_Malawi.xlsx",iso3:"MWI",name:"Malawi",fileId:"1lSMg1kBK-T4_i6UdOGdrlsQ6QDhYgksf"},
+  {file:"MYS_Malaysia.xlsx",iso3:"MYS",name:"Malaysia",fileId:"1SnEbMpWB8VkwlI4QefIVYZd9ZUwPB8K_"},
+  {file:"MDV_Maldives.xlsx",iso3:"MDV",name:"Maldives",fileId:"1rG2V4Zc_f_1joWlMh7Hs9bpWnm5G1aeu"},
+  {file:"MLI_Mali.xlsx",iso3:"MLI",name:"Mali",fileId:"1XRUGqinigutpXQtGrTHQeWjJkBc1G3V3"},
+  {file:"MLT_Malta.xlsx",iso3:"MLT",name:"Malta",fileId:"1bMN4g8pnwMMuigZ_XN4T0cnwW19ffH_I"},
+  {file:"MHL_Marshall Islands.xlsx",iso3:"MHL",name:"Marshall Islands",fileId:"1u2x3PxKHNA7EWLYiqfsYgpjL77GSKqPm"},
+  {file:"MRT_Mauritania.xlsx",iso3:"MRT",name:"Mauritania",fileId:"1INcZhzA9SbBqaDzWzQEc05WGgnglP8dz"},
+  {file:"MUS_Mauritius.xlsx",iso3:"MUS",name:"Mauritius",fileId:"1PIaENEMXteAvQMcqS3oJUkMKbY2E7tm_"},
+  {file:"MEX_Mexico.xlsx",iso3:"MEX",name:"Mexico",fileId:"1jICR787DPT2COvpbYMmuYDL9epKySDcp"},
+  {file:"FSM_Micronesia Fed. Sts..xlsx",iso3:"FSM",name:"Micronesia Fed. Sts.",fileId:"1TFRQ7_bxVKzk3kuMy4uCKGq8nFujOPbl"},
+  {file:"MDA_Moldova.xlsx",iso3:"MDA",name:"Moldova",fileId:"1aFaV4C8LMeAs4wk5CfpoMOujD5OaMrJu"},
+  {file:"MCO_Monaco.xlsx",iso3:"MCO",name:"Monaco",fileId:"1hz6j44zACEXC9DTtfsB5DE28HK8NP_0A"},
+  {file:"MNG_Mongolia.xlsx",iso3:"MNG",name:"Mongolia",fileId:"1vXgvrWHyEYUAN6X51j1gRxPseLoreXf9"},
+  {file:"MNE_Montenegro.xlsx",iso3:"MNE",name:"Montenegro",fileId:"1yxIJyJmWh0P7JB8dPdeUM2imPUHyF0On"},
+  {file:"MAR_Morocco.xlsx",iso3:"MAR",name:"Morocco",fileId:"1XKsgPte5i4AUW25Kwazk0VPrOsURw0WD"},
+  {file:"MOZ_Mozambique.xlsx",iso3:"MOZ",name:"Mozambique",fileId:"1xPyLlY4pC4M6xn1L2YwQfg75PppR4JzO"},
+  {file:"MMR_Myanmar.xlsx",iso3:"MMR",name:"Myanmar",fileId:"1R19HwMNhM7y5_V6tbDCvr6KSTiULZZd5"},
+  {file:"NAM_Namibia.xlsx",iso3:"NAM",name:"Namibia",fileId:"18Yn10tONnqs4a5-8AgTSdiihIniq06o_"},
+  {file:"NRU_Nauru.xlsx",iso3:"NRU",name:"Nauru",fileId:"1Fb84gp5AmKzkoPGRq4LrRs-7hMolpkA1"},
+  {file:"NPL_Nepal.xlsx",iso3:"NPL",name:"Nepal",fileId:"1TW5aOnHGozsKsrYy5aYRRtfUhx0v0_wh"},
+  {file:"NLD_Netherlands.xlsx",iso3:"NLD",name:"Netherlands",fileId:"1yrKuiaoWuTz9xysTyHlaxOgMpExino6r"},
+  {file:"NCL_New Caledonia.xlsx",iso3:"NCL",name:"New Caledonia",fileId:"19xs7qtGTW8bLJypcNg5c73tV75okhx04"},
+  {file:"NZL_New Zealand.xlsx",iso3:"NZL",name:"New Zealand",fileId:"1-dNF9Fbad2uT9_YkPQC0wI_XyJigpUMr"},
+  {file:"NIC_Nicaragua.xlsx",iso3:"NIC",name:"Nicaragua",fileId:"1KNerKYnNTCD5wNflruwKdnwJ8Wqwgu-_"},
+  {file:"NER_Niger.xlsx",iso3:"NER",name:"Niger",fileId:"1wYxk47Fv32ikIusp_Mt6K1s3Gkp4ZLs4"},
+  {file:"NGA_Nigeria.xlsx",iso3:"NGA",name:"Nigeria",fileId:"1JmHeSl0FbWzShMdyfUZ-yWm0dTr7q_IT"},
+  {file:"MKD_North Macedonia.xlsx",iso3:"MKD",name:"North Macedonia",fileId:"1DqpBDJ9FcALkJGwR4N_FH9Ny33LqPi_7"},
+  {file:"MNP_Northern Mariana Islands.xlsx",iso3:"MNP",name:"Northern Mariana Islands",fileId:"1cnu_Bz9k6S2Dk6mQCp71OXq3t0qOLj_-"},
+  {file:"NOR_Norway.xlsx",iso3:"NOR",name:"Norway",fileId:"1U0hJoPTAQ3OLHzcEzOX6vZMee-YPJPam"},
+  {file:"OMN_Oman.xlsx",iso3:"OMN",name:"Oman",fileId:"1-jH0jtKjzp_cjpXGRK8HCAhBemdXl1_v"},
+  {file:"PAK_Pakistan.xlsx",iso3:"PAK",name:"Pakistan",fileId:"1f1Y0jCO4zuywRUbBBk8TSdGnEgwzf49p"},
+  {file:"PLW_Palau.xlsx",iso3:"PLW",name:"Palau",fileId:"1uez82ztVBdB-LvXAnchbEAfn6sAOce8M"},
+  {file:"PAN_Panama.xlsx",iso3:"PAN",name:"Panama",fileId:"1WD5lQvIf1BfegVFlSf170miHi63_vsNd"},
+  {file:"PNG_Papua New Guinea.xlsx",iso3:"PNG",name:"Papua New Guinea",fileId:"1PcGQiEldJ33_LoC0hFzVe0QyohTWf14O"},
+  {file:"PRY_Paraguay.xlsx",iso3:"PRY",name:"Paraguay",fileId:"17PKSu0iNBDAGCM5jdzKHgbveeKZ_osA3"},
+  {file:"PER_Peru.xlsx",iso3:"PER",name:"Peru",fileId:"1_NAFJEOuwa-IdBIMA4WKH6qzK3L9GB1A"},
+  {file:"PHL_Philippines.xlsx",iso3:"PHL",name:"Philippines",fileId:"1ywIQVSa1HyA0zcNuWwrehwF6OP-8HWiL"},
+  {file:"POL_Poland.xlsx",iso3:"POL",name:"Poland",fileId:"1s3fE7fZ929zB_UEUcCJ1Aj2-BYEeQC9V"},
+  {file:"PRT_Portugal.xlsx",iso3:"PRT",name:"Portugal",fileId:"1DhoB0Obut4qv0owKrzXV1mM8Qp9E6_Sq"},
+  {file:"PRI_Puerto Rico (US).xlsx",iso3:"PRI",name:"Puerto Rico (US)",fileId:"1C4cg60f6qSkilRydbY9YI661iTUaxFin"},
+  {file:"QAT_Qatar.xlsx",iso3:"QAT",name:"Qatar",fileId:"1NsNn6iFrtxHTvAEa7z8ip4DawXhMGttA"},
+  {file:"ROU_Romania.xlsx",iso3:"ROU",name:"Romania",fileId:"1jj9LA8FXXXI5VHt2XQbfiuX06sS-YN_N"},
+  {file:"RUS_Russian Federation.xlsx",iso3:"RUS",name:"Russian Federation",fileId:"1B20XQsDUckzNG9lRstrfrNus5eyl8xyV"},
+  {file:"RWA_Rwanda.xlsx",iso3:"RWA",name:"Rwanda",fileId:"1B_AHV1ANDKFTVQ-L7AUqVPubvDyNGjo6"},
+  {file:"WSM_Samoa.xlsx",iso3:"WSM",name:"Samoa",fileId:"1WxCYQJCEodN2I-N3qp48KEY_yvfhUG9f"},
+  {file:"SMR_San Marino.xlsx",iso3:"SMR",name:"San Marino",fileId:"1KE5EzIGbShTkSIeCe4Lg3G1nnUE52ilw"},
+  {file:"STP_Sao Tome and Principe.xlsx",iso3:"STP",name:"Sao Tome and Principe",fileId:"1l0SASueZiZ14xyZxVBBYWR1IWO66KiiH"},
+  {file:"SAU_Saudi Arabia.xlsx",iso3:"SAU",name:"Saudi Arabia",fileId:"1XmTw0y6ktXfIirg1JGPpU2Z-s6ccnNUu"},
+  {file:"SEN_Senegal.xlsx",iso3:"SEN",name:"Senegal",fileId:"1OpwXq3QjRyXZW378QmsdTIVDyxy6ogR6"},
+  {file:"SRB_Serbia.xlsx",iso3:"SRB",name:"Serbia",fileId:"1vxGs4SVRENmQW0cNTil1LZh3cyCEXXuj"},
+  {file:"SYC_Seychelles.xlsx",iso3:"SYC",name:"Seychelles",fileId:"1Tix7AHt5Tdu8PCZNWm1kXgat2mZ3Jdyu"},
+  {file:"SLE_Sierra Leone.xlsx",iso3:"SLE",name:"Sierra Leone",fileId:"19DKlke_1JeCJdhvmDxXzCyPrNjWAJbnn"},
+  {file:"SGP_Singapore.xlsx",iso3:"SGP",name:"Singapore",fileId:"1AR12T-iPrsuOojJ-RMoNJ9-dmIdLm9hc"},
+  {file:"SXM_Sint Maarten (Dutch part).xlsx",iso3:"SXM",name:"Sint Maarten (Dutch part)",fileId:"1RSrBRTTpZKrKjIW9y5XD4tMsZ8eaId7j"},
+  {file:"SVK_Slovak Republic.xlsx",iso3:"SVK",name:"Slovak Republic",fileId:"1I9Wut__6FtW4mOF8_I0uwbsoSemwC9Xa"},
+  {file:"SVN_Slovenia.xlsx",iso3:"SVN",name:"Slovenia",fileId:"1Q7YSE8gfitkb0j4Co9Juh5a7QV073uyO"},
+  {file:"SLB_Solomon Islands.xlsx",iso3:"SLB",name:"Solomon Islands",fileId:"1h_9SXgQsBPmM-VGdyeIvT0e774EDDnEx"},
+  {file:"SOM_Somalia Fed. Rep..xlsx",iso3:"SOM",name:"Somalia Fed. Rep.",fileId:"1U3SmW_eaGNlpNQnsw_2TcjcSHfx838WP"},
+  {file:"ZAF_South Africa.xlsx",iso3:"ZAF",name:"South Africa",fileId:"1ZxVM_obtqAKngn5L0eIimhQdRqj_j7bA"},
+  {file:"SSD_South Sudan.xlsx",iso3:"SSD",name:"South Sudan",fileId:"1J5G0K9uZtxmQZWtDiTwAnVugp6Jicdkw"},
+  {file:"ESP_Spain.xlsx",iso3:"ESP",name:"Spain",fileId:"12z__ccqoc7UOoTJVnSdV9j-ItxlGOeoj"},
+  {file:"LKA_Sri Lanka.xlsx",iso3:"LKA",name:"Sri Lanka",fileId:"1y_KMHguVFkqpgVJiOGI1fYf9x4UnqdWh"},
+  {file:"KNA_St. Kitts and Nevis.xlsx",iso3:"KNA",name:"St. Kitts and Nevis",fileId:"1qwaBuxwfFPeETck2SLV3Ef6QCs6VQm9V"},
+  {file:"LCA_St. Lucia.xlsx",iso3:"LCA",name:"St. Lucia",fileId:"1r3qrJQSDg3tPJluS8PR2_ikQsUmI_g3B"},
+  {file:"VCT_St. Vincent and the Grenadines.xlsx",iso3:"VCT",name:"St. Vincent and the Grenadines",fileId:"1WkiBpMKUykTf7vC0y8dIgUBLLu1S8jvo"},
+  {file:"SDN_Sudan.xlsx",iso3:"SDN",name:"Sudan",fileId:"1N_8FnNgJpNkhFmOUasbXRubfYiJfcwbv"},
+  {file:"SUR_Suriname.xlsx",iso3:"SUR",name:"Suriname",fileId:"1UehfoSsQGAA4viNZShIjsKTBQZtVAys_"},
+  {file:"SWE_Sweden.xlsx",iso3:"SWE",name:"Sweden",fileId:"13LxmXvmRArpb86KLuTe8VN7q7uIoomf-"},
+  {file:"CHE_Switzerland.xlsx",iso3:"CHE",name:"Switzerland",fileId:"1JXCQEbs0SAb9Tpt0UIcqQ1cD4ChY7BEU"},
+  {file:"SYR_Syrian Arab Republic.xlsx",iso3:"SYR",name:"Syrian Arab Republic",fileId:"1zbgG5-rrL-i1ESLgTzX0MhhdTArxMxWL"},
+  {file:"TJK_Tajikistan.xlsx",iso3:"TJK",name:"Tajikistan",fileId:"1uIROEJ2F9s97qxguIk4lqjgAdchPizY7"},
+  {file:"TZA_Tanzania.xlsx",iso3:"TZA",name:"Tanzania",fileId:"1D7wvzVRGukGfmE0MuwRmK7fnXupfhjYI"},
+  {file:"THA_Thailand.xlsx",iso3:"THA",name:"Thailand",fileId:"1QTMHh93ENK2R6PHHhI5Pq2sUj_Bw8l5W"},
+  {file:"TLS_Timor-Leste.xlsx",iso3:"TLS",name:"Timor-Leste",fileId:"1-3E6fs4S5ITrbzSiNTlvhqMU3fpoUrbd"},
+  {file:"TGO_Togo.xlsx",iso3:"TGO",name:"Togo",fileId:"1rMc7u53g_Gx2uqmh6-qa3zeSlsoe90Jt"},
+  {file:"TON_Tonga.xlsx",iso3:"TON",name:"Tonga",fileId:"1mCsNyZ4DBLhrKSRgn2KklRIGIKMBuy2i"},
+  {file:"TTO_Trinidad and Tobago.xlsx",iso3:"TTO",name:"Trinidad and Tobago",fileId:"1zB0CcBdGT0DnAf8IsrysF0OBaoPzU7QQ"},
+  {file:"TUN_Tunisia.xlsx",iso3:"TUN",name:"Tunisia",fileId:"1EUTgDMOgZvaiVTr8IlcosKCreqTYkn_G"},
+  {file:"TUR_Turkiye.xlsx",iso3:"TUR",name:"Turkiye",fileId:"1l4Ehd7N7DsqBhr4mwXyV1u6ij6QAcLGW"},
+  {file:"TKM_Turkmenistan.xlsx",iso3:"TKM",name:"Turkmenistan",fileId:"1evNCpwAyJUJsEeHkU-N3GdvoXe9IVrtb"},
+  {file:"TCA_Turks and Caicos Islands.xlsx",iso3:"TCA",name:"Turks and Caicos Islands",fileId:"1t3jS29rfsnr-u-j957iMfd6sSL8zfFQA"},
+  {file:"TUV_Tuvalu.xlsx",iso3:"TUV",name:"Tuvalu",fileId:"1tJUwZRMzFPZeWiB1CQf7Sfw5tXXTyO0u"},
+  {file:"UGA_Uganda.xlsx",iso3:"UGA",name:"Uganda",fileId:"1qcqpAQvGuKl5wZc7LHLIUAxW7wEkdIo9"},
+  {file:"UKR_Ukraine.xlsx",iso3:"UKR",name:"Ukraine",fileId:"1iw7XextkaVeV51_puCaJm1eRXhyha9xh"},
+  {file:"ARE_United Arab Emirates.xlsx",iso3:"ARE",name:"United Arab Emirates",fileId:"1g6TzdeChj07ik_NRTM2ih8Y7TzGioAbi"},
+  {file:"GBR_United Kingdom.xlsx",iso3:"GBR",name:"United Kingdom",fileId:"1bO70K_epBQA8JVtXWIx51Totq_ctD2w4"},
+  {file:"USA_United States.xlsx",iso3:"USA",name:"United States",fileId:"1HO1oYMZtRTLtqesq-C0ggIFMETGIJYG-"},
+  {file:"URY_Uruguay.xlsx",iso3:"URY",name:"Uruguay",fileId:"1ofGf5A94Shr-zafuMta_JruRLCy0TzV5"},
+  {file:"UZB_Uzbekistan.xlsx",iso3:"UZB",name:"Uzbekistan",fileId:"1uoxVl1jjKDTFgiam2DjZ_cofsOZJiXCX"},
+  {file:"VUT_Vanuatu.xlsx",iso3:"VUT",name:"Vanuatu",fileId:"1kyjP-QR8CVdqkszTcQFOaixoT6BqCcye"},
+  {file:"VNM_Viet Nam.xlsx",iso3:"VNM",name:"Viet Nam",fileId:"1ZuJAK7M7mq5Ff32W3_oWaPsNYxfQHAvG"},
+  {file:"VIR_Virgin Islands (U.S.).xlsx",iso3:"VIR",name:"Virgin Islands (U.S.)",fileId:"107yC1R5LHdCxYHQypigrVc74jtlZJM2y"},
+  {file:"PSE_West Bank and Gaza.xlsx",iso3:"PSE",name:"West Bank and Gaza",fileId:"1lGIs2X_GBI4TJ0TSw0WuX8B0h1-6TNBe"},
+  {file:"YEM_Yemen Rep..xlsx",iso3:"YEM",name:"Yemen Rep.",fileId:"1CBqsN5oI3Y5StZtMdfOcvIuzKwqVz1B0"},
+  {file:"ZMB_Zambia.xlsx",iso3:"ZMB",name:"Zambia",fileId:"1D9OOi2hfgaQ02JNTT2qvx3SPqqFlT-tF"},
+  {file:"ZWE_Zimbabwe.xlsx",iso3:"ZWE",name:"Zimbabwe",fileId:"1EQ8F9okd9A3EkdT_U29pUZttvA9OOIeH"}
+];
+const sel=document.getElementById('countrySelect');
+const btn=document.getElementById('downloadBtn');
+const statusEl=document.getElementById('status');
+const countryCountEl=document.getElementById('countryCount');
+const ebCountEl=document.getElementById('ebCount');
+const sorted=[...COUNTRIES].sort((a,b)=>a.name.localeCompare(b.name));
+sorted.forEach(c=>{
+  const o=document.createElement('option');
+  o.value=c.fileId;
+  o.textContent=c.name+' ('+c.iso3+')'+(COUNTRIES_WITH_EB.has(c.iso3)?' ⚡':'');
+  o.dataset.name=c.name;
+  o.dataset.hasEb=COUNTRIES_WITH_EB.has(c.iso3)?'1':'0';
+  sel.appendChild(o);
+});
+countryCountEl.textContent=sorted.length;
+ebCountEl.textContent=COUNTRIES_WITH_EB.size;
+sel.addEventListener('change',()=>{ btn.disabled=!sel.value; statusEl.style.display='none'; });
+btn.addEventListener('click',()=>{
+  const id=sel.value;
+  if(!id)return;
+  window.open('https://drive.google.com/uc?export=download&id='+encodeURIComponent(id),'_blank','noopener,noreferrer');
+  const opt=sel.options[sel.selectedIndex];
+  const eb=opt.dataset.hasEb==='1'?' (with Energy Balance)':'';
+  statusEl.className='status success';
+  statusEl.textContent='✓ Downloading '+opt.dataset.name+eb+'…';
+  statusEl.style.display='block';
+  setTimeout(()=>{ statusEl.style.display='none'; },3000);
+});
+</script>
 </body>
 </html>
