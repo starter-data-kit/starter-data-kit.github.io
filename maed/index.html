@@ -86,12 +86,6 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       <a class="btn btn-outline" href="https://www.open.edu/openlearncreate/course/view.php?id=11720" target="_blank" rel="noopener">MAED e-Learning ↗</a>
     </div>
     <div class="status" id="status"></div>
-    <div class="stats-row">
-      <div class="stat-pill"><div class="num" id="countryCount">0</div><div class="lbl">Countries</div></div>
-      <div class="stat-pill"><div class="num">2010–2050</div><div class="lbl">Year range</div></div>
-      <div class="stat-pill"><div class="num">11</div><div class="lbl">Variables</div></div>
-      <div class="stat-pill"><div class="num" id="ebCount">20</div><div class="lbl">With Energy Balance</div></div>
-    </div>
   </div>
 
   <div class="info-section">
@@ -366,8 +360,6 @@ const COUNTRIES = [
 const sel=document.getElementById('countrySelect');
 const btn=document.getElementById('downloadBtn');
 const statusEl=document.getElementById('status');
-const countryCountEl=document.getElementById('countryCount');
-const ebCountEl=document.getElementById('ebCount');
 const sorted=[...COUNTRIES].sort((a,b)=>a.name.localeCompare(b.name));
 sorted.forEach(c=>{
   const o=document.createElement('option');
@@ -377,8 +369,6 @@ sorted.forEach(c=>{
   o.dataset.hasEb=COUNTRIES_WITH_EB.has(c.iso3)?'1':'0';
   sel.appendChild(o);
 });
-countryCountEl.textContent=sorted.length;
-ebCountEl.textContent=COUNTRIES_WITH_EB.size;
 sel.addEventListener('change',()=>{ btn.disabled=!sel.value; statusEl.style.display='none'; });
 btn.addEventListener('click',()=>{
   const id=sel.value;
