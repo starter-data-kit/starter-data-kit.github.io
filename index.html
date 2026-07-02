@@ -22,11 +22,12 @@ header p{font-size:1.1rem;color:var(--mt);max-width:640px;margin:0 auto;line-hei
 .card:hover{transform:translateY(-6px);box-shadow:0 8px 40px rgba(0,0,0,.12)}
 .card:hover::before{transform:scaleX(1)}
 .logo{width:90px;height:90px;object-fit:contain;margin:0 auto 14px;display:block}
-.logo.pad{padding:16px}
 .logo-svg{width:90px;height:90px;margin:0 auto 14px;display:block}
 .card h3{font-weight:600;font-size:1.05rem;margin-bottom:6px}
 .card .sub{font-size:.75rem;color:var(--mt);line-height:1.4}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
+.sdk-intro{font-size:1rem;color:var(--mt);max-width:780px;margin:0 auto 20px;line-height:1.75;text-align:center}
+.sdk-pick{font-size:1rem;font-weight:600;color:var(--tx);text-align:center;margin-bottom:36px}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
@@ -35,9 +36,10 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 <div class="w">
   <header>
     <h1>Starter Data Kits</h1>
-    <p>Model-ready datasets for building zero-order energy system models</p>
   </header>
   <div class="line"></div>
+  <p class="sdk-intro">The Starter Data Kits (SDKs) are model-ready datasets for building zero-order energy system models. The SDKs are designed as a foundation that enables users to quickly build an initial model and explore scenarios. Users are encouraged to update and refine the default values as higher-quality data becomes available. By reducing the time spent on data collection and preprocessing, the SDKs help accelerate model development while promoting transparency and reproducibility of energy planning analyses.</p>
+  <p class="sdk-pick">Select a tool of your choice to get started:</p>
   <div class="grid">
     <a href="maed/" class="card" style="--c:#1b3a5c;animation-delay:0.06s">
       <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/MAED_Logo.png" alt="MAED">
@@ -54,11 +56,11 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       <h3>OnStove</h3>
       <p class="sub">Open-source Spatial Clean Cooking</p>
     </a>
-    <a href="osemosys/" class="card" style="--c:#5dade2;animation-delay:0.24s">
-  <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/osemosys_logo.png" alt="OSeMOSYS">
-  <h3>OSeMOSYS</h3>
-  <p class="sub">Open Source Energy Modelling System</p>
-   </a> 
+    <a href="https://lunet-my.sharepoint.com/personal/fapn01_lunet_lboro_ac_uk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Ffapn01%5Flunet%5Flboro%5Fac%5Fuk%2FDocuments%2FSDK%20Final&ga=1" target="_blank" class="card" style="--c:#5dade2;animation-delay:0.24s">
+      <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/osemosys_logo.png" alt="OSeMOSYS">
+      <h3>OSeMOSYS</h3>
+      <p class="sub">Open Source Energy Modelling System</p>
+    </a>
     <a href="minfin/" class="card" style="--c:#1abc9c;animation-delay:0.30s">
       <img class="logo" src="https://energy-modelling-tools.github.io/assets/img/MINFin_Logo.png" alt="MINFin">
       <h3>MINFin</h3>
@@ -69,16 +71,11 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
       <h3>FINPLAN</h3>
       <p class="sub">Financial Analysis of Electric Sector Expansion</p>
     </a>
-  <a href="clews/" class="card" style="--c:#2980b9;animation-delay:0.42s">
-    <img class="logo" src="CLEWs.png" alt="CLEWs">
-    <h3>CLEWs</h3>
-    <p class="sub">Climate, Land, Energy and Water Systems</p>
-  </a>  
-  <a href="nismod/" class="card" style="--c:#ffa36d;animation-delay:0.42s">
-    <img class="logo pad" src="https://energy-modelling-tools.github.io/nismod/assets/img/logos/nismod.svg" alt="NISMOD">
-    <h3>NISMOD</h3>
-    <p class="sub">National Infrastructure Systems Modelling</p>
-  </a>  
+    <a href="https://drive.google.com/drive/folders/1iPmyWj2lGn8K191x0vCihuZqqsHcOH6f?usp=sharing" target="_blank" class="card" style="--c:#2980b9;animation-delay:0.42s">
+      <img class="logo" src="CLEWs.png" alt="CLEWs">
+      <h3>CLEWs</h3>
+      <p class="sub">Climate, Land, Energy and Water Systems</p>
+    </a>
   </div>
 </div>
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
