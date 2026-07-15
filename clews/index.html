@@ -139,7 +139,7 @@ var FILES={
 var sel=document.getElementById('country'),btn=document.getElementById('dlBtn');
 Object.keys(FILES).sort(function(a,b){return a.localeCompare(b);}).forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
 sel.addEventListener('change',function(){btn.disabled=!sel.value;});
-function doDownload(){var id=FILES[sel.value];if(!id)return;window.open('https://drive.google.com/file/d/'+id+'/view?usp=sharing','_blank');}
+function doDownload(){var id=FILES[sel.value];if(!id)return;window.open('https://drive.google.com/uc?export=download&id='+id,'_blank');}
 </script>
 </body>
 </html>
