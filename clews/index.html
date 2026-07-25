@@ -20,6 +20,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .hdr p{color:var(--mt);font-size:1rem}
 .line{width:50px;height:3px;background:var(--ac);margin:28px auto 28px;border-radius:2px}
 .intro-card{background:var(--cd);border-radius:16px;padding:24px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:24px;font-size:.95rem;color:var(--mt);line-height:1.75;opacity:0;transform:translateY(16px);animation:fadeUp .35s ease forwards}
+.zenodo-link{text-align:center;margin-bottom:24px;font-size:.9rem}
+.zenodo-link a{display:inline-flex;align-items:center;gap:7px;color:var(--ac);text-decoration:none;font-weight:600;transition:opacity .2s}
+.zenodo-link a:hover{opacity:.75}
+.zenodo-link svg{width:16px;height:16px}
 .panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:40px;opacity:0;transform:translateY(16px);animation:fadeUp .45s .1s ease forwards}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
@@ -57,6 +61,10 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
   </div>
   <div class="line"></div>
   <div class="intro-card">CLEWs is a modelling framework for analysing interlinkages across the climate, land, energy and water nexus. Each Starter Data Kit contains data across four categories ready to help build an integrated CLEWs model at country level.</div>
+  <p class="zenodo-link"><a href="https://zenodo.org/records/19921029" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    View the full dataset on Zenodo
+  </a></p>
   <div class="panel">
     <div class="field"><label for="country">Country</label>
       <select id="country"><option value="">— Select a country —</option></select>
