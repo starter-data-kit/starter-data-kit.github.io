@@ -19,18 +19,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-h
 .hdr h1{font-family:'Playfair Display',serif;font-weight:600;font-size:2rem;margin-bottom:6px}
 .hdr p{color:var(--mt);font-size:1rem}
 .line{width:50px;height:3px;background:var(--ac);margin:28px auto 36px;border-radius:2px}
-.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s ease forwards}
+.intro-card{background:var(--cd);border-radius:16px;padding:24px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:24px;font-size:.95rem;color:var(--mt);line-height:1.75;opacity:0;transform:translateY(16px);animation:fadeUp .35s ease forwards}
+.panel{background:var(--cd);border-radius:16px;padding:36px 32px;box-shadow:0 2px 20px rgba(0,0,0,.06);margin-bottom:60px;opacity:0;transform:translateY(16px);animation:fadeUp .45s .1s ease forwards}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}
 .field select{width:100%;padding:12px 16px;font-family:inherit;font-size:.95rem;border:1.5px solid #ddd;border-radius:10px;background:#fafaf8;color:var(--tx);appearance:none;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235c5c5c'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .field select:focus{outline:none;border-color:var(--ac)}
-.field select:disabled{opacity:.5;cursor:wait}
 .btn{display:flex;align-items:center;gap:8px;margin-top:8px;padding:14px 32px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;width:100%;justify-content:center}
 .btn:hover{opacity:.88;transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
 .btn:disabled{background:#bbb;cursor:not-allowed;transform:none}
 .btn svg{width:20px;height:20px}
-.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none}
+.note{margin-top:14px;font-size:.82rem;color:var(--mt);text-align:center;line-height:1.5}
+.msg{margin-top:14px;padding:12px 16px;border-radius:8px;background:#e8f5e9;color:#2e7d32;font-size:.9rem;display:none;text-align:center}
 footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-top:1px solid rgba(0,0,0,.06)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 </style>
@@ -48,94 +49,49 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
     <p>Open-source Spatial Clean Cooking</p>
   </div>
   <div class="line"></div>
-
-    <div class="panel">
-      <div class="field">
-        <label for="dataset">Dataset</label>
-        <select id="dataset" disabled><option>Loading datasets…</option></select>
-      </div>
-      <div class="field">
-        <label for="file">File</label>
-        <select id="file" disabled><option>Select a dataset first</option></select>
-      </div>
-      <button class="btn" id="dlBtn" disabled>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download
-      </button>
-      <div class="msg" id="msg"></div>
+  <div class="intro-card">OnStove is a geospatial cost-benefit tool for clean cooking access planning. Each Starter Data Kit is a country package of the geospatial and socio-economic input layers needed to run an OnStove analysis. Select a country to download its complete data kit.</div>
+  <div class="panel">
+    <div class="field"><label for="country">Country</label>
+      <select id="country"><option value="">— Select a country —</option></select>
     </div>
-
-<script>
-var API = 'https://minerva666-energy-modelling.hf.space';
-var TOOL = 'OnStove';
-var dsSel = document.getElementById('dataset');
-var flSel = document.getElementById('file');
-var dlBtn = document.getElementById('dlBtn');
-var msg = document.getElementById('msg');
-var currentDs = '';
-
-fetch(API + '/api/datasets/' + TOOL)
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    dsSel.innerHTML = '';
-    data.datasets.forEach(function(d) {
-      var o = document.createElement('option');
-      o.value = d.value; o.textContent = d.label;
-      dsSel.appendChild(o);
-    });
-    dsSel.disabled = false;
-    if (data.datasets.length) {
-      currentDs = data.datasets[0].value;
-      loadFiles(currentDs);
-    }
-  })
-  .catch(function() {
-    dsSel.innerHTML = '<option>Error loading datasets</option>';
-  });
-
-dsSel.addEventListener('change', function() {
-  currentDs = dsSel.value;
-  loadFiles(currentDs);
-});
-
-function loadFiles(ds) {
-  flSel.disabled = true;
-  flSel.innerHTML = '<option>Loading files…</option>';
-  dlBtn.disabled = true;
-  fetch(API + '/api/files/' + TOOL + '?dataset=' + encodeURIComponent(ds))
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      flSel.innerHTML = '';
-      data.files.forEach(function(f) {
-        var o = document.createElement('option');
-        o.value = f; o.textContent = f;
-        flSel.appendChild(o);
-      });
-      flSel.disabled = false;
-      dlBtn.disabled = data.files.length === 0;
-    })
-    .catch(function() {
-      flSel.innerHTML = '<option>Error loading files</option>';
-    });
-}
-
-flSel.addEventListener('change', function() {
-  dlBtn.disabled = !flSel.value;
-});
-
-dlBtn.addEventListener('click', function() {
-  var file = flSel.value;
-  if (!file) return;
-  var url = API + '/api/download/' + TOOL + '?dataset=' + encodeURIComponent(currentDs) + '&file=' + encodeURIComponent(file);
-  var a = document.createElement('a');
-  a.href = url; a.download = file;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  msg.style.display = 'block';
-  msg.textContent = 'Downloading ' + file + '…';
-  setTimeout(function() { msg.style.display = 'none'; }, 4000);
-});
-</script>
+    <button class="btn" id="dlBtn" disabled onclick="doDownload()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download ZIP
+    </button>
+    <p class="note">Country kits are large (roughly 400–550&nbsp;MB). If Google shows a &ldquo;can&rsquo;t scan for viruses&rdquo; page, click <strong>Download anyway</strong> to proceed.</p>
+    <div class="msg" id="msg"></div>
+  </div>
 </div>
 <footer><div class="w">&copy; 2025&ndash;2026 CCG. and contributors</div></footer>
+<script>
+var FILES={
+  "Angola":"1NXuGLwzKaKCeu_yYObCR3N7MqEWYgPyU","Benin":"14ktwsh9K4GmTsWL02qXlPK11xCiR-I87",
+  "Botswana":"1rl8Yi0FX3vs5opOyym1444I3ksI6C9hu","Burkina Faso":"13JvRW1tpwEeOWOK58AYYCt64YytW9PIU",
+  "Burundi":"1YUe1YXJTkIXccXco0SZXUb_p2VRL-d2g","Cameroon":"1y49OUogMSrLqeNGVgXaALf0xaN9FMeT_",
+  "Central African Republic":"1v2yq9a1Q51vF180GIhanh8vBNBTdeN4s","Chad":"1KwTlVnomsAhmSqq7NyxrG-lna8_SUrQu",
+  "Côte d'Ivoire":"1VPFtVyUIKJ-mkcpydZLwIgyJkkY-9UGW","Djibouti":"15OQ5YC3AE8Z_h9BBfhHtwZqNImfYTYlA",
+  "Equatorial Guinea":"1O5J5LSiYwj0mjhf0FFXj6m1R-MmVWNwH","Eritrea":"1uNaZw3gOHUCQa-4E63P_r5feuuiJP9Zk",
+  "Eswatini":"1DLfGHeYRttOsslhpivzO0lR8sbi7KQPX","Ethiopia":"1t2cr3_ck0IHqm_MKSdGiRMtlL_Y138Fs",
+  "Gabon":"1AHNy0UbGNjTbe-dplJHAzuPH0kaQ5WuG","Gambia":"1St_9s04KSDrSBLIRYCvIYfdz01RTo-_h",
+  "Ghana":"1t58KT4wDumUucsEryqwvw0Fk1Qavq0ey","Guinea":"1o9nCp3SEwbVqmq2DFwviSFFLCxSgoG9S",
+  "Guinea-Bissau":"15ota8drYvMuvM9fkVqBKl5N8oGXfIxx4","Kenya":"1XVawpneKE39ezJsCuJWjl-CfdNs80WK8",
+  "Lesotho":"18I0TS2385aZmzDvAe6IseQf40ppq7cxt","Liberia":"1S-U5b5fGs_rmuNYWt_kVKXUHk60jpht4",
+  "Madagascar":"1JpiXWkPwh-b62ru_-6WUnOKxtC3AoXnT","Malawi":"1J8_wj8dcRuTFu2P8iys3J-1Y6v_uc3zG",
+  "Mauritania":"1RpRX2lKYVvil0Xq8su6F-2ey1wlJBJSi","Mozambique":"1mJY2FgJAwPC8yLYtCTa0iXZvLhJl1C4b",
+  "Namibia":"1D63S0Tq7Paca__P6wWMPPBkGfwiHI8B6","Niger":"1vSnJSCQMWfMWOuV-myVbX3pv-aA2tYrU",
+  "Nigeria":"1V2l--wCXR69r2rwZ6iXu0vvBeBSAUuUl","Rwanda":"1vOEOTeLqbnEm3LGvC92ts4mtARA93nWP",
+  "Senegal":"18Xq2dnCh73HNSvTU9fSyH0vsmXAnKGn0","Sierra Leone":"1o0rSwCBhcZvwVWq5Z2oIiDfHLP7DkXJZ",
+  "South Africa":"1pyq0cuAIrSHD9XNk3tLCdzBHGsuhnf23",
+  "South Sudan":"1CnXRyKUK-KSg0Q2gfrxvWkX3OW4lw4XO","Sudan":"1WpzzlXXj3bGD8BnQbVn4Nlne3XMOMo2M",
+  "Tanzania":"1orBmhmQQDMa_QiYeVqgeTm8AtiNic9I-","Togo":"1btw5lR9HonecU65cXwJ1b4fUCv2j63_G",
+  "Uganda":"1XRNFSkvrkI0hnaeDO67hIMd3nCdlbmlR","Zambia":"13A5kWOGJwK3Tq8YexJrjCNXBLphg8W1g",
+  "Zimbabwe":"1340nlwLKYoiGQUP51WeGp-ff9rNC68-K"
+};
+Object.keys(FILES).forEach(function(k){if(!FILES[k])delete FILES[k];});
+var sel=document.getElementById('country'),btn=document.getElementById('dlBtn'),msg=document.getElementById('msg');
+Object.keys(FILES).sort(function(a,b){return a.localeCompare(b);}).forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+sel.addEventListener('change',function(){btn.disabled=!sel.value;msg.style.display='none';});
+function doDownload(){var id=FILES[sel.value];if(!id)return;window.open('https://drive.usercontent.google.com/download?id='+id+'&export=download&confirm=t','_blank');msg.style.display='block';msg.textContent='⬇ Downloading '+sel.value+'…';setTimeout(function(){msg.style.display='none';},6000);}
+</script>
 </body>
 </html>
