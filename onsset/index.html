@@ -73,10 +73,11 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
   <div class="line"></div>
   <div class="intro-card">OnSSET is a GIS-based model for electricity access planning in developing countries. Each Starter Data Kit contains geospatial and socio-economic input files ready for use directly in OnSSET, grouped into three categories.</div>
   <div class="panel">
+    <div class="field"><label for="region">Region</label>
+      <select id="region"><option value="">— Select a region —</option><option>Africa</option><option>Asia</option><option>Oceania</option></select>
+    </div>
     <div class="field"><label for="country">Country</label>
-      <select id="country"><option value="">— Select a country —</option>
-        <option>Algeria</option><option>Angola</option><option>Benin</option><option>Botswana</option><option>Brunei</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Central African Republic</option><option>Chad</option><option>Comoros</option><option>Côte d'Ivoire</option><option>Djibouti</option><option>DR Congo</option><option>Egypt</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Eswatini</option><option>Ethiopia</option><option>Fiji</option><option>Gabon</option><option>Gambia</option><option>Ghana</option><option>Guinea</option><option>Guinea-Bissau</option><option>Indonesia</option><option>Kenya</option><option>Laos</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Mali</option><option>Mauritania</option><option>Mauritius</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Niger</option><option>Nigeria</option><option>Philippines</option><option>Republic of Congo</option><option>Rwanda</option><option>Senegal</option><option>Sierra Leone</option><option>Singapore</option><option>Somalia</option><option>South Africa</option><option>South Sudan</option><option>Sudan</option><option>São Tomé and Príncipe</option><option>Tanzania</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tunisia</option><option>Uganda</option><option>Vietnam</option><option>Zambia</option><option>Zimbabwe</option>
-      </select>
+      <select id="country" disabled><option value="">— Select a region first —</option></select>
     </div>
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -194,7 +195,21 @@ var FILES={
   "Zambia":["11K324M1duCVao-U8qz6xKP_pgBFMxW3r"],
   "Zimbabwe":["19KVAqKvrQaUBwZ_JpHzO5HHcWzKKfKcZ"]
 };
-var sel=document.getElementById('country'),btn=document.getElementById('dlBtn'),msg=document.getElementById('msg');
+var ASIA=['Brunei', 'Cambodia', 'Indonesia', 'Laos', 'Malaysia', 'Myanmar', 'Philippines', 'Singapore', 'Thailand', 'Timor-Leste', 'Vietnam'];
+var OCEANIA=['Fiji'];
+var ALLC=['Algeria', 'Angola', 'Benin', 'Botswana', 'Brunei', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Central African Republic', 'Chad', 'Comoros', "Côte d'Ivoire", 'Djibouti', 'DR Congo', 'Egypt', 'Equatorial Guinea', 'Eritrea', 'Eswatini', 'Ethiopia', 'Fiji', 'Gabon', 'Gambia', 'Ghana', 'Guinea', 'Guinea-Bissau', 'Indonesia', 'Kenya', 'Laos', 'Lesotho', 'Liberia', 'Libya', 'Madagascar', 'Malawi', 'Malaysia', 'Mali', 'Mauritania', 'Mauritius', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Niger', 'Nigeria', 'Philippines', 'Republic of Congo', 'Rwanda', 'Senegal', 'Sierra Leone', 'Singapore', 'Somalia', 'South Africa', 'South Sudan', 'Sudan', 'São Tomé and Príncipe', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tunisia', 'Uganda', 'Vietnam', 'Zambia', 'Zimbabwe'];
+function regionOf(c){return ASIA.indexOf(c)>=0?"Asia":(OCEANIA.indexOf(c)>=0?"Oceania":"Africa");}
+var regionSel=document.getElementById('region'),sel=document.getElementById('country'),btn=document.getElementById('dlBtn'),msg=document.getElementById('msg');
+regionSel.addEventListener('change',function(){
+  var r=regionSel.value;
+  sel.innerHTML='';
+  msg.style.display='none';btn.disabled=true;
+  if(!r){sel.disabled=true;sel.innerHTML='<option value="">— Select a region first —</option>';return;}
+  var list=ALLC.filter(function(c){return regionOf(c)===r;}).sort(function(a,b){return a.localeCompare(b);});
+  var ph=document.createElement('option');ph.value='';ph.textContent='— Select a country —';sel.appendChild(ph);
+  list.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+  sel.disabled=false;
+});
 sel.addEventListener('change',function(){btn.disabled=!sel.value;msg.style.display='none';});
 function doDownload(){
   var c=sel.value;if(!c)return;
