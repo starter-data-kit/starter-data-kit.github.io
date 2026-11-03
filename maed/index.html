@@ -75,8 +75,12 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
 
   <div class="panel">
     <div class="field">
+      <label for="regionSelect">Region</label>
+      <select id="regionSelect"><option value="">— Select a region —</option><option>Africa</option><option>Asia</option><option>Europe</option><option>North America</option><option>South America</option><option>Oceania</option></select>
+    </div>
+    <div class="field">
       <label for="countrySelect">Country</label>
-      <select id="countrySelect"><option value="">— Select a country —</option></select>
+      <select id="countrySelect" disabled><option value="">— Select a region first —</option></select>
     </div>
     <div class="btn-row">
       <button class="btn btn-primary" id="downloadBtn" disabled>
@@ -357,23 +361,35 @@ const COUNTRIES = [
   {file:"ZMB_Zambia.xlsx",iso3:"ZMB",name:"Zambia",fileId:"1D9OOi2hfgaQ02JNTT2qvx3SPqqFlT-tF"},
   {file:"ZWE_Zimbabwe.xlsx",iso3:"ZWE",name:"Zimbabwe",fileId:"1EQ8F9okd9A3EkdT_U29pUZttvA9OOIeH"}
 ];
+const REGION_OF={"ABW":"North America","AFG":"Asia","AGO":"Africa","ALB":"Europe","AND":"Europe","ARE":"Asia","ARG":"South America","ARM":"Asia","ASM":"Oceania","ATG":"North America","AUS":"Oceania","AUT":"Europe","AZE":"Asia","BDI":"Africa","BEL":"Europe","BEN":"Africa","BFA":"Africa","BGD":"Asia","BGR":"Europe","BHR":"Asia","BHS":"North America","BIH":"Europe","BLR":"Europe","BLZ":"North America","BMU":"North America","BOL":"South America","BRA":"South America","BRB":"North America","BRN":"Asia","BTN":"Asia","BWA":"Africa","CAF":"Africa","CAN":"North America","CHE":"Europe","CHI":"Europe","CHL":"South America","CHN":"Asia","CIV":"Africa","CMR":"Africa","COD":"Africa","COG":"Africa","COL":"South America","COM":"Africa","CPV":"Africa","CRI":"North America","CUB":"North America","CUW":"North America","CYM":"North America","CYP":"Europe","CZE":"Europe","DEU":"Europe","DJI":"Africa","DMA":"North America","DNK":"Europe","DOM":"North America","DZA":"Africa","ECU":"South America","EGY":"Africa","ERI":"Africa","ESP":"Europe","EST":"Europe","ETH":"Africa","FIN":"Europe","FJI":"Oceania","FRA":"Europe","FRO":"Europe","FSM":"Oceania","GAB":"Africa","GBR":"Europe","GEO":"Asia","GHA":"Africa","GIN":"Africa","GMB":"Africa","GNB":"Africa","GNQ":"Africa","GRC":"Europe","GRD":"North America","GRL":"North America","GTM":"North America","GUM":"Oceania","GUY":"South America","HKG":"Asia","HND":"North America","HRV":"Europe","HTI":"North America","HUN":"Europe","IDN":"Asia","IMN":"Europe","IND":"Asia","IRL":"Europe","IRN":"Asia","IRQ":"Asia","ISL":"Europe","ISR":"Asia","ITA":"Europe","JAM":"North America","JOR":"Asia","JPN":"Asia","KAZ":"Asia","KEN":"Africa","KGZ":"Asia","KHM":"Asia","KIR":"Oceania","KNA":"North America","KOR":"Asia","KWT":"Asia","LAO":"Asia","LBN":"Asia","LBR":"Africa","LBY":"Africa","LCA":"North America","LIE":"Europe","LKA":"Asia","LSO":"Africa","LTU":"Europe","LUX":"Europe","LVA":"Europe","MAC":"Asia","MAR":"Africa","MCO":"Europe","MDA":"Europe","MDG":"Africa","MDV":"Asia","MEX":"North America","MHL":"Oceania","MKD":"Europe","MLI":"Africa","MLT":"Europe","MMR":"Asia","MNE":"Europe","MNG":"Asia","MNP":"Oceania","MOZ":"Africa","MRT":"Africa","MUS":"Africa","MWI":"Africa","MYS":"Asia","NAM":"Africa","NCL":"Oceania","NER":"Africa","NGA":"Africa","NIC":"North America","NLD":"Europe","NOR":"Europe","NPL":"Asia","NRU":"Oceania","NZL":"Oceania","OMN":"Asia","PAK":"Asia","PAN":"North America","PER":"South America","PHL":"Asia","PLW":"Oceania","PNG":"Oceania","POL":"Europe","PRI":"North America","PRT":"Europe","PRY":"South America","PSE":"Asia","PYF":"Oceania","QAT":"Asia","ROU":"Europe","RUS":"Europe","RWA":"Africa","SAU":"Asia","SDN":"Africa","SEN":"Africa","SGP":"Asia","SLB":"Oceania","SLE":"Africa","SLV":"North America","SMR":"Europe","SOM":"Africa","SRB":"Europe","SSD":"Africa","STP":"Africa","SUR":"South America","SVK":"Europe","SVN":"Europe","SWE":"Europe","SWZ":"Africa","SXM":"North America","SYC":"Africa","SYR":"Asia","TCA":"North America","TCD":"Africa","TGO":"Africa","THA":"Asia","TJK":"Asia","TKM":"Asia","TLS":"Asia","TON":"Oceania","TTO":"North America","TUN":"Africa","TUR":"Asia","TUV":"Oceania","TZA":"Africa","UGA":"Africa","UKR":"Europe","URY":"South America","USA":"North America","UZB":"Asia","VCT":"North America","VIR":"North America","VNM":"Asia","VUT":"Oceania","WSM":"Oceania","XKX":"Europe","YEM":"Asia","ZAF":"Africa","ZMB":"Africa","ZWE":"Africa"};
 const sel=document.getElementById('countrySelect');
 const btn=document.getElementById('downloadBtn');
 const statusEl=document.getElementById('status');
-const sorted=[...COUNTRIES].sort((a,b)=>a.name.localeCompare(b.name));
-sorted.forEach(c=>{
-  const o=document.createElement('option');
-  o.value=c.fileId;
-  o.textContent=c.name+' ('+c.iso3+')'+(COUNTRIES_WITH_EB.has(c.iso3)?' ⚡':'');
-  o.dataset.name=c.name;
-  o.dataset.hasEb=COUNTRIES_WITH_EB.has(c.iso3)?'1':'0';
-  sel.appendChild(o);
+const regionSel=document.getElementById('regionSelect');
+function optLabel(c){return c.name+' ('+c.iso3+')'+(COUNTRIES_WITH_EB.has(c.iso3)?' ⚡':'');}
+regionSel.addEventListener('change',()=>{
+  const r=regionSel.value;
+  sel.innerHTML='';
+  statusEl.style.display='none';
+  btn.disabled=true;
+  if(!r){ sel.disabled=true; sel.innerHTML='<option value="">— Select a region first —</option>'; return; }
+  const list=COUNTRIES.filter(c=>REGION_OF[c.iso3]===r).sort((a,b)=>a.name.localeCompare(b.name));
+  const ph=document.createElement('option'); ph.value=''; ph.textContent='— Select a country —'; sel.appendChild(ph);
+  list.forEach(c=>{
+    const o=document.createElement('option');
+    o.value=c.fileId;
+    o.textContent=optLabel(c);
+    o.dataset.name=c.name;
+    o.dataset.hasEb=COUNTRIES_WITH_EB.has(c.iso3)?'1':'0';
+    sel.appendChild(o);
+  });
+  sel.disabled=false;
 });
 sel.addEventListener('change',()=>{ btn.disabled=!sel.value; statusEl.style.display='none'; });
 btn.addEventListener('click',()=>{
   const id=sel.value;
   if(!id)return;
-  window.open('https://drive.google.com/uc?export=download&id='+encodeURIComponent(id),'_blank','noopener,noreferrer');
+  window.open('https://drive.usercontent.google.com/download?id='+encodeURIComponent(id)+'&export=download&confirm=t','_blank','noopener,noreferrer');
   const opt=sel.options[sel.selectedIndex];
   const eb=opt.dataset.hasEb==='1'?' (with Energy Balance)':'';
   statusEl.className='status success';
