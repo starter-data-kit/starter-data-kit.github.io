@@ -261,9 +261,15 @@
           </a>
         </div>
         <div class="field js">
+          <label for="region">Region</label>
+          <select id="region">
+            <option value="">— Select a region —</option>
+          </select>
+        </div>
+        <div class="field js">
           <label for="country">Country</label>
-          <select id="country">
-            <option value="">— Select a country —</option>
+          <select id="country" disabled>
+            <option value="">— Select a region first —</option>
           </select>
         </div>
         <a
@@ -524,6 +530,7 @@
     <script>
       // Update from 'https://github.com/nismod/irv-datapkg/raw/refs/heads/main/records.csv'
       const url = "./records.csv";
+      const REGION_OF={"Afghanistan":"Asia","Albania":"Europe","Algeria":"Africa","American Samoa":"Oceania","Andorra":"Europe","Angola":"Africa","Anguilla":"North America","Antigua":"North America","Argentina":"South America","Armenia":"Asia","Aruba":"North America","Australia":"Oceania","Austria":"Europe","Azerbaijan":"Asia","Azores":"Europe","Bahrain":"Asia","Bangladesh":"Asia","Barbados":"North America","Barbuda":"North America","Belarus":"Europe","Belgium":"Europe","Belize":"North America","Benin":"Africa","Bermuda":"North America","Bhutan":"Asia","Bolivia":"South America","Bonaire":"North America","Bosnia and Herzegovina":"Europe","Botswana":"Africa","Brazil":"South America","British Virgin Islands":"North America","Brunei":"Asia","Bulgaria":"Europe","Burkina Faso":"Africa","Burundi":"Africa","Cabo Verde":"Africa","Cambodia":"Asia","Cameroon":"Africa","Canary Islands":"Africa","Cayman Islands":"North America","Central African Republic":"Africa","Chad":"Africa","Chagos Archipelago":"Africa","Chile":"South America","China":"Asia","Christmas Island":"Asia","Cocos (Keeling) Islands":"Asia","Colombia":"South America","Comoros":"Africa","Cook Islands":"Oceania","Corsica":"Europe","Costa Rica":"North America","Croatia":"Europe","Cuba":"North America","Curaçao":"North America","Cyprus":"Asia","Czechia":"Europe","Democratic Republic of the Congo":"Africa","Denmark":"Europe","Djibouti":"Africa","Dominica":"North America","Dominican Republic":"North America","East Timor":"Asia","Ecuador":"South America","Egypt":"Africa","El Salvador":"North America","Equatorial Guinea":"Africa","Eritrea":"Africa","Estonia":"Europe","Ethiopia":"Africa","Falkland Islands":"South America","Faroe Islands":"Europe","Federated States of Micronesia":"Oceania","Fiji (East)":"Oceania","Fiji (West)":"Oceania","Finland":"Europe","France":"Europe","French Guiana":"South America","French Polynesia":"Oceania","Gabon":"Africa","Galapagos Islands":"South America","Gambia":"Africa","Georgia":"Asia","Germany":"Europe","Ghana":"Africa","Gibraltar":"Europe","Greece":"Europe","Greenland":"North America","Grenada":"North America","Guadeloupe":"North America","Guam":"Oceania","Guatemala":"North America","Guernsey":"Europe","Guinea":"Africa","Guinea-Bissau":"Africa","Guyana":"South America","Haiti":"North America","Honduras":"North America","Hungary":"Europe","Iceland":"Europe","India":"Asia","Indonesia":"Asia","Iran":"Asia","Iraq":"Asia","Ireland":"Europe","Isle of Man":"Europe","Israel":"Asia","Italy":"Europe","Ivory Coast":"Africa","Jamaica":"North America","Japan":"Asia","Jordan":"Asia","Kazakhstan":"Asia","Kenya":"Africa","Kiribati (East)":"Oceania","Kiribati (West)":"Oceania","Kuwait":"Asia","Kyrgyzstan":"Asia","Laos":"Asia","Latvia":"Europe","Lebanon":"Asia","Lesotho":"Africa","Liberia":"Africa","Libya":"Africa","Liechtenstein":"Europe","Lithuania":"Europe","Luxembourg":"Europe","Madagascar":"Africa","Madeira":"Africa","Malawi":"Africa","Malaysia":"Asia","Maldives":"Asia","Mali":"Africa","Malta":"Europe","Marshall Islands":"Oceania","Martinique":"North America","Mauritania":"Africa","Mauritius":"Africa","Mayotte":"Africa","Mexico":"North America","Moldova":"Europe","Monaco":"Europe","Mongolia":"Asia","Montenegro":"Europe","Montserrat":"North America","Morocco":"Africa","Mozambique":"Africa","Myanmar":"Asia","Namibia":"Africa","Nauru":"Oceania","Nepal":"Asia","Netherlands":"Europe","New Caledonia":"Oceania","New Zealand":"Oceania","New Zealand (Islands)":"Oceania","Nicaragua":"North America","Niger":"Africa","Nigeria":"Africa","Niue":"Oceania","North Korea":"Asia","North Macedonia":"Europe","North Pacific Islands (USA)":"Oceania","Northern Mariana Islands":"Oceania","Norway":"Europe","Oman":"Asia","Pakistan":"Asia","Palau":"Oceania","Palestine":"Asia","Panama":"North America","Papua New Guinea":"Oceania","Paraguay":"South America","Peru":"South America","Philippines":"Asia","Pitcairn Islands":"Oceania","Poland":"Europe","Portugal":"Europe","Puerto Rico":"North America","Qatar":"Asia","Republic of the Congo":"Africa","Reunion":"Africa","Romania":"Europe","Rwanda":"Africa","Saba":"North America","Saint Barthelemy":"North America","Saint Helena":"Africa","Saint Kitts and Nevis":"North America","Saint Lucia":"North America","Saint Martin":"North America","Saint Pierre and Miquelon":"North America","Saint Vincent and the Grenadines":"North America","Saint-Eustatius":"North America","Samoa":"Oceania","San Marino":"Europe","Saudi Arabia":"Asia","Senegal":"Africa","Serbia":"Europe","Seychelles":"Africa","Sierra Leone":"Africa","Singapore":"Asia","Sint Maarten":"North America","Slovakia":"Europe","Slovenia":"Europe","Solomon Islands":"Oceania","Somalia":"Africa","Somaliland":"Africa","South Africa":"Africa","South Korea":"Asia","South Sudan":"Africa","Spain":"Europe","Spratly Islands":"Asia","Sri Lanka":"Asia","Sudan":"Africa","Suriname":"South America","Svalbard":"Europe","Sweden":"Europe","Switzerland":"Europe","Syria":"Asia","São Tomé and Principe":"Africa","Taiwan":"Asia","Tajikistan":"Asia","Tanzania":"Africa","Thailand":"Asia","The Bahamas":"North America","Togo":"Africa","Tokelau":"Oceania","Tonga":"Oceania","Trinidad and Tobago":"North America","Tunisia":"Africa","Turkey":"Asia","Turkmenistan":"Asia","Turks and Caicos Islands":"North America","Tuvalu":"Oceania","Uganda":"Africa","Ukraine":"Europe","United Arab Emirates":"Asia","United Kingdom":"Europe","United States Virgin Islands":"North America","Uruguay":"South America","Uzbekistan":"Asia","Vanuatu":"Oceania","Venezuela":"South America","Vietnam":"Asia","Wallis and Futuna":"Oceania","Western Sahara":"Africa","Yemen":"Asia","Zambia":"Africa","Zimbabwe":"Africa","eSwatini":"Africa"};
 
       function parseCsv(csvText) {
         const rows = [];
@@ -578,7 +585,16 @@
       document.body.classList.remove("no-js");
 
       const countrySelect = document.getElementById("country");
+      const regionSelect = document.getElementById("region");
       const downloadLink = document.getElementById("dlBtn");
+      const REGION_ORDER = ["Africa","Asia","Europe","North America","South America","Oceania","Other"];
+      let byRegion = {};
+
+      function resetDownload() {
+        downloadLink.setAttribute("href", "");
+        downloadLink.setAttribute("aria-disabled", "true");
+        downloadLink.setAttribute("tabindex", "-1");
+      }
 
       fetch(url)
         .then((response) => {
@@ -587,7 +603,6 @@
               `Failed to load starter data kit listing: ${response.status}`,
             );
           }
-
           return response.text();
         })
         .then((csvText) => parseCsv(csvText))
@@ -599,31 +614,56 @@
             if (!record.country || !record.url) {
               return;
             }
-
-            const option = document.createElement("option");
-            option.textContent = record.country;
-            option.setAttribute("data-url", record.url);
-            countrySelect.appendChild(option);
+            const region = REGION_OF[record.country] || "Other";
+            (byRegion[region] = byRegion[region] || []).push(record);
+          });
+          REGION_ORDER.forEach((region) => {
+            if (byRegion[region] && byRegion[region].length) {
+              const o = document.createElement("option");
+              o.textContent = region;
+              o.value = region;
+              regionSelect.appendChild(o);
+            }
           });
         })
         .catch((error) => {
           console.error(error);
         });
 
+      regionSelect.addEventListener("change", () => {
+        const region = regionSelect.value;
+        countrySelect.innerHTML = "";
+        resetDownload();
+        if (!region || !byRegion[region]) {
+          countrySelect.disabled = true;
+          countrySelect.innerHTML =
+            '<option value="">— Select a region first —</option>';
+          return;
+        }
+        const ph = document.createElement("option");
+        ph.value = "";
+        ph.textContent = "— Select a country —";
+        countrySelect.appendChild(ph);
+        byRegion[region].forEach((record) => {
+          const option = document.createElement("option");
+          option.textContent = record.country;
+          option.setAttribute("data-url", record.url);
+          countrySelect.appendChild(option);
+        });
+        countrySelect.disabled = false;
+      });
+
       countrySelect.addEventListener("change", () => {
         const selectedOption = countrySelect.selectedOptions[0];
         const selectedUrl = selectedOption
           ? selectedOption.getAttribute("data-url")
           : "";
-
         if (selectedUrl) {
           downloadLink.setAttribute("href", selectedUrl);
           downloadLink.removeAttribute("aria-disabled");
           downloadLink.removeAttribute("tabindex");
         } else {
-          downloadLink.setAttribute("href", "");
-          downloadLink.setAttribute("aria-disabled", "true");
-          downloadLink.setAttribute("tabindex", "-1");
+          resetDownload();
         }
       });
     </script>
