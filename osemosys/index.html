@@ -60,8 +60,11 @@ footer{text-align:center;padding:32px 0;font-size:.85rem;color:var(--mt);border-
   <div class="line"></div>
   <div class="intro-card">OSeMOSYS is an open-source energy modelling system for long-run integrated assessment and planning. Each Starter Data Kit covers 12 parameters across 199 technologies and 30 useful energy demands, supporting whole-system modelling at country level for the period 2023–2050.</div>
   <div class="panel">
+    <div class="field"><label for="region">Region</label>
+      <select id="region"><option value="">— Select a region —</option><option>Africa</option><option>Asia</option></select>
+    </div>
     <div class="field"><label for="country">Country</label>
-      <select id="country"><option value="">— Select a country —</option></select>
+      <select id="country" disabled><option value="">— Select a region first —</option></select>
     </div>
     <button class="btn" id="dlBtn" disabled onclick="doDownload()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -127,8 +130,18 @@ var FILES={
   "Vietnam":"1PpUO4qzRGGIT9Z-SagfLfoEu2pJWlZLP","Zambia":"18x3n18GfsfCV3c938CsCNd3vZODSs1Ac",
   "Zimbabwe":"1qQDMk9-7sSTMUnKyTBscaG3S08Tq77XN"
 };
-var sel=document.getElementById('country'),btn=document.getElementById('dlBtn');
-Object.keys(FILES).sort(function(a,b){return a.localeCompare(b);}).forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+var ASIA=['Bangladesh', 'Brunei', 'Cambodia', 'India', 'Indonesia', 'Laos', 'Malaysia', 'Myanmar', 'Nepal', 'Pakistan', 'Philippines', 'Singapore', 'Thailand', 'Timor-Leste', 'Vietnam'];
+function regionOf(c){return ASIA.indexOf(c)>=0?"Asia":"Africa";}
+var regionSel=document.getElementById('region'),sel=document.getElementById('country'),btn=document.getElementById('dlBtn');
+var ALLC=Object.keys(FILES);
+regionSel.addEventListener('change',function(){
+  var r=regionSel.value; sel.innerHTML=''; btn.disabled=true;
+  if(!r){sel.disabled=true;sel.innerHTML='<option value="">— Select a region first —</option>';return;}
+  var list=ALLC.filter(function(c){return regionOf(c)===r;}).sort(function(a,b){return a.localeCompare(b);});
+  var ph=document.createElement('option');ph.value='';ph.textContent='— Select a country —';sel.appendChild(ph);
+  list.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+  sel.disabled=false;
+});
 sel.addEventListener('change',function(){btn.disabled=!sel.value;});
 function doDownload(){var id=FILES[sel.value];if(!id)return;window.open('https://drive.usercontent.google.com/download?id='+id+'&export=download&confirm=t','_blank');}
 </script>
